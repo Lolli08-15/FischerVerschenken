@@ -1,0 +1,7 @@
+input
+    shot list
+    last hit sunk?
+
+memory
+    shot list
+    hit, but not sunk?(save unsunk hits? schwer für edgecases, aka touching ships)

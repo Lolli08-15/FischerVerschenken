@@ -1,0 +1,42 @@
+
+Start Menu single/Multiplayer?
+Schiffe Platzieren
+Schießen/Erkennung
+
+player(Feld(Array an Schiffen)(Liste an Schüssen(pos,Hit j/n))))
+fish(pos,Richtung,Länge,Treffer anz)
+
+Schiffe: 1x5,1x4,2x3,1x2
+Zielen
+Treffer?
+Com /wiederholen
+Zielen
+Treffer?
+Spieler / wiederholen
+
+
+shoot
+	input: (player [user = 1 / ai = 0], posX[0-9], posY[0-9])
+	output:(hit / sunk / miss)
+place
+	input:(length [2-5], posX[0-9], posY[0-9], direction[0-3])
+	output: (platzieren möglich?[True / False)
+ai
+	input(liste an Schüssen)
+	output:->Zielen(spielr,x,y)
+
+main; Place; ki_Place;main; Zielen;Main; Ki;
+
+
+Feld system:
+posX von links nach rechts 0-9
+posY von oben nach unten 0-9
+direction im uhrzeigersinn 0-3 (zB nah links: 3)
+length von 2-5
+
+
+
+
+
+
+
