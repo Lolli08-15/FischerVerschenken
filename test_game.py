@@ -1,4 +1,5 @@
 from place import place
+from classFish import Fish
 class Player:
     def __init__(self):
         self.fishes = []
@@ -10,13 +11,7 @@ class Player:
         for fish in self.fishes:
             print(f"Fisch on: ({fish.posX}|{fish.posY}) spannig: {fish.length} fields in direction: {fish.direction}")
 
-class Fish:
-    def __init__(self, posX, posY, direction, length):
-        self.posX = posX
-        self.posY = posY
-        self.direction = direction
-        self.length = length
-        self.hits = 0
+
  
 if __name__ == "__main__":
     player1 = Player()
