@@ -1,7 +1,7 @@
-def place(player1,posX,posY,direction,length):
+def place(player,posX,posY,direction,length):
     from classFish import Fish
     used = []
-    for fish in player1.fishes:
+    for fish in player.fishes:
         used.append((fish.posX*10)+fish.posY)
         for i in range(fish.length):
             if i == 0:
