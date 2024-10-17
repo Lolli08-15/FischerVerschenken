@@ -3,9 +3,13 @@ from classFish import Fish
 class Player:
     def __init__(self):
         self.fishes = []
+        self.shotList = []
         
     def addFish(self, fish):
         self.fishes.append(fish)
+            
+    def addShot(self,posX,posY,what):
+        self.shotList.append([posX,posY,what])
     
     def showOff(self):
         for fish in self.fishes:
