@@ -1,5 +1,4 @@
 from place import place
-from classFish import Fish
 
 
 class Player:
