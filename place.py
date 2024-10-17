@@ -1,7 +1,7 @@
-def place(player1,posX,posY,direction,length):
+def place(player,posX,posY,direction,length):
     from test_game import Fish
     used = []
-    for fish in player1.fishes:
+    for fish in player.fishes:
         used.append((fish.posX*10)+fish.posY)
         for i in range(fish.length):
             if i == 0:
@@ -21,15 +21,26 @@ def place(player1,posX,posY,direction,length):
                 pass
             elif direction == 0:
                 used.append((posX*10)+(posY-i))
+                if 10 > (posY-i) > 0:pass
+                else: return False
             elif direction == 1:
                 used.append(((posX+i)*10)+posY)
+                if 10 > (posX+i) > 0:pass
+                else: return False
             elif direction == 2:
                 used.append((posX*10)+(posY+i))
+                if 10 > (posY+i) > 0:pass
+                else: return False
             else:
                 used.append(((posX-i)*10)+posY)
-
+                if 10 > (posX-i) > 0:pass
+                else: return False
+            if 10 > posX > 0 and 10 > posY > 0:pass
+            else: return False
     if len(used) == len(set(used)):
         fish = Fish(posX,posY,direction,length)
-        player1.addFish(fish)
+        player.addFish(fish)
         return True
     else: return False
+    
+
