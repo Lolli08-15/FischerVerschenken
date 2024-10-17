@@ -21,7 +21,7 @@ class Fish:
 if __name__ == "__main__":
     player1 = Player()
     ki = Player()
-    goal = [[0,0,1,3],[7,2,1,4],[1,9,0,5],[5,5,2,2],[9,9,3,3]]
+    goal = [[0,0,1,3],[7,2,1,4],[1,9,0,5],[5,5,2,2],[9,9,3,3],[5,9,0,4]]
     for aim in goal:
         possible = place(player1,aim[0],aim[1],aim[2],aim[3])
         if possible == False:
