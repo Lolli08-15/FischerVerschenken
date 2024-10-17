@@ -1,6 +1,9 @@
 def shoot(player, aimX, aimY):
 
-    aimXY = aimX*10+aimY #füge X udn Y in eine Var zusammen
+    aimXY = aimX*10+aimY # füge X udn Y in eine Var zusammen
+ 
+    if aimXY in player.shotList: # wenn dieser latz bereicht beschossen wurde
+        return False # gebe False zurück
 
     for fish in player.fishes: # wiederhole für die Anzahl der Fische
 
