@@ -10,7 +10,7 @@ class Player:
     def showOff(self):
         for fish in self.fishes:
             print(f"Fisch on: ({fish.posX}|{fish.posY}) spannig: {fish.length} fields in direction: {fish.direction}")
-
+            print(fish.occupied)
 
  
 if __name__ == "__main__":
