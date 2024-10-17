@@ -14,7 +14,7 @@ def place(player1,posX,posY,direction,length):
                 used.append((fish.posX*10)+(fish.posY+i))
             else:
                 used.append(((fish.posX-i)*10)+fish.posY)
-        #print(used)
+        print(used)
     
     for i in range(length):
             if i == 0:
