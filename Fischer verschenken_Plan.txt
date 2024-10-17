@@ -5,6 +5,7 @@ Fische 1x5,1x4,2x3,1x2
 Class:
 	Player(fishList[Fish], (shotList([posX, posY, Hit [True/False]])))
 		Fish(posX[0-9, posY[0-9], dicrection[0-3], length [2-5], number of hits [0-5], occupied[XY,XY,XY,...])
+	Game()
 
 globale Listen:
 	fishHerePlayer1[XY,XY,XY,...]
@@ -32,16 +33,25 @@ Gameloop:
 
 
 Functions:
+
 	shoot:
 		input: (player [player1 / ai], posX[0-9], posY[0-9])
 		output:(hit / sunk / miss)
+
 	place:
 		input:(length [2-5], posX[0-9], posY[0-9], direction[0-3])
 		output: (placement possible?[True / False)
+
 	ai:
 		input: <- shoot(hit / sunk / miss)
 		knowledge: (shotList)
 		output:-> shoot(spielr,x,y)
+
+	getPlayerFish:
+		input: player
+		knowledge: fishList
+		output: fishList
+
 
 main; Place; ki_Place;main; Zielen;Main; Ki;
 
