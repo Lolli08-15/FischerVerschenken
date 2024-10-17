@@ -16,6 +16,7 @@ class Fish:
         self.posY = posY
         self.direction = direction
         self.length = length
+        self.hits = 0
 
 if __name__ == "__main__":
     player1 = Player()
