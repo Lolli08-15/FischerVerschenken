@@ -1,0 +1,57 @@
+
+Fische versenken PvE
+Fische 1x5,1x4,2x3,1x2
+
+Class:
+	Player(fishList[Fish], (shotList([posX, posY, Hit [True/False]])))
+		Fish(posX[0-9, posY[0-9], dicrection[0-3], length [2-5], number of hits [0-5])
+
+Objekte:
+	player1	Player
+	ai		Player
+
+fishList/shotList in eigene Datei? entscheidung später
+
+Module:
+	place:		 			Oli
+	shoot:		 			Q
+	ai:						xJanise
+	grafics/player inputs:	Kilian
+
+Gameloop:
+	Zielen
+	Treffer?
+	Com /wiederholen
+	Zielen
+	Treffer?
+	Spieler / wiederholen
+
+
+Functions:
+	shoot:
+		input: (player [player1 / ai], posX[0-9], posY[0-9])
+		output:(hit / sunk / miss)
+	place:
+		input:(length [2-5], posX[0-9], posY[0-9], direction[0-3])
+		output: (placement possible?[True / False)
+	ai:
+		input: <- shoot(hit / sunk / miss)
+		knowledge: (shotList)
+		output:-> shoot(spielr,x,y)
+
+main; Place; ki_Place;main; Zielen;Main; Ki;
+
+
+Feld system:
+	posX von links nach rechts 0-9
+	posY von oben nach unten 0-9
+	direction im uhrzeigersinn 0-3 (zB nah links: 3)
+	length von 2-5
+	number of hits von 0-5
+
+
+
+
+
+
+
