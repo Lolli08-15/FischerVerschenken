@@ -1,7 +1,11 @@
 input
-    shot list
-    last hit sunk?
+    last hit status?
 
 memory
     shot list
-    hit, but not sunk?(save unsunk hits? schwer für edgecases, aka touching ships)
+    hit, but not sunk?(save unsunk hits? schwer für edgecases, aka touching ships)  TODO
+
+actions
+    fire random until hit (never twice the same)
+    hit adjacent squares (smart)until sunk  TODO
+    return to random                        TODO
