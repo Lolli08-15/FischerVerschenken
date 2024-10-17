@@ -23,6 +23,7 @@ class Player:
         self.shotList.append([posX,posY,what])
     
     def showOff(self):
+        """A test function: prints every placed fish and it's occupied spaces"""
         for fish in self.fishes:
             print(f"Fisch on: ({fish.posX}|{fish.posY}) spannig: {fish.length} fields in direction: {fish.direction}")
             print(fish.occupied)
@@ -34,15 +35,6 @@ class Game:
     def __init__(self):
         self.player1 = Player()
         self.ai = Player()
-        """______________________Test Start______________________"""
-        goal = [[0,0,1,3],[7,2,1,4],[1,9,0,5],[5,5,2,2],[9,9,3,3],[5,9,0,4]]
-        for aim in goal:
-            possible = place(self.player1,aim[0],aim[1],aim[2],aim[3])
-            if possible == False:
-                print("Fish not placable")
-            else:
-                print("Fish placed")
-        """______________________Test End______________________"""
     
 
     def getPlayerFish(self, player):
@@ -65,13 +57,13 @@ class Game:
         possible = place(self.ai,posX,posY,direction,length)
         if possible == False: return False
 
-"""_____________________Second Test Shit Start_____________________"""
+"""_____________________Test Start_____________________"""
 
 games = Game()
 trash = games.player1.removeFish(1,0)
 print(trash)
 games.player1.showOff()
-"""_____________________Second Test Shit End______________________"""
+"""_____________________Test End______________________"""
 
 """
     0 1 2 3 4 5 6 7 8 9
