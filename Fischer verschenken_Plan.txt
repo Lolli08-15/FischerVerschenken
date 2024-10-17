@@ -43,9 +43,9 @@ Functions:
 		output: (placement possible?[True / False)
 
 	ai:
-		input: <- shoot(hit / sunk / miss)
+		input: (hit / sunk / miss)
 		knowledge: (shotList)
-		output:-> shoot(spielr,x,y)
+		output:(X, Y)
 
 	getPlayerFish:
 		input: player
