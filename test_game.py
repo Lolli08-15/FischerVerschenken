@@ -2,21 +2,23 @@ from place import place
 class Player:
     def __init__(self):
         self.fishes = []
+        self.shotList = []
         
     def addFish(self, fish):
         self.fishes.append(fish)
+            
+    def addShot(self,posX,posY,what):
+        self.shotList.append([posX,posY,what])
+    
+    def addShot(self,posX,posY,what):
+        self.shotList.append([posX,posY,what])
     
     def showOff(self):
         for fish in self.fishes:
             print(f"Fisch on: ({fish.posX}|{fish.posY}) spannig: {fish.length} fields in direction: {fish.direction}")
+            print(fish.occupied)
 
-class Fish:
-    def __init__(self, posX, posY, direction, length):
-        self.posX = posX
-        self.posY = posY
-        self.direction = direction
-        self.length = length
-
+ 
 if __name__ == "__main__":
     player1 = Player()
     ki = Player()
