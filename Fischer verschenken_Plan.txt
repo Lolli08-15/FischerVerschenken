@@ -4,7 +4,11 @@ Fische 1x5,1x4,2x3,1x2
 
 Class:
 	Player(fishList[Fish], (shotList([posX, posY, Hit [True/False]])))
-		Fish(posX[0-9, posY[0-9], dicrection[0-3], length [2-5], number of hits [0-5])
+		Fish(posX[0-9, posY[0-9], dicrection[0-3], length [2-5], number of hits [0-5], occupied[XY,XY,XY,...])
+
+globale Listen:
+	fishHerePlayer1[XY,XY,XY,...]
+	fishHereAi[XY,XY,XY,...]
 
 Objekte:
 	player1	Player

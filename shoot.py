@@ -1,14 +1,17 @@
 def shoot(player, aimX, aimY):
-    pass
 
-"""
+    aimXY = aimX*10+aimY #füge X udn Y in eine Var zusammen
 
-    if # wenn an der stelle des schusses ein Fisch ist
+    for fish in player.fishes:
 
-        if # wenn getroffener Fisch hit anzahl größer als Fishlänge, dann setze gebe "sunk" aus
+        if aimXY in fish.occupied: # wenn an der stelle des schusses ein Fisch ist
+            fish.hits += 1 # hitte den Fisch
+            
+            if fish.length == fish.hits: # wenn getroffener Fisch hit anzahl größer als Fishlänge, dann setze gebe "sunk" aus
+                return "sunk" # gebe "sunk zurück"
 
-        else # sonst gebe hit aus
+            else: # sonst gebe hit aus
+                return "hit" # gebe "hit" zurück
 
-    else # sonst gebe miss aus
-
-"""
+    return "miss" # gebe "miss" zurück
+        
