@@ -71,6 +71,7 @@ class Game:
 games = Game()
 trash = games.player1.removeFish(1,0)
 print(trash)
+games.player1.showOff()
 """_____________________Second Test Shit End______________________"""
 
 """
