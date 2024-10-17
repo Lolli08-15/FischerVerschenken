@@ -18,7 +18,7 @@ def place(player,posX,posY,direction,length):
     
     for i in range(length):
         if i == 0:
-            pass
+            pass 
         elif direction == 0:
             used.append((posX*10)+(posY-i))
             if 10 > (posY-i) >= 0:pass
