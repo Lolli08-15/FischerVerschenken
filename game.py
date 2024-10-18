@@ -47,22 +47,18 @@ class Game:
         return False
     
     def placeFish(self,posX,posY,direction,length):
-        possible = place(self.player1,posX,posY,direction,length)
-        if possible == True:
-            print("Fish placed")
-        else:
-            print("Fish not placable")
+        return place(self.player1,posX,posY,direction,length)
             
     def placeAiFish(self,posX,posY,direction,length):
         possible = place(self.ai,posX,posY,direction,length)
         if possible == False: return False
 
 """_____________________Test Start_____________________"""
-
-games = Game()
-trash = games.player1.removeFish(1,0)
-print(trash)
-games.player1.showOff()
+if __name__ == "__main__":
+    games = Game()
+    trash = games.player1.removeFish(1,0)
+    print(trash)
+    games.player1.showOff()
 """_____________________Test End______________________"""
 
 """
