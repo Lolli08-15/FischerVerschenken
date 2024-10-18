@@ -1,5 +1,5 @@
 def place(player,posXY,direction,length):
-    from test_game import Fish
+    from classFish import Fish
 
     used = []   # erstelle "used" array
 
