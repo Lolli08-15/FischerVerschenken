@@ -1,14 +1,75 @@
 import random
+from operator import add, sub
 
-freeSquares = []            #generate possible squares, to keep track of shots
-for i in range(10):
-    for j in range(10):
-        freeSquares.append([i,j])   
+notSunk = 0                     #case vars
+prevMiss = 0
+
+hitShots = set()                #list of shots that hit
+recentShots = list()            #list of recent shots that hit (order important)
+targetShots = set()             #squares to target after getting a hit
+freeSquares = set()             #generate possible squares, to keep track of shots
+for x in range(10):
+    for y in range(10):
+        freeSquares.add((x,y))   
+        
 
 
-def ai_shoot(response):     #input is whether the last shot missed(0), hit(1) or sunk(2) 
+def aiAim(response):     #input is whether the last shot missed(0), hit(1) or sunk(2) 
+    global notSunk
+    global targetShots
+    global prevMiss
     
-    pickedSquare = random.choice(freeSquares)
+    if(response == 2):              #if enemy sinks
+        notSunk = 0                 #well... it sunk
+        hitShots.clear()            #no more shots needed
+        return aiShoot(freeSquares)
+    
+    elif(response == 1 and notSunk == 0):                   #last shot a hit
+        notSunk = 1                                         #block this line
+        prevMiss = 0                                        #reset notSunk
+        hitShots.add(pickedSquare)
+        recentShots.append(pickedSquare)
+        for hits in recentShots:
+            targetShots.add(tuple(map(add, hits, (0,-1))))
+            targetShots.add(tuple(map(add, hits, (1,0))))
+            targetShots.add(tuple(map(add, hits, (0,1))))
+            targetShots.add(tuple(map(add, hits, (-1,0))))  #add all surrounding squares
+        targetShots &= freeSquares                          #remove previous shots/oob
+        return aiShoot(targetShots)
+    
+    elif(notSunk == 1):
+        if (response == 1):                                 #if hit, go that, or the other way
+            hitShots.add(pickedSquare)
+            recentShots.append(pickedSquare)
+            directionX, directionY=tuple(map(sub, recentShots[-2], recentShots[-1]))                   #calculate direction
+            
+        else:                                               #otherwise try other direction
+            if(prevMiss == 0):
+                prevMiss = 1
+            else:
+                pass#
+            
+    else:
+        return aiShoot(freeSquares)
+
+def aiShoot(aim):
+    global pickedSquare
+    targetSquares = list(aim)
+    pickedSquare = random.choice(targetSquares)     #pick a square based on the choice
     aimX, aimY = pickedSquare
     freeSquares.remove(pickedSquare)
-    return aimX, aimY       #returns aim coordinates 
+    return aimX, aimY       #returns aim coordinates
+    
+
+print(f"miss {aiAim(0)}")
+print(f"miss {aiAim(0)}")
+print(f"miss {aiAim(0)}")
+print(f"Not Sunk {notSunk} prevMiss {prevMiss}")
+print(f"hit {aiAim(0)}")
+print(f"Not Sunk {notSunk} prevMiss {prevMiss}")
+print(f"hit {aiAim(1)}")
+print(f"Not Sunk {notSunk} prevMiss {prevMiss}")
+print(f"egal {aiAim(1)}")
+print(f"Not Sunk {notSunk} prevMiss {prevMiss}")
+print(f"miss {aiAim(0)}")
+print(f"Not Sunk {notSunk} prevMiss {prevMiss}")

@@ -4,7 +4,7 @@ Fische 1x5,1x4,2x3,1x2
 
 Class:
 	Player(fishList[Fish], (shotList([posX, posY, Hit [hit/miss/sunk]])))
-		Fish(posX[0-9, posY[0-9], dicrection[0-3], length [2-5], number of hits [0-5], occupied[XY,XY,XY,...])
+		Fish(posX [0-9, posY [0-9], dicrection [0-3], length [2-5], number of hits [0-5], occupied[XY,XY,XY,...])
 	Game()
 
 globale Listen:
@@ -35,12 +35,12 @@ Gameloop:
 Functions:
 
 	shoot:
-		input: (player [player1 / ai], posX[0-9], posY[0-9])
+		input: (player [player1 / ai], posX [0-9], posY [0-9], )
 		output:(hit / sunk / miss)
 
 	place:
-		input:(length [2-5], posX[0-9], posY[0-9], direction[0-3])
-		output: (placement possible?[True / False)
+		input:(player [player1 / ai], posX [0-9], posY [0-9], direction [0-3], length [2-5])
+		output: (placement possible? [True / False])
 
 	ai:
 		input: (hit / sunk / miss)
@@ -48,9 +48,13 @@ Functions:
 		output:(X, Y)
 
 	getPlayerFish:
-		input: player
-		knowledge: fishList
-		output: fishList
+		input: (player)
+		knowledge: (fishList)
+		output: (fishList)
+
+	detectWin:
+		input: (player)
+		output: (gewonnen[True / False])
 
 
 main; Place; ki_Place;main; Zielen;Main; Ki;
@@ -59,7 +63,7 @@ main; Place; ki_Place;main; Zielen;Main; Ki;
 Feld system:
 	posX von links nach rechts 0-9
 	posY von oben nach unten 0-9
-	direction im uhrzeigersinn 0-3 (zB nah links: 3)
+	direction im uhrzeigersinn 0-3 (zB nach links: 3)
 	length von 2-5
 	number of hits von 0-5
 
