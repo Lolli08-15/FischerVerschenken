@@ -1,5 +1,5 @@
 def place(player,posX,posY,direction,length):
-    from test_game import Fish
+    from classFish import Fish
 
     used = []   # erstelle "used" array
 
@@ -19,7 +19,7 @@ def place(player,posX,posY,direction,length):
             else: # wenn keins von oben, dann muss er links sein, also
                 used.append(((fish.posX-i)*10)+fish.posY) # merke den offset des fisches
 
-    used.append((posX*10)+(posY-i))
+    used.append((posX*10)+(posY))
     newFish = [(posX*10)+(posY)] # speicher position des versuchs in "newFish"
 
     for i in range(length): # wiederhole für die länge
@@ -32,7 +32,7 @@ def place(player,posX,posY,direction,length):
             if 10 > (posY-i) >= 0:pass # wenn offset außerhalb des spielbereichs liegt:
             else: return False # gebe False als nicht plazierbar aus
 
-        elif direction == 1: # wenn der fisch nach oben ausgerichtet ist,
+        elif direction == 1: # wenn der fisch nach rechts ausgerichtet ist,
             used.append(((posX+i)*10)+posY) # merke den offset des versuches
             newFish.append(((posX+i)*10)+posY) # merke offset  des versuches im aktuellem fisch
             if 10 > (posX+i) >= 0:pass # wenn offset außerhalb des spielbereichs liegt:
