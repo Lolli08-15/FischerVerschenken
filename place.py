@@ -19,6 +19,7 @@ def place(player,posX,posY,direction,length):
             else: # wenn keins von oben, dann muss er links sein, also
                 used.append(((fish.posX-i)*10)+fish.posY) # merke den offset des fisches
 
+    used.append((posX*10)+(posY-i))
     newFish = [(posX*10)+(posY)] # speicher position des versuchs in "newFish"
 
     for i in range(length): # wiederhole für die länge
