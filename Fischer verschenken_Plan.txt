@@ -3,13 +3,13 @@ Fische versenken PvE
 Fische 1x5,1x4,2x3,1x2
 
 Class:
-	Player(fishList[Fish], (shotList([posX, posY, Hit [hit/miss/sunk]])))
-		Fish(posX [0-9, posY [0-9], dicrection [0-3], length [2-5], number of hits [0-5], occupied[XY,XY,XY,...])
+	Player(fishList[Fish], (shotList([posXY (X[0-9], Y[0-9]), Hit [hit/miss/sunk]])))
+		Fish(posXY (X[0-9], Y[0-9]), dicrection [0-3], length [2-5], number of hits [0-5], occupied[XY,XY,XY,...])
 	Game()
 
 globale Listen:
-	fishHerePlayer1[XY,XY,XY,...]
-	fishHereAi[XY,XY,XY,...]
+	fishHerePlayer1[(X,Y), (X,Y), (X,Y), ...]
+	fishHereAi[(X,Y), (X,Y), (X,Y), ...]
 
 Objekte:
 	player1	Player
@@ -35,17 +35,17 @@ Gameloop:
 Functions:
 
 	shoot:
-		input: (player [player1 / ai], posX [0-9], posY [0-9], )
+		input: (player [player1 / ai], posXY (X[0-9], Y[0-9]))
 		output:(hit / sunk / miss)
 
 	place:
-		input:(player [player1 / ai], posX [0-9], posY [0-9], direction [0-3], length [2-5])
+		input:(player [player1 / ai], posXY (X[0-9], Y[0-9]), direction [0-3], length [2-5])
 		output: (placement possible? [True / False])
 
 	ai:
 		input: (hit / sunk / miss)
 		knowledge: (shotList)
-		output:(X, Y)
+		output:(posXY (X[0-9], Y[0-9]))
 
 	getPlayerFish:
 		input: (player)
