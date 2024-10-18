@@ -48,9 +48,13 @@ Functions:
 		output:(X, Y)
 
 	getPlayerFish:
-		input: player
-		knowledge: fishList
-		output: fishList
+		input: (player)
+		knowledge: (fishList)
+		output: (fishList)
+
+	detectWin:
+		input: (player)
+		output: (gewonnen[True / False])
 
 
 main; Place; ki_Place;main; Zielen;Main; Ki;
