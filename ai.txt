@@ -7,5 +7,6 @@ memory
 
 actions
     fire random until hit (never twice the same)
+    hit adjacent squares (dumb yep)until sunk  
     hit adjacent squares (smart)until sunk  TODO
     return to random                        TODO
