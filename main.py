@@ -176,7 +176,7 @@ class GUI:
             if self.current_rotation > 3: self.current_rotation = 0
         
         # shooting
-        if (self.mouse_button == 1) and self.current_fish_selected != 0:
+        if self.mouse_button == 1 and self.current_fish_selected != 0:
             if self.is_in_rect(self.mouse_pos, (541, 242), (500, 500)):
                 success = self.game.placeFish(
                     self.field_x, self.field_y,
@@ -190,6 +190,14 @@ class GUI:
                             self.current_fish_selected = self.current_lengths[0]
                         else:
                             self.current_fish_selected = 0
+        
+        # Removing fish
+        if self.mouse_button == 3:
+            if self.is_in_rect(self.mouse_pos, (541, 242), (500, 500)):
+                removed_fish_length = self.game.removeFish(self.field_x, self.field_y)
+                if removed_fish_length > 0:
+                    self.current_lengths.append(removed_fish_length)
+                    self.current_fish_selected = removed_fish_length
 
 
 

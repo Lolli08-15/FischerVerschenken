@@ -12,11 +12,12 @@ class Player:
     def removeFish(self,posX,posY):
         posXY = (posX*10+posY)
         for fish in self.fishes:
-            print(fish.occupied)
+            #print(fish.occupied)
             if posXY in fish.occupied:
                 length = fish.length
                 self.fishes.remove(fish)
                 return length
+        return 0
                 
     
     def addShot(self,posX,posY,what):
@@ -46,12 +47,20 @@ class Game:
             return self.player1.fishes
         return False
     
+
     def placeFish(self,posX,posY,direction,length):
         return place(self.player1,posX,posY,direction,length)
-            
-    def placeAiFish(self,posX,posY,direction,length):
+
+
+    def placeAiFish(self, posX, posY, direction, length):
         possible = place(self.ai,posX,posY,direction,length)
         if possible == False: return False
+    
+
+    def removeFish(self, posX, posY):
+        return self.player1.removeFish(posX, posY)
+
+    
 
 """_____________________Test Start_____________________"""
 if __name__ == "__main__":
