@@ -3,4 +3,4 @@ height = 900
 
 ai_processing_time = 30 * 1 # 3 Seconds
 
-fish_lengths = [2]
+fish_lengths = [2, 3, 3, 4, 5]

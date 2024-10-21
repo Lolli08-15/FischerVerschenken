@@ -75,10 +75,6 @@ class Game:
         return self.player1.removeFish(posXY)
     
 
-    def playerShoot(self, posXY):
-        return shoot(self.player1, posXY)
-    
-
     def getSunkenFish(self, player):
         if player == "player1":
             return self.player1.getSunkenFish()

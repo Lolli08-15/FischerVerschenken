@@ -29,7 +29,7 @@ class GUI:
         self.current_fish_selected = 2
         self.current_rotation = 1
 
-        self.current_lengths = settings.fish_lengths
+        self.current_lengths = settings.fish_lengths.copy()
         self.ai_fish_preview = False
 
 
@@ -175,7 +175,7 @@ class GUI:
             self.game.reset()
             self.current_fish_selected = 2
             self.current_rotation = 1
-            self.current_lengths = settings.fish_lengths
+            self.current_lengths = settings.fish_lengths.copy().copy()
 
 
         # Exit button
