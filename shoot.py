@@ -1,7 +1,8 @@
 def shoot(player, aimXY):
- 
-    if aimXY in player.shotList: # wenn dieser latz bereicht beschossen wurde
-        return False # gebe False zurück
+
+    for shot in player.shotList:
+        if aimXY == shot[0]:
+            return False
 
     for fish in player.fishes: # wiederhole für die Anzahl der Fische
 

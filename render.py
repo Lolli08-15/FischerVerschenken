@@ -158,18 +158,18 @@ def render_fish(display, offsetX, offsetY, fish_list, preview):
 
         if fish.direction == 0:
             fish_texture = pygame.transform.rotate(fish_texture, 90)
-            position = (fish.posX * 50 + offsetX, (fish.posY - fish.length + 1) * 50 + offsetY)
+            position = (fish.posXY[0] * 50 + offsetX, (fish.posXY[1] - fish.length + 1) * 50 + offsetY)
             display.blit(fish_texture, position)
         if fish.direction == 1:
-            position = (fish.posX * 50 + offsetX, fish.posY * 50 + offsetY)
+            position = (fish.posXY[0] * 50 + offsetX, fish.posXY[1] * 50 + offsetY)
             display.blit(fish_texture, position)
         if fish.direction == 2:
             fish_texture = pygame.transform.rotate(fish_texture, -90)
-            position = (fish.posX * 50 + offsetX, fish.posY * 50 + offsetY)
+            position = (fish.posXY[0] * 50 + offsetX, fish.posXY[1] * 50 + offsetY)
             display.blit(fish_texture, position)
         if fish.direction == 3:
             fish_texture = pygame.transform.flip(fish_texture, True, False)
-            position = ((fish.posX - fish.length + 1) * 50 + offsetX, fish.posY * 50 + offsetY)
+            position = ((fish.posXY[0] - fish.length + 1) * 50 + offsetX, fish.posXY[1] * 50 + offsetY)
             display.blit(fish_texture, position)
 
 
