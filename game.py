@@ -10,7 +10,7 @@ class Player:
     def addFish(self, fish):
         self.fishes.append(fish)
         
-    def removeFish(self, posXY):
+    def removeFish(self,posXY):
         for fish in self.fishes:
             #print(fish.occupied)
             if posXY in fish.occupied:
@@ -19,6 +19,8 @@ class Player:
                 return length
         return 0
                 
+    def addShot(self, posXY, what):
+        self.shotList.append([posXY, what])
 
     def getSunkenFish(self):
         count = 0
@@ -52,6 +54,8 @@ class Game:
         return False
     
 
+    def placeFish(self,posXY,direction,length):
+        return place(self.player1,posXY,direction,length)
 
 
     def placeAiFish(self):
@@ -63,8 +67,12 @@ class Game:
         place(self.ai, (0, 4), 1, 5)
     
 
+    def removeFish(self, posXY):
+        return self.player1.removeFish(posXY)
     
 
+    def playerShoot(self, posXY):
+        return shoot(self.player1, posXY)
     
 
     def getSunkenFish(self, player):
@@ -103,10 +111,13 @@ class Game:
 
 """_____________________Test Start_____________________"""
 if __name__ == "__main__":
-    games = Game()
-    trash = games.player1.removeFish(1,0)
+    game = Game()
+    trash = game.player1.removeFish((1,0))
     print(trash)
-    games.player1.showOff()
+    game.player1.showOff()
+    game.placeFish((0, 0), 1, 4)
+
+    print(shoot(game.player1, (0, 0)))
 """_____________________Test End______________________"""
 
 """
