@@ -5,7 +5,7 @@ def detectWin(player):
         detectedHits += fish.hits # füge erkannte treffer hinzu
         occupied += len(fish.occupied)
     
-    if detectedHits == occupied: # wenn die anzahl der erkannten treffen größer als die gewinnsumme ist,
+    if detectedHits == occupied: # wenn die anzahl der erkannten treffen größer als die anzahl aller verbrauchten plätze ist ist,
         return True # dann gebe True als gewonnen aus  
     else:
         return False # sonst gebe False als verloren aus
