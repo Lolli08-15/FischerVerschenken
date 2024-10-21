@@ -1,4 +1,5 @@
 from place import place
+from shoot import shoot
 
 
 class Player:
@@ -9,8 +10,7 @@ class Player:
     def addFish(self, fish):
         self.fishes.append(fish)
         
-    def removeFish(self,posX,posY):
-        posXY = (posX*10+posY)
+    def removeFish(self,posXY):
         for fish in self.fishes:
             #print(fish.occupied)
             if posXY in fish.occupied:
@@ -20,8 +20,8 @@ class Player:
         return 0
                 
     
-    def addShot(self,posX,posY,what):
-        self.shotList.append([posX,posY,what])
+    def addShot(self,posXY,what):
+        self.shotList.append([posXY,what])
     
     def showOff(self):
         """A test function: prints every placed fish and it's occupied spaces"""
@@ -48,26 +48,29 @@ class Game:
         return False
     
 
-    def placeFish(self,posX,posY,direction,length):
-        return place(self.player1,posX,posY,direction,length)
+    def placeFish(self,posXY,direction,length):
+        return place(self.player1,posXY,direction,length)
 
 
-    def placeAiFish(self, posX, posY, direction, length):
-        possible = place(self.ai,posX,posY,direction,length)
+    def placeAiFish(self, posXY, direction, length):
+        possible = place(self.ai,posXY,direction,length)
         if possible == False: return False
     
 
-    def removeFish(self, posX, posY):
-        return self.player1.removeFish(posX, posY)
+    def removeFish(self, posXY):
+        return self.player1.removeFish(posXY)
 
     
 
 """_____________________Test Start_____________________"""
 if __name__ == "__main__":
-    games = Game()
-    trash = games.player1.removeFish(1,0)
+    game = Game()
+    trash = game.player1.removeFish((1,0))
     print(trash)
-    games.player1.showOff()
+    game.player1.showOff()
+    game.placeFish((0, 0), 1, 4)
+
+    print(shoot(game.player1, (0, 0)))
 """_____________________Test End______________________"""
 
 """
