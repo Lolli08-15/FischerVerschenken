@@ -64,7 +64,7 @@ def aiAim(response):     #input is whether the last shot missed(0), hit(1) or su
         return aiShoot(freeSquares)
 
 def aiShoot(aim):
-    global pickedSquare                              
+    global pickedSquare                             
     targetSquares = freeSquares & list(aim)         #remove previous shots/oob
     pickedSquare = random.choice(targetSquares)     #pick a square based on the choice
     aimX, aimY = pickedSquare
