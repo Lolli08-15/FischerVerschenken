@@ -11,13 +11,13 @@ def place(player,posXY,direction,length):
                 pass
 
             elif fish.direction == 0: # wenn der fisch nach oben ausgerichtet ist,
-                used.append((fish.posXY[0])+(fish.posXY[1]-i)) # merke den offset des fisches
+                used.append((fish.posXY[0], fish.posXY[1]-i)) # merke den offset des fisches
             elif fish.direction == 1: # wenn der fisch nach rechts ausgerichtet ist,
-                used.append(((fish.posXY[0]+i))+fish.pposXY[1]) # merke den offset des fisches
+                used.append((fish.posXY[0]+i, fish.posXY[1])) # merke den offset des fisches
             elif fish.direction == 2: # wenn der fisch nach unten ausgerichtet ist,
-                used.append((fish.posXY[0])+(fish.posXY[1]+i)) # merke den offset des fisches
+                used.append((fish.posXY[0], fish.posXY[1]+i)) # merke den offset des fisches
             else: # wenn keins von oben, dann muss er links sein, also
-                used.append(((fish.posXY[0]-i))+fish.posXY[1]) # merke den offset des fisches
+                used.append((fish.posXY[0]-i, fish.posXY[1])) # merke den offset des fisches
 
     used.append((posXY))
     newFish = [(posXY)] # speicher position des versuchs in "newFish"
@@ -27,26 +27,26 @@ def place(player,posXY,direction,length):
             pass
 
         elif direction == 0: # wenn der fisch nach oben ausgerichtet ist,
-            used.append((fish.posXY[0])+(fish.posXY[1]-i)) # merke den offset des versuches
-            newFish.append((fish.posXY[0])+(fish.posXY[1]-i)) # merke offset  des versuches im aktuellem fisch
-            if 10 > (posXY[1]-i) >= 0:pass # wenn offset außerhalb des spielbereichs liegt:
+            used.append((posXY[0], posXY[1]-i)) # merke den offset des versuches
+            newFish.append((posXY[0], posXY[1]-i)) # merke offset  des versuches im aktuellem fisch
+            if 10 > (posXY[1]-i) >= 0: pass # wenn offset außerhalb des spielbereichs liegt:
             else: return False # gebe False als nicht plazierbar aus
 
         elif direction == 1: # wenn der fisch nach rechts ausgerichtet ist,
-            used.append(((fish.posXY[0]+i))+fish.posXY[1]) # merke den offset des versuches
-            newFish.append(((fish.posXY[0]+i))+fish.posXY[1]) # merke offset  des versuches im aktuellem fisch
-            if 10 > (posXY[0]+i) >= 0:pass # wenn offset außerhalb des spielbereichs liegt:
+            used.append((posXY[0]+i, posXY[1])) # merke den offset des versuches
+            newFish.append((posXY[0]+i, posXY[1])) # merke offset  des versuches im aktuellem fisch
+            if 10 > (posXY[0]+i) >= 0: pass # wenn offset außerhalb des spielbereichs liegt:
             else: return False
 
         elif direction == 2: # wenn der fisch nach oben ausgerichtet ist,
-            used.append((fish.posXY[0])+(fish.posXY[1]+i)) # merke den offset des versuches
-            newFish.append((fish.posXY[0])+(fish.posXY[1]+i)) # merke offset  des versuches im aktuellem fisch
+            used.append((posXY[0], posXY[1]+i)) # merke den offset des versuches
+            newFish.append((posXY[0], posXY[1]+i)) # merke offset  des versuches im aktuellem fisch
             if 10 > (posXY[1]+i) >= 0:pass # wenn offset außerhalb des spielbereichs liegt:
             else: return False # gebe False als nicht plazierbar aus
 
         else: # wenn keins von oben, dann muss er links sein, also
-            used.append(((fish.posXY[0]-i))+fish.posXY[1]) # merke den offset des versuches
-            newFish.append(((fish.posXY[0]-i))+fish.posXY[1]) # merke offset  des versuches im aktuellem fisch
+            used.append((posXY[0]-i, posXY[1])) # merke den offset des versuches
+            newFish.append((posXY[0]-i, posXY[1])) # merke offset  des versuches im aktuellem fisch
             if 10 > (posXY[0]-i) >= 0:pass # wenn offset außerhalb des spielbereichs liegt:
             else: return False # gebe False als nicht plazierbar aus
 

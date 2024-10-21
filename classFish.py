@@ -1,7 +1,6 @@
 class Fish:
-    def __init__(self, posX, posY, direction, length,occupied):
-        self.posX = posX
-        self.posY = posY
+    def __init__(self, posXY, direction, length,occupied):
+        self.posXY = posXY
         self.direction = direction
         self.length = length
         self.hits = 0

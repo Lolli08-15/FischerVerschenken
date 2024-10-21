@@ -69,6 +69,14 @@ Feld system:
 
 
 
+To Do:
+	Robin dunkler färben
+	"compiling shader" loading screen
+	fish skins
+	game fettig stellen lol
+	greenscreen explo hitmarker
+	implement ai
+
 
 
 

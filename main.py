@@ -29,7 +29,7 @@ class GUI:
         self.current_fish_selected = 2
         self.current_rotation = 1
 
-        self.current_lengths = [2, 3, 3, 4, 5]
+        self.current_lengths = settings.fish_lengths
         self.ai_fish_preview = False
 
 
@@ -69,7 +69,7 @@ class GUI:
                 
                 # Preview fish
                 preview_fish = Fish(
-                    self.field_x, self.field_y,
+                    (self.field_x, self.field_y),
                     self.current_rotation,
                     self.current_fish_selected,
                     None
@@ -103,10 +103,17 @@ class GUI:
                 render.render_fish(
                     self.display, 210, 285,
                     self.game.getPlayerFish("player1"), True)
+
                 if self.ai_fish_preview:
                     render.render_fish(
                         self.display, 885, 285,
                         self.game.getPlayerFish("ai"), True)
+                
+                # Render player shots
+                render.render_shots(
+                    self.display, 885, 285,
+                    self.game.getShotList("player1")
+                )
             
 
             if self.transition_time > 0: # Transition animation
@@ -168,7 +175,7 @@ class GUI:
             self.game.reset()
             self.current_fish_selected = 2
             self.current_rotation = 1
-            self.current_lengths = [2, 3, 3, 4, 5]
+            self.current_lengths = settings.fish_lengths
 
 
         # Exit button
@@ -247,7 +254,7 @@ class GUI:
         if self.mouse_button == 1 and self.current_fish_selected != 0:
             if self.is_in_rect(self.mouse_pos, (541, 242), (500, 500)):
                 success = self.game.placeFish(
-                    self.field_x, self.field_y,
+                    (self.field_x, self.field_y),
                     self.current_rotation, self.current_fish_selected
                 )
                 if success:
@@ -262,7 +269,7 @@ class GUI:
         # Removing fish
         if self.mouse_button == 3:
             if self.is_in_rect(self.mouse_pos, (541, 242), (500, 500)):
-                removed_fish_length = self.game.removeFish(self.field_x, self.field_y)
+                removed_fish_length = self.game.removeFish((self.field_x, self.field_y))
                 if removed_fish_length > 0:
                     self.current_lengths.append(removed_fish_length)
                     self.current_fish_selected = removed_fish_length
@@ -287,11 +294,11 @@ class GUI:
             self.transition_time = 30 * 7 #7 Seconds
             self.loading_bar = 0
         
+        # Shooting
         if self.mouse_button == 1 and self.ai_timer == settings.ai_processing_time:
-            success = self.game.playerShoot(self.field_x, self.field_y)
+            success = self.game.playerShoot((self.field_x, self.field_y))
             if success != False:
                 self.ai_timer -= 1
-                print(self.game.player1.shotList)
 
 
 
