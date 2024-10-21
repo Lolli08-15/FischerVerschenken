@@ -22,12 +22,15 @@ class GUI:
         self.transition_time = 0
         self.loading_bar = 0
 
+        self.ai_timer = settings.ai_processing_time
+
         self.field_x = 0
         self.field_y = 0
         self.current_fish_selected = 2
         self.current_rotation = 1
 
         self.current_lengths = [2, 3, 3, 4, 5]
+        self.ai_fish_preview = False
 
 
     def initialize(self):
@@ -56,20 +59,13 @@ class GUI:
             if self.state == "main menu":
                 self.main_menu() # Execute all main menu functions
                 render.render_mainmenu(self.display, self.button1, self.button2)
-
-            if self.transition_time > 0: # Transition animation
-                self.transition_time -= 1
-                if self.transition_time < 180: # Speedup the progress bar
-                    self.loading_bar += int(self.transition_time / (random.randrange(1, 30)) / 3)
-                render.transition(self.display, self.transition_time, self.loading_bar)
-                if self.transition_time == 0: # Switch to next stage after done
-                    self.state = self.next_state
-                    self.next_state = ""
             
+
             if self.state == "placing":
                 self.placing_menu()
                 render.render_placing_menu(self.display, self.field_x, self.field_y,
-                    self.current_lengths, self.current_fish_selected)
+                    self.current_lengths, self.current_fish_selected,
+                    self.button1, self.button2)
                 
                 # Preview fish
                 preview_fish = Fish(
@@ -87,6 +83,46 @@ class GUI:
                 render.render_fish(
                     self.display, 541, 242,
                     self.game.getPlayerFish("player1"), False)
+            
+
+            if self.state == "shoot menu":
+                if self.ai_timer < settings.ai_processing_time:
+                    self.ai_timer -= 1
+                    
+                    if self.ai_timer < 1:
+                        self.ai_timer = settings.ai_processing_time
+
+
+                self.shoot_menu()
+                # Preview AI fishes
+                if self.key == "m": self.ai_fish_preview = not self.ai_fish_preview
+
+                render.render_shoot_menu(self.display, self.field_x, self.field_y,
+                    self.button2)
+
+                render.render_fish(
+                    self.display, 210, 285,
+                    self.game.getPlayerFish("player1"), True)
+                if self.ai_fish_preview:
+                    render.render_fish(
+                        self.display, 885, 285,
+                        self.game.getPlayerFish("ai"), True)
+            
+
+            if self.transition_time > 0: # Transition animation
+                self.transition_time -= 1
+
+                # Skip
+                if self.key == " ": self.transition_time = 0
+
+                if self.transition_time < 180: # Speedup the progress bar
+                    self.loading_bar += int(self.transition_time / (random.randrange(1, 30)) / 3)
+                
+                render.transition(self.display, self.transition_time, self.loading_bar)
+
+                if self.transition_time == 0: # Switch to next stage after done
+                    self.state = self.next_state
+                    self.next_state = ""
 
             pygame.display.flip()
             self.clock.tick(30)
@@ -105,13 +141,13 @@ class GUI:
                 self.mouse_pos = event.dict["pos"]
             if event.type == pygame.KEYDOWN:
                 self.key = event.dict["unicode"]
-    
+
 
     def is_in_rect(self, check_pos, rect_pos, rect_size):
         if (check_pos[0] >= rect_pos[0] and
             check_pos[1] >= rect_pos[1] and
-            check_pos[0] <= rect_pos[0] + rect_size[0] and
-            check_pos[1] <= rect_pos[1] + rect_size[1]):
+            check_pos[0] < rect_pos[0] + rect_size[0] and
+            check_pos[1] < rect_pos[1] + rect_size[1]):
             return True
         return False
     
@@ -124,11 +160,12 @@ class GUI:
             self.button1 = False
         
         # Play button click function
-        if self.mouse_button == 1 and self.button1:
+        if self.mouse_button == 1 and self.button1 and self.transition_time == 0:
             self.next_state = "placing"
-            self.transition_time = 30 * 2 #7 Seconds
+            self.transition_time = 30 * 7 #7 Seconds
             self.loading_bar = 0
 
+            self.game.reset()
             self.current_fish_selected = 2
             self.current_rotation = 1
             self.current_lengths = [2, 3, 3, 4, 5]
@@ -141,17 +178,48 @@ class GUI:
             self.button2 = False
         
         # Exit button click function
-        if self.mouse_button == 1 and self.button2:
+        if self.mouse_button == 1 and self.button2 and self.transition_time == 0:
             self.running = False
 
 
     def placing_menu(self):
+        # Start fight button
+        if self.is_in_rect(self.mouse_pos, (1100, 590), (235, 128)):
+            self.button1 = True
+        else:
+            self.button1 = False
+        
+        # Start fight button click function
+        if (self.mouse_button == 1 and self.button1 and
+            self.transition_time == 0 and len(self.current_lengths) == 0):
+            self.next_state = "shoot menu"
+            self.transition_time = 30 * 4 #4 Seconds
+            self.loading_bar = 0
+
+            self.ai_timer = settings.ai_processing_time
+
+            self.game.placeAiFish()
+
+
+        # Exit button
+        if self.is_in_rect(self.mouse_pos, (20, 30), (110, 40)):
+            self.button2 = True
+        else:
+            self.button2 = False
+        
+        # Exit button click function
+        if self.mouse_button == 1 and self.button2 and self.transition_time == 0:
+            self.next_state = "main menu"
+            self.transition_time = 30 * 7 #7 Seconds
+            self.loading_bar = 0
+
+
         # Check in field position once hovering over it
         if self.is_in_rect(self.mouse_pos, (541, 242), (500, 500)):
             self.field_x = int((self.mouse_pos[0] - 541) / 50)
             self.field_y = int((self.mouse_pos[1] - 242) / 50)
-            pygame.display.set_caption(f"Fischeversenken {self.field_x} {self.field_y}")
         
+
         # Selecting fish sizes
         if self.mouse_button == 1: # Left mouse button check
             if self.is_in_rect(self.mouse_pos, (198, 262), (204, 165)):
@@ -198,6 +266,33 @@ class GUI:
                 if removed_fish_length > 0:
                     self.current_lengths.append(removed_fish_length)
                     self.current_fish_selected = removed_fish_length
+
+
+    def shoot_menu(self):
+        # Check in field position once hovering over it
+        if self.is_in_rect(self.mouse_pos, (887, 285), (500, 500)):
+            self.field_x = int((self.mouse_pos[0] - 887) / 50)
+            self.field_y = int((self.mouse_pos[1] - 285) / 50)
+        
+
+        # Exit button
+        if self.is_in_rect(self.mouse_pos, (20, 30), (110, 40)):
+            self.button2 = True
+        else:
+            self.button2 = False
+        
+        # Exit button click function
+        if self.mouse_button == 1 and self.button2 and self.transition_time == 0:
+            self.next_state = "main menu"
+            self.transition_time = 30 * 7 #7 Seconds
+            self.loading_bar = 0
+        
+        if self.mouse_button == 1 and self.ai_timer == settings.ai_processing_time:
+            success = self.game.playerShoot(self.field_x, self.field_y)
+            if success != False:
+                self.ai_timer -= 1
+                print(self.game.player1.shotList)
+
 
 
 
