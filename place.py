@@ -33,8 +33,8 @@ def place(player,posXY,direction,length):
             else: return False # gebe False als nicht plazierbar aus
 
         elif direction == 1: # wenn der fisch nach rechts ausgerichtet ist,
-            used.append(((fish.posXY[0]+i))+fish.pposXY[1]) # merke den offset des versuches
-            newFish.append(((fish.posXY[0]+i))+fish.pposXY[1]) # merke offset  des versuches im aktuellem fisch
+            used.append(((fish.posXY[0]+i))+fish.posXY[1]) # merke den offset des versuches
+            newFish.append(((fish.posXY[0]+i))+fish.posXY[1]) # merke offset  des versuches im aktuellem fisch
             if 10 > (posXY[0]+i) >= 0:pass # wenn offset außerhalb des spielbereichs liegt:
             else: return False
 
