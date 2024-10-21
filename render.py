@@ -15,10 +15,14 @@ fish_l5 = pygame.image.load("assets\\fish l5.png")
 shot_hit = pygame.image.load("assets\\shot_hit.png")
 shot_miss = pygame.image.load("assets\\shot_miss.png")
 
+fish_count_on = pygame.image.load("assets\\fish count on.png")
+fish_count_off = pygame.image.load("assets\\fish count off.png")
+
 main_menu_font = pygame.font.Font("assets\\impact.ttf", 64)
 exit_button_font = pygame.font.Font("assets\\impact.ttf", 32)
 fish_count_font = pygame.font.Font("assets\\impact.ttf", 50)
 start_game_font = pygame.font.Font("assets\\impact.ttf", 58)
+ai_status_font = pygame.font.Font("assets\\impact.ttf", 20)
 
 
 def render_mainmenu(display, button1, button2):
@@ -129,7 +133,7 @@ def render_placing_menu(display, field_x, field_y, fish_left, selected, button1,
     )
 
 
-def render_shoot_menu(display, field_x, field_y, button2):
+def render_shoot_menu(display, field_x, field_y, button2, ai_timer):
     display.blit(shoot_menu_background, (0, 0))
     pygame.draw.rect(display, "#8bbfc8",
         pygame.Rect(field_x * 50 + 887, field_y * 50 + 285, 50, 50),
@@ -147,6 +151,25 @@ def render_shoot_menu(display, field_x, field_y, button2):
         )
     )
 
+    if ai_timer > settings.ai_processing_time * 0.35 and ai_timer < settings.ai_processing_time:
+        text_texture = ai_status_font.render("Der Feind denkt!", True, "#f2282f")
+        display.blit(
+            text_texture,
+            (
+                460 - text_texture.get_width() / 2,
+                260
+            )
+        )
+    if ai_timer <= settings.ai_processing_time * 0.35:
+        text_texture = ai_status_font.render("Der Feind schießt!", True, "#f2282f")
+        display.blit(
+            text_texture,
+            (
+                460 - text_texture.get_width() / 2,
+                260
+            )
+        )
+
 
 def render_shots(display, offsetX, offsetY, shot_list):
     for shot in shot_list:
@@ -158,6 +181,18 @@ def render_shots(display, offsetX, offsetY, shot_list):
             display.blit(shot_miss, position)
         else:
             display.blit(shot_hit, position)
+
+
+def render_fish_count(display, offsetX, offsetY, count):
+    for i in range(1, 6):
+        position = (
+            (i - 1) * 50 + offsetX,
+            offsetY
+        )
+        if i > 5 - count:
+            display.blit(fish_count_off, position)
+        else:
+            display.blit(fish_count_on, position)
 
 
 def render_fish(display, offsetX, offsetY, fish_list, preview):

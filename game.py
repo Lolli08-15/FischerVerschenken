@@ -1,6 +1,7 @@
 from place import place
 from shoot import shoot
 from aiPlace import aiPlace
+from ai import aiAim
 
 
 
@@ -94,7 +95,12 @@ class Game:
     
 
     def aiShoot(self):
-        pass
+        coords = aiAim(self.ai_last_shot)
+        response = shoot(self.ai, self.player1, coords)
+
+        if response == "hit": self.ai_last_shot = 1
+        elif response == "sunk": self.ai_last_shot = 2
+        else: self.ai_last_shot = 0
     
 
     def getSunkenFish(self, player):
