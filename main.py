@@ -29,7 +29,7 @@ class GUI:
         self.current_fish_selected = 2
         self.current_rotation = 1
 
-        self.current_lengths = [2, 3, 3, 4, 5]
+        self.current_lengths = settings.fish_lengths
         self.ai_fish_preview = False
 
 
@@ -103,10 +103,17 @@ class GUI:
                 render.render_fish(
                     self.display, 210, 285,
                     self.game.getPlayerFish("player1"), True)
+
                 if self.ai_fish_preview:
                     render.render_fish(
                         self.display, 885, 285,
                         self.game.getPlayerFish("ai"), True)
+                
+                # Render player shots
+                render.render_shots(
+                    self.display, 885, 285,
+                    self.game.getShotList("player1")
+                )
             
 
             if self.transition_time > 0: # Transition animation
@@ -168,7 +175,7 @@ class GUI:
             self.game.reset()
             self.current_fish_selected = 2
             self.current_rotation = 1
-            self.current_lengths = [2, 3, 3, 4, 5]
+            self.current_lengths = settings.fish_lengths
 
 
         # Exit button

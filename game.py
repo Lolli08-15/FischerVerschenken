@@ -1,5 +1,7 @@
 from place import place
 from shoot import shoot
+from aiPlace import aiPlace
+
 
 
 class Player:
@@ -42,6 +44,7 @@ class Game:
     def __init__(self):
         self.player1 = Player()
         self.ai = Player()
+        self.ai_last_shot = 0
     
 
     def getPlayerFish(self, player):
@@ -60,11 +63,12 @@ class Game:
 
     def placeAiFish(self):
         # TO DO
-        place(self.ai, (0, 0), 1, 2)
-        place(self.ai, (0, 1), 1, 3)
-        place(self.ai, (0, 2), 1, 3)
-        place(self.ai, (0, 3), 1, 4)
-        place(self.ai, (0, 4), 1, 5)
+        aiPlace(self.ai)
+        #place(self.ai, (0, 0), 1, 2)
+        #place(self.ai, (0, 1), 1, 3)
+        #place(self.ai, (0, 2), 1, 3)
+        #place(self.ai, (0, 3), 1, 4)
+        #place(self.ai, (0, 4), 1, 5)
     
 
     def removeFish(self, posXY):
@@ -86,11 +90,15 @@ class Game:
     def reset(self):
         self.player1 = Player()
         self.ai = Player()
-
+        self.ai_last_shot = 0
 
     
     def playerShoot(self, posXY):
-        return shoot(self.player1, posXY)
+        return shoot(self.player1, self.ai, posXY)
+    
+
+    def aiShoot(self):
+        pass
     
 
     def getSunkenFish(self, player):
@@ -99,13 +107,19 @@ class Game:
         elif player == "ai":
             return self.ai.getSunkenFish()
         return False
+    
+
+    def getShotList(self, player):
+        if player == "player1":
+            return self.player1.shotList
+        elif player == "ai":
+            return self.ai.shotList
+        return False
 
 
     def reset(self):
         self.player1 = Player()
         self.ai = Player()
-
-# >>>>>>> 068b6cd3cb0d80cdb7ad6be17acfdbfe1179f8b7
 
     
 

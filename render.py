@@ -2,6 +2,7 @@ import pygame
 import settings
 
 
+# Textures
 main_menu_background = pygame.image.load("assets\\main menu.png")
 placing_menu_background = pygame.image.load("assets\\placing menu.png")
 shoot_menu_background = pygame.image.load("assets\\shoot menu.png")
@@ -10,6 +11,9 @@ fish_l2 = pygame.image.load("assets\\fish l2.png")
 fish_l3 = pygame.image.load("assets\\fish l3.png")
 fish_l4 = pygame.image.load("assets\\fish l4.png")
 fish_l5 = pygame.image.load("assets\\fish l5.png")
+
+shot_hit = pygame.image.load("assets\\shot_hit.png")
+shot_miss = pygame.image.load("assets\\shot_miss.png")
 
 main_menu_font = pygame.font.Font("assets\\impact.ttf", 64)
 exit_button_font = pygame.font.Font("assets\\impact.ttf", 32)
@@ -142,6 +146,18 @@ def render_shoot_menu(display, field_x, field_y, button2):
             30
         )
     )
+
+
+def render_shots(display, offsetX, offsetY, shot_list):
+    for shot in shot_list:
+        position = (
+            shot[0][0] * 50 + offsetX,
+            shot[0][1] * 50 + offsetY
+        )
+        if shot[1] == "miss":
+            display.blit(shot_miss, position)
+        else:
+            display.blit(shot_hit, position)
 
 
 def render_fish(display, offsetX, offsetY, fish_list, preview):
