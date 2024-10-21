@@ -1,8 +1,10 @@
 import pygame
+import settings
 
 
 main_menu_background = pygame.image.load("assets\\main menu.png")
 placing_menu_background = pygame.image.load("assets\\placing menu.png")
+shoot_menu_background = pygame.image.load("assets\\shoot menu.png")
 
 fish_l2 = pygame.image.load("assets\\fish l2.png")
 fish_l3 = pygame.image.load("assets\\fish l3.png")
@@ -12,6 +14,7 @@ fish_l5 = pygame.image.load("assets\\fish l5.png")
 main_menu_font = pygame.font.Font("assets\\impact.ttf", 64)
 exit_button_font = pygame.font.Font("assets\\impact.ttf", 32)
 fish_count_font = pygame.font.Font("assets\\impact.ttf", 50)
+start_game_font = pygame.font.Font("assets\\impact.ttf", 58)
 
 
 def render_mainmenu(display, button1, button2):
@@ -54,7 +57,7 @@ def show_fish_count(display, pos, count):
     )
 
 
-def render_placing_menu(display, field_x, field_y, fish_left, selected):
+def render_placing_menu(display, field_x, field_y, fish_left, selected, button1, button2):
     display.blit(placing_menu_background, (0, 0))
     pygame.draw.rect(display, "#8b5555",
         pygame.Rect(field_x * 50 + 541, field_y * 50 + 242, 50, 50),
@@ -84,6 +87,62 @@ def render_placing_menu(display, field_x, field_y, fish_left, selected):
     show_fish_count(display, (1266, 273), fish_left.count(4))
     show_fish_count(display, (1278, 420), fish_left.count(5))
 
+    # Exit button 110, 40
+    text_color = "#b86145"
+    if button2: text_color = "#ca8a75"
+    text_texture = exit_button_font.render("Rückzug", True, text_color)
+    display.blit(
+        text_texture,
+        (
+            20,
+            30
+        )
+    )
+
+    # Start fight button
+    text_color = "#69c7bf"
+    if button1: text_color = "#c4e5e9"
+    if len(fish_left) > 0: text_color = "#223143"
+    text_texture = start_game_font.render("Hans! Get", True, text_color)
+    display.blit(
+        text_texture,
+        (
+            1100,
+            590
+        )
+    )
+    # Start fight button 2
+    text_color = "#69c7bf"
+    if button1: text_color = "#c4e5e9"
+    if len(fish_left) > 0: text_color = "#223143"
+    text_texture = start_game_font.render("the Angel!", True, text_color)
+    display.blit(
+        text_texture,
+        (
+            1100,
+            645
+        )
+    )
+
+
+def render_shoot_menu(display, field_x, field_y, button2):
+    display.blit(shoot_menu_background, (0, 0))
+    pygame.draw.rect(display, "#8bbfc8",
+        pygame.Rect(field_x * 50 + 887, field_y * 50 + 285, 50, 50),
+        5, 3)
+    
+    # Exit button 110, 40
+    text_color = "#b86145"
+    if button2: text_color = "#ffb9b9"
+    text_texture = exit_button_font.render("Rückzug", True, text_color)
+    display.blit(
+        text_texture,
+        (
+            20,
+            30
+        )
+    )
+
 
 def render_fish(display, offsetX, offsetY, fish_list, preview):
     for fish in fish_list:
@@ -93,7 +152,7 @@ def render_fish(display, offsetX, offsetY, fish_list, preview):
         if fish.length == 4: fish_texture = fish_l4
         if fish.length == 5: fish_texture = fish_l5
         if preview:
-            fish_texture.set_alpha(150)
+            fish_texture.set_alpha(120)
         else:
             fish_texture.set_alpha(255)
 

@@ -19,9 +19,15 @@ class Player:
                 return length
         return 0
                 
-    
-    def addShot(self,posXY,what):
-        self.shotList.append([posXY,what])
+    def addShot(self, posX, posY, what):
+        self.shotList.append([posX, posY, what])
+
+    def getSunkenFish(self):
+        count = 0
+        for shot in self.shotList:
+            if "sunk" in shot:
+                count += 1
+        return count
     
     def showOff(self):
         """A test function: prints every placed fish and it's occupied spaces"""
@@ -44,7 +50,7 @@ class Game:
         if player == "player1":
             return self.player1.fishes
         elif player == "ai":
-            return self.player1.fishes
+            return self.ai.fishes
         return False
     
 
@@ -52,13 +58,54 @@ class Game:
         return place(self.player1,posXY,direction,length)
 
 
-    def placeAiFish(self, posXY, direction, length):
-        possible = place(self.ai,posXY,direction,length)
-        if possible == False: return False
+    def placeAiFish(self):
+        # TO DO
+        place(self.ai, 0, 0, 1, 2)
+        place(self.ai, 0, 1, 1, 3)
+        place(self.ai, 0, 2, 1, 3)
+        place(self.ai, 0, 3, 1, 4)
+        place(self.ai, 0, 4, 1, 5)
     
 
-    def removeFish(self, posXY):
-        return self.player1.removeFish(posXY)
+    def removeFish(self, posX, posY):
+        return self.player1.removeFish(posX, posY)
+    
+
+    def playerShoot(self, posX, posY):
+        return shoot(self.player1, posX, posY)
+    
+
+    def getSunkenFish(self, player):
+        if player == "player1":
+            return self.player1.getSunkenFish()
+        elif player == "ai":
+            return self.ai.getSunkenFish()
+        return False
+
+
+    def reset(self):
+        self.player1 = Player()
+        self.ai = Player()
+
+
+    
+    def playerShoot(self, posX, posY):
+        return shoot(self.player1, posX, posY)
+    
+
+    def getSunkenFish(self, player):
+        if player == "player1":
+            return self.player1.getSunkenFish()
+        elif player == "ai":
+            return self.ai.getSunkenFish()
+        return False
+
+
+    def reset(self):
+        self.player1 = Player()
+        self.ai = Player()
+
+>>>>>>> 068b6cd3cb0d80cdb7ad6be17acfdbfe1179f8b7
 
     
 
