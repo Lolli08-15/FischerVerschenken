@@ -75,7 +75,9 @@ To Do:
 	fish skins
 	game fettig stellen lol
 	greenscreen explo hitmarker
-	implement ai
+	implement ai shoot
+	rücksug loading bar reverse
+
 
 
 
