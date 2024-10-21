@@ -129,10 +129,14 @@ class GUI:
                         self.display, 885, 285,
                         self.game.getPlayerFish("ai"), True)
                 
-                # Render player shots
+                # Render player + ai shots
                 render.render_shots(
                     self.display, 885, 285,
                     self.game.getShotList("player1")
+                )
+                render.render_shots(
+                    self.display, 210, 285,
+                    self.game.getShotList("ai")
                 )
 
                 # Render sunk fish count for enemy field
