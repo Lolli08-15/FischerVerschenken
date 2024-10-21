@@ -19,8 +19,8 @@ class Player:
                 return length
         return 0
                 
-    def addShot(self, posX, posY, what):
-        self.shotList.append([posX, posY, what])
+    def addShot(self, posXY, what):
+        self.shotList.append([posXY, what])
 
     def getSunkenFish(self):
         count = 0
@@ -60,37 +60,19 @@ class Game:
 
     def placeAiFish(self):
         # TO DO
-        place(self.ai, 0, 0, 1, 2)
-        place(self.ai, 0, 1, 1, 3)
-        place(self.ai, 0, 2, 1, 3)
-        place(self.ai, 0, 3, 1, 4)
-        place(self.ai, 0, 4, 1, 5)
+        place(self.ai, (0, 0), 1, 2)
+        place(self.ai, (0, 1), 1, 3)
+        place(self.ai, (0, 2), 1, 3)
+        place(self.ai, (0, 3), 1, 4)
+        place(self.ai, (0, 4), 1, 5)
     
 
-    def removeFish(self, posX, posY):
-        return self.player1.removeFish(posX, posY)
+    def removeFish(self, posXY):
+        return self.player1.removeFish(posXY)
     
 
-    def playerShoot(self, posX, posY):
-        return shoot(self.player1, posX, posY)
-    
-
-    def getSunkenFish(self, player):
-        if player == "player1":
-            return self.player1.getSunkenFish()
-        elif player == "ai":
-            return self.ai.getSunkenFish()
-        return False
-
-
-    def reset(self):
-        self.player1 = Player()
-        self.ai = Player()
-
-
-    
-    def playerShoot(self, posX, posY):
-        return shoot(self.player1, posX, posY)
+    def playerShoot(self, posXY):
+        return shoot(self.player1, posXY)
     
 
     def getSunkenFish(self, player):
@@ -105,7 +87,25 @@ class Game:
         self.player1 = Player()
         self.ai = Player()
 
->>>>>>> 068b6cd3cb0d80cdb7ad6be17acfdbfe1179f8b7
+
+    
+    def playerShoot(self, posXY):
+        return shoot(self.player1, posXY)
+    
+
+    def getSunkenFish(self, player):
+        if player == "player1":
+            return self.player1.getSunkenFish()
+        elif player == "ai":
+            return self.ai.getSunkenFish()
+        return False
+
+
+    def reset(self):
+        self.player1 = Player()
+        self.ai = Player()
+
+# >>>>>>> 068b6cd3cb0d80cdb7ad6be17acfdbfe1179f8b7
 
     
 
