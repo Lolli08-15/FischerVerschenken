@@ -11,6 +11,7 @@ import random
 
 class GUI:
     def __init__(self, width, height) -> None:
+        # Initializinh attributes
         self.width = width
         self.height = height
 
@@ -35,24 +36,37 @@ class GUI:
 
     def initialize(self):
         self.running = True
+
+        """
+        The current state of the programm
+
+        "main menu" - The main menu of the game
+        "placing" - The placing fish phase
+        "shoot menu" - Main loop of the game. Player and enemy are shooting
+        "end screen" - The game is over and someone won
+
+        """
         self.state = "main menu"
 
-        self.game = game.Game()
+        self.game = game.Game() # Game object for handling the gameplay logic
 
-        pygame.display.set_caption("Fischeversenken")
+        pygame.display.set_caption("Fischeversenken") # Set title
+
+        # Initialize Window
         self.display = pygame.display.set_mode(
             (self.width, self.height)
         )
 
         self.clock = pygame.time.Clock()
 
-        self.main()
+        self.main() # Start the main loop
 
 
     def main(self):
         while self.running:
             self.handle_events() # Handle input events
 
+            # "Hovering over a button" variables reset back to False
             self.button1 = False
             self.button2 = False
 
@@ -62,24 +76,27 @@ class GUI:
             
 
             if self.state == "placing":
-                self.placing_menu()
+                self.placing_menu() # Execute all placing menu functions
+
+                # Execute the general rendering function of the placing menu
                 render.render_placing_menu(self.display, self.field_x, self.field_y,
                     self.current_lengths, self.current_fish_selected,
                     self.button1, self.button2)
                 
-                # Preview fish
-                preview_fish = Fish(
-                    (self.field_x, self.field_y),
-                    self.current_rotation,
-                    self.current_fish_selected,
-                    None
-                )
+                # Preview of placing a new fish
                 if self.current_fish_selected != 0:
+                    preview_fish = Fish(
+                        (self.field_x, self.field_y),
+                        self.current_rotation,
+                        self.current_fish_selected,
+                        None
+                    )
                     render.render_fish(
                         self.display, 541, 242,
                         [preview_fish], True
                         )
 
+                # Render player's fishies
                 render.render_fish(
                     self.display, 541, 242,
                     self.game.getPlayerFish("player1"), False)
@@ -89,6 +106,9 @@ class GUI:
                 if self.ai_timer < settings.ai_processing_time:
                     self.ai_timer -= 1
                     
+                    if self.ai_timer == int(settings.ai_processing_time * 0.35):
+                        print("schuss!")
+
                     if self.ai_timer < 1:
                         self.ai_timer = settings.ai_processing_time
 
@@ -98,7 +118,7 @@ class GUI:
                 if self.key == "m": self.ai_fish_preview = not self.ai_fish_preview
 
                 render.render_shoot_menu(self.display, self.field_x, self.field_y,
-                    self.button2)
+                    self.button2, self.ai_timer)
 
                 render.render_fish(
                     self.display, 210, 285,
@@ -109,11 +129,26 @@ class GUI:
                         self.display, 885, 285,
                         self.game.getPlayerFish("ai"), True)
                 
-                # Render player shots
+                # Render player + ai shots
                 render.render_shots(
                     self.display, 885, 285,
                     self.game.getShotList("player1")
                 )
+                render.render_shots(
+                    self.display, 210, 285,
+                    self.game.getShotList("ai")
+                )
+
+                # Render sunk fish count for enemy field
+                render.render_fish_count(self.display,
+                    887, 785,
+                    self.game.getSunkenFish("player1")
+                    )
+                # And for the player
+                render.render_fish_count(self.display,
+                    210, 785,
+                    self.game.getSunkenFish("ai")
+                    )
             
 
             if self.transition_time > 0: # Transition animation
@@ -296,9 +331,10 @@ class GUI:
         
         # Shooting
         if self.mouse_button == 1 and self.ai_timer == settings.ai_processing_time:
-            success = self.game.playerShoot((self.field_x, self.field_y))
-            if success != False:
-                self.ai_timer -= 1
+            if self.is_in_rect(self.mouse_pos, (887, 285), (500, 500)):
+                success = self.game.playerShoot((self.field_x, self.field_y))
+                if success != False:
+                    self.ai_timer -= 1
 
 
 
