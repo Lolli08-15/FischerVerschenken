@@ -67,11 +67,12 @@ def show_fish_count(display, pos, count):
     )
 
 
-def render_placing_menu(display, field_x, field_y, fish_left, selected, button1, button2):
+def render_placing_menu(display, field_x, field_y, fish_left, selected, button1, button2, mouse_in_field):
     display.blit(placing_menu_background, (0, 0))
-    pygame.draw.rect(display, "#8b5555",
-        pygame.Rect(field_x * 50 + 541, field_y * 50 + 242, 50, 50),
-        5, 3)
+    if mouse_in_field:
+        pygame.draw.rect(display, "#8b5555",
+            pygame.Rect(field_x * 50 + 541, field_y * 50 + 242, 50, 50),
+            5, 3)
     
     # White selection box
     if selected == 2: # 2x1 Fish
@@ -135,9 +136,11 @@ def render_placing_menu(display, field_x, field_y, fish_left, selected, button1,
     )
 
 
-def render_shoot_menu(display, field_x, field_y, button2, ai_timer):
+def render_shoot_menu(display, field_x, field_y, button2, ai_timer, transition_time, mouse_in_field):
     display.blit(shoot_menu_background, (0, 0))
-    if ai_timer == settings.ai_processing_time:
+    if (ai_timer == settings.ai_processing_time and
+        transition_time == 0 and
+        mouse_in_field):
         pygame.draw.rect(display, "#8bbfc8",
             pygame.Rect(field_x * 50 + 887, field_y * 50 + 285, 50, 50),
             5, 3)
@@ -181,7 +184,7 @@ def render_end_screen(display, button1, whoWon):
         display.blit(end_screen_ai_background, (0, 0))
     
     # Exit button 110, 40
-    text_color = "#9e89a6"
+    text_color = "#7c6784"
     if button1: text_color = "#ffffff"
     text_texture = main_menu_font.render("Amen", True, text_color)
     display.blit(
@@ -307,17 +310,18 @@ def transition(display, transition_time, loading_bar, bar_direction,t_time):
            # 1600x900
 
         loading_text = "Angel Fische"
-        if 400 > loading_bar > 200: loading_text = "Rotte Wale aus"
-        if 600 > loading_bar > 400: loading_text = "Starte Atomreaktor"
-        if 800 > loading_bar > 600: loading_text = "Trainiere KI"
+        if 400 >= loading_bar > 200: loading_text = "Rotte Wale aus"
+        if 600 >= loading_bar > 400: loading_text = "Starte Atomreaktor"
+        if 800 >= loading_bar > 600: loading_text = "Trainiere KI"
         if loading_bar > 800: loading_text = "Kompiliere Shader"
 
         if bar_direction == -1: loading_text = "Entlade Shader"
 
         dot_text = "."
-        dot_timer = transition_time % 30
-        if 10 < dot_timer < 20: dot_text = "..."
-        if 20 < dot_timer < 30: dot_text = ".."
+        dot_timer = transition_time % 40
+        if 10 <= dot_timer < 20: dot_text = ".."
+        if 20 <= dot_timer < 30: dot_text = "..."
+        if 30 <= dot_timer < 40: dot_text = ".."
         loading_text += dot_text
 
         text_texture = exit_button_font.render(loading_text, True, "#aecfe3")

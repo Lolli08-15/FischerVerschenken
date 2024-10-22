@@ -66,11 +66,12 @@ class GUI:
 
     def main(self):
         while self.running:
-            self.handle_events() # Handle input events
+            self.handle_events() # Handle all input events
 
             # "Hovering over a button" variables reset back to False
             self.button1 = False
             self.button2 = False
+            self.mouse_in_field = False
 
             if self.state == "main menu":
                 self.main_menu() # Execute all main menu functions
@@ -83,10 +84,10 @@ class GUI:
                 # Execute the general rendering function of the placing menu
                 render.render_placing_menu(self.display, self.field_x, self.field_y,
                     self.current_lengths, self.current_fish_selected,
-                    self.button1, self.button2)
+                    self.button1, self.button2, self.mouse_in_field)
                 
                 # Preview of placing a new fish
-                if self.current_fish_selected != 0:
+                if self.current_fish_selected != 0 and self.mouse_in_field:
                     preview_fish = Fish(
                         (self.field_x, self.field_y),
                         self.current_rotation,
@@ -121,7 +122,8 @@ class GUI:
                 if self.key == "n": self.game.ai.fishes[0].hits += 1000
 
                 render.render_shoot_menu(self.display, self.field_x, self.field_y,
-                    self.button2, self.ai_timer)
+                    self.button2, self.ai_timer, self.transition_time,
+                    self.mouse_in_field)
 
                 render.render_fish(
                     self.display, 210, 285,
@@ -156,6 +158,8 @@ class GUI:
                 whoWon = self.game.detectWin()
                 if whoWon != False and self.transition_time == 0:
                     self.whoWon = whoWon
+                    self.ai_timer = settings.ai_processing_time
+
                     self.next_state = "end screen"
                     self.transition_time = 30 * 3 #3 Seconds
                     self.t_time = self.transition_time-50
@@ -286,6 +290,7 @@ class GUI:
         if self.is_in_rect(self.mouse_pos, (541, 242), (500, 500)):
             self.field_x = int((self.mouse_pos[0] - 541) / 50)
             self.field_y = int((self.mouse_pos[1] - 242) / 50)
+            self.mouse_in_field = True
         
 
         # Selecting fish sizes
@@ -311,7 +316,7 @@ class GUI:
             self.current_rotation += 1
             if self.current_rotation > 3: self.current_rotation = 0
         
-        # shooting
+        # Placing fish
         if self.mouse_button == 1 and self.current_fish_selected != 0:
             if self.is_in_rect(self.mouse_pos, (541, 242), (500, 500)):
                 success = self.game.placeFish(
@@ -341,6 +346,7 @@ class GUI:
         if self.is_in_rect(self.mouse_pos, (887, 285), (500, 500)):
             self.field_x = int((self.mouse_pos[0] - 887) / 50)
             self.field_y = int((self.mouse_pos[1] - 285) / 50)
+            self.mouse_in_field = True
         
 
         # Exit button
@@ -359,7 +365,7 @@ class GUI:
         
         # Shooting
         if self.mouse_button == 1 and self.ai_timer == settings.ai_processing_time:
-            if self.is_in_rect(self.mouse_pos, (887, 285), (500, 500)):
+            if self.is_in_rect(self.mouse_pos, (887, 285), (500, 500)) and self.transition_time == 0:
                 success = self.game.playerShoot((self.field_x, self.field_y))
                 if success != False:
                     self.ai_timer -= 1
