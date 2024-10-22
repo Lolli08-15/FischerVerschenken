@@ -1,6 +1,8 @@
 from place import place
 from shoot import shoot
 from aiPlace import aiPlace
+from ai import aiAim
+from detectWin import detectWin
 
 
 
@@ -8,6 +10,7 @@ class Player:
     def __init__(self):
         self.fishes = []
         self.shotList = []
+        self.sunkenFish = 0
         
     def addFish(self, fish):
         self.fishes.append(fish)
@@ -24,13 +27,6 @@ class Player:
     def addShot(self, posXY, what):
         self.shotList.append([posXY, what])
 
-    def getSunkenFish(self):
-        count = 0
-        for shot in self.shotList:
-            if "sunk" in shot:
-                count += 1
-        return count
-    
     def showOff(self):
         """A test function: prints every placed fish and it's occupied spaces"""
         for fish in self.fishes:
@@ -75,15 +71,11 @@ class Game:
         return self.player1.removeFish(posXY)
     
 
-    def playerShoot(self, posXY):
-        return shoot(self.player1, posXY)
-    
-
     def getSunkenFish(self, player):
         if player == "player1":
-            return self.player1.getSunkenFish()
+            return self.player1.sunkenFish
         elif player == "ai":
-            return self.ai.getSunkenFish()
+            return self.ai.sunkenFish
         return False
 
 
@@ -98,14 +90,19 @@ class Game:
     
 
     def aiShoot(self):
-        pass
+        coords = aiAim(self.ai_last_shot)
+        response = shoot(self.ai, self.player1, coords)
+
+        if response == "hit": self.ai_last_shot = 1
+        elif response == "sunk": self.ai_last_shot = 2
+        else: self.ai_last_shot = 0
     
 
     def getSunkenFish(self, player):
         if player == "player1":
-            return self.player1.getSunkenFish()
+            return self.player1.sunkenFish
         elif player == "ai":
-            return self.ai.getSunkenFish()
+            return self.ai.sunkenFish
         return False
     
 
@@ -114,6 +111,16 @@ class Game:
             return self.player1.shotList
         elif player == "ai":
             return self.ai.shotList
+        return False
+    
+
+    def detectWin(self):
+        aiWin = detectWin(self.player1)
+        playerWin = detectWin(self.ai)
+        if playerWin:
+            return "player"
+        if aiWin:
+            return "ai"
         return False
 
 
