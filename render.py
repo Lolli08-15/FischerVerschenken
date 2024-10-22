@@ -6,6 +6,8 @@ import settings
 main_menu_background = pygame.image.load("assets\\main menu.png")
 placing_menu_background = pygame.image.load("assets\\placing menu.png")
 shoot_menu_background = pygame.image.load("assets\\shoot menu.png")
+end_screen_p_background = pygame.image.load("assets\\end screen player.png")
+end_screen_ai_background = pygame.image.load("assets\\end screen ai.png")
 
 fish_l2 = pygame.image.load("assets\\fish l2.png")
 fish_l3 = pygame.image.load("assets\\fish l3.png")
@@ -135,9 +137,10 @@ def render_placing_menu(display, field_x, field_y, fish_left, selected, button1,
 
 def render_shoot_menu(display, field_x, field_y, button2, ai_timer):
     display.blit(shoot_menu_background, (0, 0))
-    pygame.draw.rect(display, "#8bbfc8",
-        pygame.Rect(field_x * 50 + 887, field_y * 50 + 285, 50, 50),
-        5, 3)
+    if ai_timer == settings.ai_processing_time:
+        pygame.draw.rect(display, "#8bbfc8",
+            pygame.Rect(field_x * 50 + 887, field_y * 50 + 285, 50, 50),
+            5, 3)
     
     # Exit button 110, 40
     text_color = "#b86145"
@@ -169,6 +172,25 @@ def render_shoot_menu(display, field_x, field_y, button2, ai_timer):
                 260
             )
         )
+
+
+def render_end_screen(display, button1, whoWon):
+    if whoWon == "player":
+        display.blit(end_screen_p_background, (0, 0))
+    else:
+        display.blit(end_screen_ai_background, (0, 0))
+    
+    # Exit button 110, 40
+    text_color = "#9e89a6"
+    if button1: text_color = "#ffffff"
+    text_texture = main_menu_font.render("Amen", True, text_color)
+    display.blit(
+        text_texture,
+        (
+            269,
+            138
+        )
+    )
 
 
 def render_shots(display, offsetX, offsetY, shot_list):
@@ -224,7 +246,7 @@ def render_fish(display, offsetX, offsetY, fish_list, preview):
             display.blit(fish_texture, position)
 
 
-def transition(display, transition_time, loading_bar):
+def transition(display, transition_time, loading_bar, bar_direction):
     if transition_time > 180:
         overlay = pygame.Surface((1600, 900))
         overlay.set_alpha(255 / 30 * (30 - (transition_time - 180)))
@@ -239,9 +261,41 @@ def transition(display, transition_time, loading_bar):
             pygame.Rect(800 - 300, 450 - 20, 600, 40),
             5
         )
-        pygame.draw.rect(
-            display, "#aecfe3",
-            pygame.Rect(800 - 290, 450 - 10,
-            1090 / 650 * loading_bar,
-            20)
+        if bar_direction == 0:
+            pygame.draw.rect(
+                display, "#aecfe3",
+                pygame.Rect(800 - 290, 450 - 10,
+                1090 / 650 * loading_bar,
+                20)
+            )
+        else:
+            pygame.draw.rect(
+                display, "#aecfe3",
+                pygame.Rect(800 - 290, 450 - 10,
+                1090 - 1090 / 650 * loading_bar,
+                20)
+            )
+
+        loading_text = "Angel Fische"
+        if 100 > loading_bar > 50: loading_text = "Starte Atomreaktor"
+        if 200 > loading_bar > 100: loading_text = "Rotte Wale aus"
+        if 350 > loading_bar > 200: loading_text = "Trainiere KI"
+        if 500 > loading_bar > 350: loading_text = "Rotte Wale aus"
+        if loading_bar > 500: loading_text = "Kompiliere Shader"
+
+        if bar_direction == -1: loading_text = "Entlade Shader"
+
+        dot_text = "."
+        dot_timer = transition_time % 30
+        if 10 < dot_timer < 20: dot_text = "..."
+        if 20 < dot_timer < 30: dot_text = ".."
+        loading_text += dot_text
+
+        text_texture = exit_button_font.render(loading_text, True, "#aecfe3")
+        display.blit(
+            text_texture,
+            (
+                500,
+                380
+            )
         )

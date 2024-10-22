@@ -10,6 +10,7 @@ def shoot(attacker, victim, aimXY):
             fish.hits += 1 # hitte den Fisch
             if fish.length == fish.hits: # wenn getroffener Fisch hit anzahl größer als Fishlänge, dann setze gebe "sunk" aus
                 attacker.addShot(aimXY, "sunk") # führe einen Speichervorgang vom Schuss zu shotList aus
+                attacker.sunkenFish += 1
                 return "sunk" # gebe "sunk zurück"
 
             else: # sonst gebe hit aus

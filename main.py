@@ -1,6 +1,6 @@
 import pygame
 import game
-from classFish import Fish
+from classFish import Fish 
 
 pygame.init()
 
@@ -22,6 +22,7 @@ class GUI:
         self.next_state = ""
         self.transition_time = 0
         self.loading_bar = 0
+        self.bar_direction = 0
 
         self.ai_timer = settings.ai_processing_time
 
@@ -116,6 +117,7 @@ class GUI:
                 self.shoot_menu()
                 # Preview AI fishes
                 if self.key == "m": self.ai_fish_preview = not self.ai_fish_preview
+                if self.key == "n": self.game.ai.fishes[0].hits += 1000
 
                 render.render_shoot_menu(self.display, self.field_x, self.field_y,
                     self.button2, self.ai_timer)
@@ -149,7 +151,20 @@ class GUI:
                     210, 785,
                     self.game.getSunkenFish("ai")
                     )
+                
+                whoWon = self.game.detectWin()
+                if whoWon != False and self.transition_time == 0:
+                    self.whoWon = whoWon
+                    self.next_state = "end screen"
+                    self.transition_time = 30 * 3 #3 Seconds
+                    self.loading_bar = 0
+                    self.bar_direction = 0
             
+
+            if self.state == "end screen":
+                self.end_screen()
+
+                render.render_end_screen(self.display, self.button1, self.whoWon)
 
             if self.transition_time > 0: # Transition animation
                 self.transition_time -= 1
@@ -160,7 +175,7 @@ class GUI:
                 if self.transition_time < 180: # Speedup the progress bar
                     self.loading_bar += int(self.transition_time / (random.randrange(1, 30)) / 3)
                 
-                render.transition(self.display, self.transition_time, self.loading_bar)
+                render.transition(self.display, self.transition_time, self.loading_bar, self.bar_direction)
 
                 if self.transition_time == 0: # Switch to next stage after done
                     self.state = self.next_state
@@ -204,8 +219,9 @@ class GUI:
         # Play button click function
         if self.mouse_button == 1 and self.button1 and self.transition_time == 0:
             self.next_state = "placing"
-            self.transition_time = 30 * 7 #7 Seconds
+            self.transition_time = 30 * 15 #10 Seconds
             self.loading_bar = 0
+            self.bar_direction = 0
 
             self.game.reset()
             self.current_fish_selected = 2
@@ -237,6 +253,7 @@ class GUI:
             self.next_state = "shoot menu"
             self.transition_time = 30 * 4 #4 Seconds
             self.loading_bar = 0
+            self.bar_direction = 0
 
             self.ai_timer = settings.ai_processing_time
 
@@ -254,6 +271,7 @@ class GUI:
             self.next_state = "main menu"
             self.transition_time = 30 * 7 #7 Seconds
             self.loading_bar = 0
+            self.bar_direction = -1
 
 
         # Check in field position once hovering over it
@@ -328,6 +346,7 @@ class GUI:
             self.next_state = "main menu"
             self.transition_time = 30 * 7 #7 Seconds
             self.loading_bar = 0
+            self.bar_direction = -1
         
         # Shooting
         if self.mouse_button == 1 and self.ai_timer == settings.ai_processing_time:
@@ -335,6 +354,21 @@ class GUI:
                 success = self.game.playerShoot((self.field_x, self.field_y))
                 if success != False:
                     self.ai_timer -= 1
+    
+
+    def end_screen(self):
+        # Play button
+        if self.is_in_rect(self.mouse_pos, (269, 138), (149, 79)):
+            self.button1 = True
+        else:
+            self.button1 = False
+        
+        # Play button click function
+        if self.mouse_button == 1 and self.button1 and self.transition_time == 0:
+            self.next_state = "main menu"
+            self.transition_time = 30 * 7 #7 Seconds
+            self.loading_bar = 0
+            self.bar_direction = -1
 
 
 
