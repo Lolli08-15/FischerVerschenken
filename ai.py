@@ -60,7 +60,7 @@ def aiAim(response):     #input is whether the last shot missed(0), hit(1) or su
     
     elif(response == 1 and notSunk == 0):                   #last shot a hit
         notSunk = 1                                         #block this line
-        prevMiss = 0                                        #reset notSunk
+        prevMiss = 0                                        #reset prevMiss
         recentHits.append(pickedSquare)
         recentShots.append(pickedSquare)
         for hits in recentShots:
@@ -115,31 +115,32 @@ def aiShoot(aim):
     return aimX, aimY       #returns aim coordinates
     
 
-    
-'''
-    
-#DEBUG    
-shotLines.addLine(1,{{5,7},{4,7},{6,7},{7,7}})
-print(shotLines.lines[0][1]*2)
-exit'''
+   
+#DEBUG  
+ 
+if __name__ == "__main__":
+    '''
+        
+    shotLines.addLine(1,{{5,7},{4,7},{6,7},{7,7}})
+    print(shotLines.lines[0][1]*2)
+    exit'''
 
-print(f"miss {aiAim(0)}")
-print(f"hit {aiAim(0)}")
-print("recent1", recentHits)
-exit
+    print(f"miss {aiAim(0)}")
+    print(f"hit {aiAim(0)}")
+    print("recent1", recentHits)
 
-print(f"sink {aiAim(1)}")
-print(recentHits)
-print(f"Not Sunk {notSunk} prevMiss {prevMiss}")
-print(f"miss {aiAim(2)}")
-print(recentHits)
-print(f"Not Sunk {notSunk} prevMiss {prevMiss}")
-print(f"hit {aiAim(0)}")
-print(f"Not Sunk {notSunk} prevMiss {prevMiss}")
-print(f"hit {aiAim(1)}")
-print(f"Not Sunk {notSunk} prevMiss {prevMiss}")
-print(f"hit {aiAim(1)}")
-print(f"Not Sunk {notSunk} prevMiss {prevMiss}")
-print(f"miss {aiAim(1)}")
-print(f"Not Sunk {notSunk} prevMiss {prevMiss}")
-print()
+    print(f"sink {aiAim(1)}")
+    print(recentHits)
+    print(f"Not Sunk {notSunk} prevMiss {prevMiss}")
+    print(f"miss {aiAim(2)}")
+    print(recentHits)
+    print(f"Not Sunk {notSunk} prevMiss {prevMiss}")
+    print(f"hit {aiAim(0)}")
+    print(f"Not Sunk {notSunk} prevMiss {prevMiss}")
+    print(f"hit {aiAim(1)}")
+    print(f"Not Sunk {notSunk} prevMiss {prevMiss}")
+    print(f"hit {aiAim(1)}")
+    print(f"Not Sunk {notSunk} prevMiss {prevMiss}")
+    print(f"miss {aiAim(1)}")
+    print(f"Not Sunk {notSunk} prevMiss {prevMiss}")
+    print()
