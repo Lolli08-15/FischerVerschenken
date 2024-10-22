@@ -110,7 +110,7 @@ class GUI:
                     self.ai_timer -= 1
                     
                     if self.ai_timer == int(settings.ai_processing_time * 0.35):
-                        print("schuss!")
+                        self.game.aiShoot()
 
                     if self.ai_timer < 1:
                         self.ai_timer = settings.ai_processing_time
