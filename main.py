@@ -21,6 +21,7 @@ class GUI:
 
         self.next_state = ""
         self.transition_time = 0
+        self.t_time = 0
         self.loading_bar = 0
         self.bar_direction = 0
 
@@ -157,25 +158,28 @@ class GUI:
                     self.whoWon = whoWon
                     self.next_state = "end screen"
                     self.transition_time = 30 * 3 #3 Seconds
+                    self.t_time = self.transition_time-50
                     self.loading_bar = 0
                     self.bar_direction = 0
+                    
+                    self.ai_fish_preview = True
             
 
             if self.state == "end screen":
                 self.end_screen()
 
                 render.render_end_screen(self.display, self.button1, self.whoWon)
-
+            
             if self.transition_time > 0: # Transition animation
                 self.transition_time -= 1
 
                 # Skip
                 if self.key == " ": self.transition_time = 0
 
-                if self.transition_time < 180: # Speedup the progress bar
-                    self.loading_bar += int(self.transition_time / (random.randrange(1, 30)) / 3)
+                if self.transition_time < (self.t_time-30): # Speedup the progress bar
+                    self.loading_bar += int((random.randrange(1, 30)) / (self.t_time/89))
                 
-                render.transition(self.display, self.transition_time, self.loading_bar, self.bar_direction)
+                render.transition(self.display, self.transition_time, self.loading_bar, self.bar_direction,self.t_time)
 
                 if self.transition_time == 0: # Switch to next stage after done
                     self.state = self.next_state
@@ -219,7 +223,8 @@ class GUI:
         # Play button click function
         if self.mouse_button == 1 and self.button1 and self.transition_time == 0:
             self.next_state = "placing"
-            self.transition_time = 30 * 15 #10 Seconds
+            self.transition_time = 30 * 10 #15 Seconds
+            self.t_time = self.transition_time
             self.loading_bar = 0
             self.bar_direction = 0
 
@@ -252,12 +257,14 @@ class GUI:
             self.transition_time == 0 and len(self.current_lengths) == 0):
             self.next_state = "shoot menu"
             self.transition_time = 30 * 4 #4 Seconds
+            self.t_time = self.transition_time
             self.loading_bar = 0
             self.bar_direction = 0
 
             self.ai_timer = settings.ai_processing_time
 
             self.game.placeAiFish()
+            self.ai_fish_preview = False
 
 
         # Exit button
@@ -270,6 +277,7 @@ class GUI:
         if self.mouse_button == 1 and self.button2 and self.transition_time == 0:
             self.next_state = "main menu"
             self.transition_time = 30 * 7 #7 Seconds
+            self.t_time = self.transition_time
             self.loading_bar = 0
             self.bar_direction = -1
 
@@ -345,6 +353,7 @@ class GUI:
         if self.mouse_button == 1 and self.button2 and self.transition_time == 0:
             self.next_state = "main menu"
             self.transition_time = 30 * 7 #7 Seconds
+            self.t_time = self.transition_time
             self.loading_bar = 0
             self.bar_direction = -1
         
@@ -367,6 +376,7 @@ class GUI:
         if self.mouse_button == 1 and self.button1 and self.transition_time == 0:
             self.next_state = "main menu"
             self.transition_time = 30 * 7 #7 Seconds
+            self.t_time = self.transition_time
             self.loading_bar = 0
             self.bar_direction = -1
 

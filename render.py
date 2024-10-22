@@ -246,10 +246,10 @@ def render_fish(display, offsetX, offsetY, fish_list, preview):
             display.blit(fish_texture, position)
 
 
-def transition(display, transition_time, loading_bar, bar_direction):
-    if transition_time > 180:
+def transition(display, transition_time, loading_bar, bar_direction,t_time):
+    if transition_time > (t_time-30):
         overlay = pygame.Surface((1600, 900))
-        overlay.set_alpha(255 / 30 * (30 - (transition_time - 180)))
+        overlay.set_alpha(255 / 30 * (t_time-transition_time))
         overlay.fill((15, 48, 66))
 
         display.blit(overlay, (0, 0))
@@ -262,12 +262,34 @@ def transition(display, transition_time, loading_bar, bar_direction):
             5
         )
         if bar_direction == 0:
+            if 1090 / 650 * loading_bar + 800 - 290 >= 1600:
+                pygame.draw.rect(
+                    display, "#aecfe3",
+                    pygame.Rect(0, 450 - 10,
+                    (1090 / 650 * loading_bar) - 1090,
+                    20)
+                )
+            if 1090 / 650 * loading_bar + 800 - 290-1090 >= 510:
+                pygame.draw.rect(
+                    display, "#aecfe3",
+                    pygame.Rect(490, 450 - 10,20,
+                    (1090 / 650 * loading_bar) - 1090-510)
+                )
+                if ((1090 / 650 * loading_bar) - 1090-510>900):
+                    pygame.draw.rect(
+                    display, "#aecfe3",
+                    pygame.Rect(900, 0,20,
+                    min((1090 / 650 * loading_bar) - 1090-510-900,450))
+                )
+                
+
             pygame.draw.rect(
                 display, "#aecfe3",
                 pygame.Rect(800 - 290, 450 - 10,
                 1090 / 650 * loading_bar,
                 20)
             )
+        #rect(x-mitte - x-offset, y-Mitte - Y-Offset, Länge-x, länge-Y)
         else:
             pygame.draw.rect(
                 display, "#aecfe3",
@@ -275,13 +297,20 @@ def transition(display, transition_time, loading_bar, bar_direction):
                 1090 - 1090 / 650 * loading_bar,
                 20)
             )
+            if (1090 - 1090 / 650 * loading_bar) <= 0:
+                pygame.draw.rect(
+                display, "#aecfe3",
+                pygame.Rect(800 - 290+1090 - 1090 / 650 * loading_bar, 450 - 10,
+                -(1090 - 1090 / 650 * loading_bar),
+                20)
+                )
+           # 1600x900
 
         loading_text = "Angel Fische"
-        if 100 > loading_bar > 50: loading_text = "Starte Atomreaktor"
-        if 200 > loading_bar > 100: loading_text = "Rotte Wale aus"
-        if 350 > loading_bar > 200: loading_text = "Trainiere KI"
-        if 500 > loading_bar > 350: loading_text = "Rotte Wale aus"
-        if loading_bar > 500: loading_text = "Kompiliere Shader"
+        if 400 > loading_bar > 200: loading_text = "Rotte Wale aus"
+        if 600 > loading_bar > 400: loading_text = "Starte Atomreaktor"
+        if 800 > loading_bar > 600: loading_text = "Trainiere KI"
+        if loading_bar > 800: loading_text = "Kompiliere Shader"
 
         if bar_direction == -1: loading_text = "Entlade Shader"
 
