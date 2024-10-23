@@ -1,15 +1,13 @@
-#______________             ______                                       
-#___  ____/__(_)_______________  /______________                         
-#__  /_   __  /__  ___/  ___/_  __ \  _ \_  ___/                         
-#_  __/   _  / _(__  )/ /__ _  / / /  __/  /                             
-#/_/      /_/  /____/ \___/ /_/ /_/\___//_/                              
-#                                                                        
-#___    __                        ______             ______              
-#__ |  / /___________________________  /________________  /_____________ 
-#__ | / /_  _ \_  ___/_  ___/  ___/_  __ \  _ \_  __ \_  //_/  _ \_  __ \
-#__ |/ / /  __/  /   _(__  )/ /__ _  / / /  __/  / / /  ,<  /  __/  / / /
-#_____/  \___//_/    /____/ \___/ /_/ /_/\___//_/ /_//_/|_| \___//_/ /_/ 
-#
-#Fischer Verschenken is a small python / pygame programm trying to replicate Battleship.
-#It's a German Projekt, with some Puns and with a (currently not working) computer enemy.
-#
+ _____ _          _                            
+|  ___(_)___  ___| |__   ___                   
+| |_  | / __|/ __| '_ \ / _ \                  
+|  _| | \__ \ (__| | | |  __/                  
+|_|   |_|___/\___|_| |_|\___|   _              
+\ \   / /__ _ __ ___  ___ _ __ | | _____ _ __  
+ \ \ / / _ \ '__/ __|/ _ \ '_ \| |/ / _ \ '_ \ 
+  \ V /  __/ |  \__ \  __/ | | |   <  __/ | | |
+   \_/ \___|_|  |___/\___|_| |_|_|\_\___|_| |_|
+
+Fische Versenken is a small python/pygame programm trying to replicate Battleship.
+It's a German Projekt, with some Puns and with a (currently not working) computer enemy.
+
