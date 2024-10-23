@@ -2,6 +2,8 @@ import pygame
 import game
 from classFish import Fish 
 
+import ai_model
+
 pygame.init()
 
 import settings
@@ -31,6 +33,9 @@ class GUI:
         self.field_y = 0
         self.current_fish_selected = 2
         self.current_rotation = 1
+
+        self.ai_win = 0
+        self.player_win = 0
 
         self.current_lengths = settings.fish_lengths.copy()
         self.ai_fish_preview = False
@@ -110,7 +115,9 @@ class GUI:
                     self.ai_timer -= 1
                     
                     if self.ai_timer == int(settings.ai_processing_time * 0.35):
-                        self.game.aiShoot()
+                        success = self.game.aiShoot()
+                        if success > 0:
+                            self.ai_timer = settings.ai_processing_time - 1
 
                     if self.ai_timer < 1:
                         self.ai_timer = settings.ai_processing_time
@@ -178,6 +185,7 @@ class GUI:
                 self.transition_time -= 1
 
                 # Skip
+                if settings.ai_mode: self.transition_time = 0
                 if self.key == " ": self.transition_time = 0
 
                 if self.transition_time < (self.t_time-30): # Speedup the progress bar
@@ -224,6 +232,12 @@ class GUI:
         else:
             self.button1 = False
         
+        # AI testing
+        if settings.ai_mode:
+            if self.transition_time == 0:
+                self.button1 = True
+                self.mouse_button = 1
+        
         # Play button click function
         if self.mouse_button == 1 and self.button1 and self.transition_time == 0:
             self.next_state = "placing"
@@ -233,6 +247,8 @@ class GUI:
             self.bar_direction = 0
 
             self.game.reset()
+            ai_model.resetAI()
+            self.last_ai_shot = 0
             self.current_fish_selected = 2
             self.current_rotation = 1
             self.current_lengths = settings.fish_lengths.copy().copy()
@@ -256,6 +272,13 @@ class GUI:
         else:
             self.button1 = False
         
+        # AI testing
+        if settings.ai_mode:
+            if self.transition_time == 0:
+                self.current_lengths = []
+                self.button1 = True
+                self.mouse_button = 1
+        
         # Start fight button click function
         if (self.mouse_button == 1 and self.button1 and
             self.transition_time == 0 and len(self.current_lengths) == 0):
@@ -264,6 +287,9 @@ class GUI:
             self.t_time = self.transition_time
             self.loading_bar = 0
             self.bar_direction = 0
+            if settings.ai_mode:
+                from aiPlace import aiPlace
+                aiPlace(self.game.player1)
 
             self.ai_timer = settings.ai_processing_time
 
@@ -368,6 +394,18 @@ class GUI:
             if self.is_in_rect(self.mouse_pos, (887, 285), (500, 500)) and self.transition_time == 0:
                 success = self.game.playerShoot((self.field_x, self.field_y))
                 if success != False:
+                    if success == "miss":
+                        self.ai_timer -= 1
+
+        # AI testing
+        if settings.ai_mode:
+            if self.ai_timer == settings.ai_processing_time and self.transition_time == 0:
+                position = ai_model.shootAI(self.last_ai_shot)
+                success = self.game.playerShoot(position)
+                if success == "hit": self.last_ai_shot = 1
+                elif success == "sunk": self.last_ai_shot = 2
+                else:
+                    self.last_ai_shot = 0
                     self.ai_timer -= 1
     
 
@@ -377,6 +415,19 @@ class GUI:
             self.button1 = True
         else:
             self.button1 = False
+
+        # AI testing
+        if settings.ai_mode:
+            if self.transition_time == 0:
+                self.button1 = True
+                self.mouse_button = 1
+                if self.whoWon == "player":
+                    self.player_win += 1
+                else:
+                    self.ai_win += 1
+                print("--------")
+                print(f"AI Testing Model: {self.player_win}")
+                print(f"AI Enemy: {self.ai_win}")
         
         # Play button click function
         if self.mouse_button == 1 and self.button1 and self.transition_time == 0:

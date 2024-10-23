@@ -39,7 +39,7 @@ def parallelFish(response):
         for x in range(-1,1,2):
             [each for each in shotLines.lines[baseLine][2]]
 
-        
+
     if response == 2:
         pass
     

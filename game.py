@@ -1,6 +1,7 @@
 from place import place
 from shoot import shoot
 from aiPlace import aiPlace
+import kilian_ai
 from ai import aiAim
 from detectWin import detectWin
 
@@ -83,6 +84,7 @@ class Game:
         self.player1 = Player()
         self.ai = Player()
         self.ai_last_shot = 0
+        kilian_ai.resetAI()
 
     
     def playerShoot(self, posXY):
@@ -90,12 +92,14 @@ class Game:
     
 
     def aiShoot(self):
-        coords = aiAim(self.ai_last_shot)
+        #coords = aiAim(self.ai_last_shot)
+        coords = kilian_ai.shootAI(self.ai_last_shot)
         response = shoot(self.ai, self.player1, coords)
 
         if response == "hit": self.ai_last_shot = 1
         elif response == "sunk": self.ai_last_shot = 2
         else: self.ai_last_shot = 0
+        return self.ai_last_shot
     
 
     def getSunkenFish(self, player):
@@ -123,10 +127,6 @@ class Game:
             return "ai"
         return False
 
-
-    def reset(self):
-        self.player1 = Player()
-        self.ai = Player()
 
     
 
