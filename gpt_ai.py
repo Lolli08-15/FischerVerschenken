@@ -53,16 +53,32 @@ class Gegner:
             if self.grid[x][y] == 0:  # Schieße nur auf ungetroffene Felder
                 self.grid[x][y] = 1  # Markiere das Feld als getroffen
                 return [x, y]
+    
+    def reset(self):
+        """
+        Setzt alle gespeicherten Daten zurück, um für eine neue Runde vorbereitet zu sein.
+        """
+        self.grid = [[0 for _ in range(self.grid_size)] for _ in range(self.grid_size)]  # Setze das Spielfeld zurück
+        self.last_shot = None  # Setze den letzten Schuss zurück
+        self.possible_targets.clear()  # Leere die Liste der möglichen Ziele
+
 
 # Erstelle eine Gegnerinstanz
 gegner = Gegner()
 
-# Funktion, die den Gegner aufruft
+# Funktion, die den Gegner aufruft und den nächsten Schuss bestimmt
 def shootAI(response):
     """
     Ruft die Gegner-Logik auf und gibt die nächste Schusskoordinate basierend auf der letzten Antwort zurück.
     :param response: 0 = Daneben, 1 = Treffer, 2 = Versenkt
     :return: Nächste Schusskoordinate als [x, y]
     """
-    return gegner.get_next_shot(response)
+    return tuple(gegner.get_next_shot(response))
+
+# Funktion, um den Gegner für eine neue Runde zurückzusetzen
+def resetAI():
+    """
+    Setzt den Gegner zurück, um eine neue Runde zu beginnen.
+    """
+    gegner.reset()
 
