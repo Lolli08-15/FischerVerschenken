@@ -6,6 +6,10 @@ for y in range(10):
         for x in range(10):
             freeFields.append((x, y))
 
+
+
+
+
 def resetAI():
     global freeFields, meShootHere
 
@@ -19,10 +23,10 @@ def resetAI():
             freeFields.append((x, y))
 
 
-def shootAI(theWhat):
+def shootAI(shotInformation):
     global freeFields, meShootHere
 
-    dontCare = theWhat
+    dontCare = shotInformation
 
     meShootHere = freeFields[0]
     freeFields.pop(0)
