@@ -105,22 +105,43 @@ def shootAI(response):
     if ai_state == "idle":
         attacking_direction = 0
         attacking_steps = 0
+
         good_shots = []
         for shot in free_squares:
+            free_spaces = 0
             if free_squares.count((shot[0] - 1, shot[1])) > 0:
-                good_shots.append(shot)
+                free_spaces += 1
             if free_squares.count((shot[0] + 1, shot[1])) > 0:
-                good_shots.append(shot)
+                free_spaces += 1
             if free_squares.count((shot[0], shot[1] - 1)) > 0:
-                good_shots.append(shot)
+                free_spaces += 1
             if free_squares.count((shot[0], shot[1] + 1)) > 0:
+                free_spaces += 1
+            if free_spaces > 2:
                 good_shots.append(shot)
         
         if len(good_shots) > 0:
             last_shot = random.choice(good_shots)    
         else:
-            last_shot = random.choice(free_squares)
+            good_shots = []
+            for shot in free_squares:
+                free_spaces = 0
+                if free_squares.count((shot[0] - 1, shot[1])) > 0:
+                    free_spaces += 1
+                if free_squares.count((shot[0] + 1, shot[1])) > 0:
+                    free_spaces += 1
+                if free_squares.count((shot[0], shot[1] - 1)) > 0:
+                    free_spaces += 1
+                if free_squares.count((shot[0], shot[1] + 1)) > 0:
+                    free_spaces += 1
+                if free_spaces > 3:
+                    good_shots.append(shot)
+            if len(good_shots) > 0:
+                last_shot = random.choice(good_shots) 
+            else:
+                last_shot = random.choice(free_squares)
+
         free_squares.remove(last_shot)
         shots.append(last_shot)
 
-        return last_shot
+        return last_shot 

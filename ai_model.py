@@ -52,9 +52,9 @@ def shootAI(response):
     if len(recent_hits) == 0:
         ai_state = "idle"
     
-    if response == 2:
-        recent_hits = []
-        ai_state = "idle"
+    #if response == 2:
+    #    recent_hits = []
+    #    ai_state = "idle"
     
     if ai_state == "attack":
         if response == 0:
@@ -106,7 +106,9 @@ def shootAI(response):
         attacking_direction = 0
         attacking_steps = 0
 
+        
         last_shot = random.choice(free_squares)
+
         free_squares.remove(last_shot)
         shots.append(last_shot)
 
