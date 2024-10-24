@@ -32,11 +32,16 @@ for x in range(10):
 
 gridChoice = random.choice([True, False]) # random ob das white grid ausgewählt wird
 
-if gridChoice:
-    freeGrid = whiteGrid
-else:
-    freeGrid = blackGrid
 
+toggleGridMode = False
+
+if toggleGridMode == False:
+    freeGrid = whiteGrid + blackGrid
+else:
+    if gridChoice:
+      freeGrid = whiteGrid
+    else:
+        freeGrid = blackGrid
 
 
 def shootRandom():
