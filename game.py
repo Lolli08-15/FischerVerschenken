@@ -1,9 +1,13 @@
 from place import place
 from shoot import shoot
 from aiPlace import aiPlace
-import kilian_ai
-from ai import aiAim
 from detectWin import detectWin
+
+import settings
+
+import gpt_ai
+import kilian_ai
+import kilian_ai_hard
 
 
 
@@ -59,13 +63,7 @@ class Game:
 
 
     def placeAiFish(self):
-        # TO DO
         aiPlace(self.ai)
-        #place(self.ai, (0, 0), 1, 2)
-        #place(self.ai, (0, 1), 1, 3)
-        #place(self.ai, (0, 2), 1, 3)
-        #place(self.ai, (0, 3), 1, 4)
-        #place(self.ai, (0, 4), 1, 5)
     
 
     def removeFish(self, posXY):
@@ -84,7 +82,12 @@ class Game:
         self.player1 = Player()
         self.ai = Player()
         self.ai_last_shot = 0
-        kilian_ai.resetAI()
+        if settings.selected_ai == 0:
+            gpt_ai.resetAI()
+        if settings.selected_ai == 1:
+            kilian_ai.resetAI()
+        if settings.selected_ai == 2:
+            kilian_ai_hard.resetAI()
 
     
     def playerShoot(self, posXY):
@@ -92,8 +95,14 @@ class Game:
     
 
     def aiShoot(self):
-        #coords = aiAim(self.ai_last_shot)
-        coords = kilian_ai.shootAI(self.ai_last_shot)
+        coords = (0, 0)
+        if settings.selected_ai == 0:
+            coords = gpt_ai.shootAI(self.ai_last_shot)
+        if settings.selected_ai == 1:
+            coords = kilian_ai.shootAI(self.ai_last_shot)
+        if settings.selected_ai == 2:
+            coords = kilian_ai_hard.shootAI(self.ai_last_shot)
+        
         response = shoot(self.ai, self.player1, coords)
 
         if response == "hit": self.ai_last_shot = 1
