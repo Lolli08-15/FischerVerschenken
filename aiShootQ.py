@@ -161,7 +161,6 @@ def shootAllWay():
 
             
         elif offset == 2: # wenn nach unten offset ist
-            print("DOWN")
 
             if lastHits[shotCount][1] + 1 > 9: # wenn der offset versuch außerhalb des spielfeldes liegt, lösche ihn aus dem offset
                 possibleDirections.remove(2) # lösche ihn aus dem offset
@@ -230,7 +229,6 @@ def shootLine():
 
 
     while shotCount > 0: # wieerhole für die anzahl der hits
-        print("-------------")
         possibleDirections = [1, 2, 3, 4]
 
         shotCount -= 1 # gehe ein feld zurück
@@ -280,5 +278,5 @@ def shootAI(shotData):
     if shotData == 0 & len(lastHits) == 0:
         return shootRandom()
 
-    print("something is wrong, i can feel it")
+    print("Something is wrong, I can feel it...")
     return "error"

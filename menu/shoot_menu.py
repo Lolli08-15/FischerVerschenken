@@ -98,12 +98,14 @@ def shoot_menu(main):
     # Render sunk fish count for enemy field
     render_fish_count(main.display,
         887, 785,
-        main.game.getSunkenFish("player1")
+        main.game.getSunkenFish("player1"),
+        main.fish_preset
         )
     # And for the player
     render_fish_count(main.display,
         210, 785,
-        main.game.getSunkenFish("ai")
+        main.game.getSunkenFish("ai"),
+        main.fish_preset
         )
     
     whoWon = main.game.detectWin()
@@ -176,13 +178,13 @@ def render_shots(display, offsetX, offsetY, shot_list):
             display.blit(shot_hit, position)
 
 
-def render_fish_count(display, offsetX, offsetY, count):
-    for i in range(1, 6):
+def render_fish_count(display, offsetX, offsetY, count, preset):
+    for i in range(1, len(settings.get_fish_preset(preset)) + 1):
         position = (
             (i - 1) * 50 + offsetX,
             offsetY
         )
-        if i > 5 - count:
+        if i > len(settings.get_fish_preset(preset)) - count:
             display.blit(fish_count_off, position)
         else:
             display.blit(fish_count_on, position)

@@ -2,8 +2,9 @@ import settings
 import random
 from place import place
 
-def aiPlace(ai):
-    for x in settings.fish_lengths: # wiederhole für die anzahl der verschiedenen fische
+def aiPlace(ai, preset):
+    fish_lengths = settings.get_fish_preset(preset)
+    for x in fish_lengths: # wiederhole für die anzahl der verschiedenen fische
 
         canPlace = False
         while canPlace == False: # wiederhole bis ein fisch plaziert werden kann

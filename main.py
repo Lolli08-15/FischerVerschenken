@@ -3,10 +3,11 @@ import game
 
 
 pygame.init()
-
+ 
 import settings
 
 from menu.main_menu import main_menu
+from menu.settings_menu import settings_menu
 from menu.place_menu import place_menu
 from menu.shoot_menu import shoot_menu
 from menu.end_menu import end_menu
@@ -37,10 +38,20 @@ class GUI:
         self.current_fish_selected = 2
         self.current_rotation = 1
 
+        self.fish_preset = 0
+
+        # 0 = dum
+        # 1 = chatgpt
+        # 2 = bjarne
+        # 3 = kilian unsort ed, optimized
+        # 4 = impossible
+        self.selected_ai = 2
+
+
         self.ai_win = 0
         self.player_win = 0
 
-        self.current_lengths = settings.fish_lengths.copy()
+        self.current_lengths = settings.get_fish_preset(self.fish_preset)
         self.ai_fish_preview = False
 
 
@@ -83,11 +94,16 @@ class GUI:
             # "Hovering over a button" variables reset back to False
             self.button1 = False
             self.button2 = False
+            self.button3 = False
             self.mouse_in_field = False
 
             if self.state == "main menu":
                 main_menu(self)
             
+
+            if self.state == "settings menu":
+                settings_menu(self)
+
 
             if self.state == "placing":
                 place_menu(self)
@@ -106,7 +122,8 @@ class GUI:
 
 
             pygame.display.flip()
-            self.clock.tick(30)
+            if not settings.ai_mode:
+                self.clock.tick(30)
     
 
     def handle_events(self):
