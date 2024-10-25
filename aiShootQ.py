@@ -243,7 +243,6 @@ def shootLine():
 
         if lineTry[0] != 100:
             break
-        print(f"shotcount:{shotCount}")
 
     if lineTry[0] == 100:
         return shootRandom()
@@ -262,7 +261,6 @@ def shootAI(shotData):
         print(hitFields)
 
     if shotData == 2: # wenn der letzte schuss versenkt hat,
-        print("wuhuu sunk") # dann kehre zum zufälligen schießen zurück
         lastHits.append(shotFields[-1].copy()) # trage zuletzt geschossenes feld in letzte hits ein
         hitFields.append(lastHits[-1].copy()) # setzte letzen treffer auf treffer liste
         lastHits.clear() # lösche letzt getroffene hits
