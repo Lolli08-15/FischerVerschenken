@@ -23,17 +23,19 @@ def main_menu(main):
     # Play button click function
     if main.mouse_button == 1 and main.button1 and main.transition_time == 0:
         main.next_state = "placing"
-        main.transition_time = 30 * 10 #15 Seconds
+        main.transition_time = 30 * 10 #10 Seconds
         main.t_time = main.transition_time
         main.loading_bar = 0
         main.bar_direction = 0
 
+        main.game.setAI(main.selected_ai)
+
         main.game.reset()
         ai_model.resetAI()
         main.last_ai_shot = 0
-        main.current_fish_selected = 2
         main.current_rotation = 1
-        main.current_lengths = settings.fish_lengths.copy().copy()
+        main.current_lengths = settings.get_fish_preset(main.fish_preset)
+        main.current_fish_selected = main.current_lengths[0]
 
 
     # Exit button
@@ -46,15 +48,28 @@ def main_menu(main):
     if main.mouse_button == 1 and main.button2 and main.transition_time == 0:
         main.running = False
     
+    # Settings button
+    if main.mouse_pos[0] < 170 and main.mouse_pos[1] > 858:
+        main.button3 = True
+    else:
+        main.button3 = False
+    
+    # Settings button click function
+    if main.mouse_button == 1 and main.button3 and main.transition_time == 0:
+        main.next_state = "settings menu"
+        main.transition_time = 30 * 3 #3 Seconds
+        main.t_time = main.transition_time
+        main.loading_bar = 0
+        main.bar_direction = 0
+    
 
-    render_mainmenu(main.display, main.button1, main.button2)
+    render_mainmenu(main.display, main.button1, main.button2, main.button3)
 
 
-def render_mainmenu(display, button1, button2):
+def render_mainmenu(display, button1, button2, button3):
     display.blit(main_menu_background, (0, 0))
     
     # Play button
-    # 744, 410 - 855, 489
     text_color = "#69c7bf"
     if button1: text_color = "#c4e5e9"
     text_texture = main_menu_font.render("Start", True, text_color)
@@ -67,7 +82,6 @@ def render_mainmenu(display, button1, button2):
     )
 
     # Exit button
-    # 735, 410 - 864, 489
     text_color = "#5e88ae"
     if button2: text_color = "#96c1f2"
     text_texture = exit_button_font.render("Piss dich", True, text_color)
@@ -75,6 +89,20 @@ def render_mainmenu(display, button1, button2):
         text_texture,
         (
             1472,
+            858
+        )
+    )
+
+
+    # Exit button
+    # 735, 410 - 864, 489
+    text_color = "#5e88ae"
+    if button3: text_color = "#96c1f2"
+    text_texture = exit_button_font.render("Ausstellung", True, text_color)
+    display.blit(
+        text_texture,
+        (
+            10,
             858
         )
     )

@@ -36,11 +36,11 @@ def place_menu(main):
         main.bar_direction = 0
         if settings.ai_mode:
             from aiPlace import aiPlace
-            aiPlace(main.game.player1)
+            aiPlace(main.game.player1, main.fish_preset)
 
         main.ai_timer = settings.ai_processing_time
 
-        main.game.placeAiFish()
+        main.game.placeAiFish(main.fish_preset)
         main.ai_fish_preview = False
 
 
