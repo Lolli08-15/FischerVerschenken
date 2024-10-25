@@ -5,9 +5,11 @@ from detectWin import detectWin
 
 import settings
 
+import dum_ai
 import gpt_ai
-import kilian_ai
+import aiShootQ
 import kilian_ai_hard
+import impossible_ai
 
 
 
@@ -58,12 +60,12 @@ class Game:
         return False
     
 
-    def placeFish(self,posXY,direction,length):
-        return place(self.player1,posXY,direction,length)
+    def placeFish(self, posXY, direction, length):
+        return place(self.player1, posXY, direction, length)
 
 
-    def placeAiFish(self):
-        aiPlace(self.ai)
+    def placeAiFish(self, preset):
+        aiPlace(self.ai, preset)
     
 
     def removeFish(self, posXY):
@@ -82,12 +84,17 @@ class Game:
         self.player1 = Player()
         self.ai = Player()
         self.ai_last_shot = 0
-        if settings.selected_ai == 0:
+
+        if self.selected_ai == 0:
+            dum_ai.resetAI()
+        if self.selected_ai == 1:
             gpt_ai.resetAI()
-        if settings.selected_ai == 1:
-            kilian_ai.resetAI()
-        if settings.selected_ai == 2:
+        if self.selected_ai == 2:
+            aiShootQ.resetAI()
+        if self.selected_ai == 3:
             kilian_ai_hard.resetAI()
+        if self.selected_ai == 4:
+            impossible_ai.resetAI()
 
     
     def playerShoot(self, posXY):
@@ -96,12 +103,17 @@ class Game:
 
     def aiShoot(self):
         coords = (0, 0)
-        if settings.selected_ai == 0:
+        
+        if self.selected_ai == 0:
+            coords = dum_ai.shootAI(self.ai_last_shot)
+        if self.selected_ai == 1:
             coords = gpt_ai.shootAI(self.ai_last_shot)
-        if settings.selected_ai == 1:
-            coords = kilian_ai.shootAI(self.ai_last_shot)
-        if settings.selected_ai == 2:
+        if self.selected_ai == 2:
+            coords = aiShootQ.shootAI(self.ai_last_shot)
+        if self.selected_ai == 3:
             coords = kilian_ai_hard.shootAI(self.ai_last_shot)
+        if self.selected_ai == 4:
+            coords = impossible_ai.shootAI(self.player1)
         
         response = shoot(self.ai, self.player1, coords)
 
@@ -135,6 +147,10 @@ class Game:
         if aiWin:
             return "ai"
         return False
+    
+
+    def setAI(self, AI):
+        self.selected_ai = AI
 
 
     

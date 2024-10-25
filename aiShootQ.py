@@ -44,7 +44,8 @@ else:
 
 
 def resetAI():
-
+    global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, tries, grid, searchMode, shotCount, gridChoice, blackGrid, whiteGrid, freeGrid
+    
     shotFields = []
     aimXY = [0, 0]
     lastHits = []
@@ -77,7 +78,7 @@ def resetAI():
 
     gridChoice = random.choice([True, False]) # random ob das white grid ausgewählt wird
 
-    toggleGridMode = False
+    toggleGridMode = True
 
     if toggleGridMode == False:
         freeGrid = whiteGrid + blackGrid
@@ -114,6 +115,7 @@ def shootRandom():
 
 def shootAllWay():
     global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, tries, grid, searchMode, shotCount
+    
 
 
     while len(possibleDirections) >= 0: # solange noch offsets möglich sind
@@ -129,9 +131,11 @@ def shootAllWay():
                     possibleDirections.remove(1) # dann lösche rechts
                 if 3 in possibleDirections:
                     possibleDirections.remove(3) # dann lösche links
+        else:
+            pass
 
-
-        offset = random.choice(possibleDirections) # setze offset richtung auf eine zufällige der 4 verbleibenden richtungen
+        if len(possibleDirections) != 0:
+            offset = random.choice(possibleDirections) # setze offset richtung auf eine zufällige der 4 verbleibenden richtungen
 
         if offset == 1: # wenn nach rechts offset ist
 
@@ -139,6 +143,8 @@ def shootAllWay():
                 possibleDirections.remove(1) # lösche ihn aus dem offset
             elif lastHits[shotCount][0] + 1 in shotFields: # wenn versuch schon vorhanden
                 possibleDirections.remove(1) # lösche ihn aus dem offset
+
+            else:
 
                 xOffset = True # stelle waagerechten offset ein
                 aimXY[0] = lastHits[shotCount][0] + 1
@@ -152,6 +158,8 @@ def shootAllWay():
             elif lastHits[shotCount][1] + 1 in shotFields: # wenn versuch schon vorhanden
                 possibleDirections.remove(2) # lösche ihn aus dem offset
 
+            else:
+
                 xOffset = False # stelle waagerechten offset aus
                 aimXY[0] = lastHits[shotCount][0]
                 aimXY[1] = lastHits[shotCount][1] + 1
@@ -164,6 +172,8 @@ def shootAllWay():
             elif lastHits[shotCount][0] - 1 in shotFields:
                 possibleDirections.remove(3) # lösche ihn aus dem offset
 
+            else:
+
                 xOffset = True # stelle waagerechten offset ein
                 aimXY[0] = lastHits[shotCount][0] - 1
                 aimXY[1] = lastHits[shotCount][1]
@@ -175,11 +185,15 @@ def shootAllWay():
             elif lastHits[shotCount][1] - 1 in shotFields:
                 possibleDirections.remove(4) # lösche ihn aus dem offset
 
+            else:
+
                 xOffset = False # stelle waagerechten offset aus
                 aimXY[0] = lastHits[shotCount][0]
                 aimXY[1] = lastHits[shotCount][1] - 1
                 
 
+        else:
+            pass
 
         if aimXY not in shotFields:
             break
@@ -188,10 +202,7 @@ def shootAllWay():
                 possibleDirections.remove(offset) # lösche ihn aus dem offset
 
         if len(possibleDirections) == 0:
-
             return (100, 100)
-
-
 
     shotFields.append(aimXY.copy()) # setzte aim XY auf geschossene Felder
     tuple_aimXY = (aimXY[0], aimXY[1]) # wandele aimXY liste in tuple um
@@ -203,12 +214,9 @@ def shootAllWay():
 def shootLine():
     global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, tries, grid, searchMode, shotCount
 
-    print(xOffset)
-
     shotCount = len(lastHits) # setze 
 
     while shotCount > 0: # wieerhole für die anzahl der hits
-        print("-------------")
         possibleDirections = [1, 2, 3, 4]
 
         shotCount -= 1 # gehe ein feld zurück
@@ -217,6 +225,8 @@ def shootLine():
 
         if lineTry[0] != 100:
             break
+        else:
+            pass
 
     if lineTry[0] == 100:
         return shootRandom()
@@ -230,6 +240,7 @@ def shootLine():
 
 def shootAI(shotData):
     global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, tries, grid, searchMode, shotCount
+
 
     if shotData == 2: # wenn der letzte schuss versenkt hat,
         lastHits.clear() # lösche letzt getroffene hits
@@ -248,4 +259,6 @@ def shootAI(shotData):
 
     if shotData == 0 & len(lastHits) == 0:
         return shootRandom()
+
+    print("Something is wrong, I can feel it...")
     return "error"
