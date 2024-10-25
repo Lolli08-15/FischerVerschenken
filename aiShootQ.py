@@ -117,7 +117,7 @@ def shootRandom():
 
 
     if cleanMode == True:
-        lastHits = hitFields
+        lastHits = hitFields.copy()
         return shootLine()
 
     possibleDirections = [1, 2, 3, 4]
@@ -128,6 +128,8 @@ def shootRandom():
 
 def shootAllWay():
     global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, tries, grid, searchMode, shotCount, cleanMode, hitFields, cleanShotCount
+    
+
 
     while len(possibleDirections) >= 0: # solange noch offsets möglich sind
 
@@ -142,6 +144,8 @@ def shootAllWay():
                     possibleDirections.remove(1) # dann lösche rechts
                 if 3 in possibleDirections:
                     possibleDirections.remove(3) # dann lösche links
+        else:
+            pass
 
         if len(possibleDirections) != 0:
             offset = random.choice(possibleDirections) # setze offset richtung auf eine zufällige der 4 verbleibenden richtungen
@@ -209,7 +213,6 @@ def shootAllWay():
                 possibleDirections.remove(offset) # lösche ihn aus dem offset
 
         if len(possibleDirections) == 0:
-
             return (100, 100)
 
 
@@ -224,16 +227,17 @@ def shootAllWay():
 def shootLine():
     global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, tries, grid, searchMode, shotCount, cleanMode, hitFields, cleanShotCount
 
+    print(xOffset)
 
     shotCount = len(lastHits)
+
+
 
 
     while shotCount > 0: # wieerhole für die anzahl der hits
         possibleDirections = [1, 2, 3, 4]
 
         shotCount -= 1 # gehe ein feld zurück
-
-        lineTry = (100, 100)
 
         lineTry = shootAllWay() # führe ein 2 way auf feld x aus
 
@@ -254,6 +258,8 @@ def shootLine():
 def shootAI(shotData):
     global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, tries, grid, searchMode, shotCount, cleanMode, hitFields, cleanShotCount
 
+    if len(hitFields) > 0:
+        print(hitFields)
 
     if shotData == 2: # wenn der letzte schuss versenkt hat,
         print("wuhuu sunk") # dann kehre zum zufälligen schießen zurück
@@ -277,6 +283,4 @@ def shootAI(shotData):
 
     if shotData == 0 & len(lastHits) == 0:
         return shootRandom()
-
-    print("Something is wrong, I can feel it...")
     return "error"
