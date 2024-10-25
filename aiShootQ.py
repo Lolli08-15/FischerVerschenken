@@ -32,16 +32,61 @@ for x in range(10):
 
 gridChoice = random.choice([True, False]) # random ob das white grid ausgewählt wird
 
-
 toggleGridMode = False
 
 if toggleGridMode == False:
     freeGrid = whiteGrid + blackGrid
 else:
     if gridChoice:
-      freeGrid = whiteGrid
+        freeGrid = whiteGrid
     else:
         freeGrid = blackGrid
+
+
+def resetAI():
+
+    shotFields = []
+    aimXY = [0, 0]
+    lastHits = []
+    offset = int
+    xOffset = True
+    tuple_aimXY = tuple()
+    possibleDirections = [1, 2, 3, 4]
+    tries = 0
+    grid = random.random
+    searchMode = False
+    shotCount = 0
+    allWayFailed = False
+    whiteGrid = []
+    blackGrid = []
+    freeGrid = []
+    gridChoice = bool
+
+    for x in range(10):
+        for y in range(10):
+            if y % 2 == 0:
+                if x % 2 == 1:
+                    whiteGrid.append((x, y))
+                else:
+                    blackGrid.append((x, y))
+            else:
+                if x % 2 == 0:
+                    whiteGrid.append((x, y))
+                else:
+                    blackGrid.append((x, y))
+
+    gridChoice = random.choice([True, False]) # random ob das white grid ausgewählt wird
+
+    toggleGridMode = False
+
+    if toggleGridMode == False:
+        freeGrid = whiteGrid + blackGrid
+    else:
+        if gridChoice:
+            freeGrid = whiteGrid
+        else:
+            freeGrid = blackGrid
+
 
 
 def shootRandom():
@@ -53,6 +98,7 @@ def shootRandom():
             freeGrid = blackGrid
         else:
             freeGrid = whiteGrid
+
 
     pickedField = random.choice(freeGrid)
     freeGrid.remove(pickedField)
@@ -69,6 +115,7 @@ def shootRandom():
 def shootAllWay():
     global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, tries, grid, searchMode, shotCount
 
+
     while len(possibleDirections) >= 0: # solange noch offsets möglich sind
 
         if len(lastHits) >= 2: # wenn line mode aktiv ist,
@@ -83,6 +130,7 @@ def shootAllWay():
                 if 3 in possibleDirections:
                     possibleDirections.remove(3) # dann lösche links
 
+
         offset = random.choice(possibleDirections) # setze offset richtung auf eine zufällige der 4 verbleibenden richtungen
 
         if offset == 1: # wenn nach rechts offset ist
@@ -95,6 +143,7 @@ def shootAllWay():
                 xOffset = True # stelle waagerechten offset ein
                 aimXY[0] = lastHits[shotCount][0] + 1
                 aimXY[1] = lastHits[shotCount][1]
+
             
         elif offset == 2: # wenn nach unten offset ist
 
@@ -107,6 +156,7 @@ def shootAllWay():
                 aimXY[0] = lastHits[shotCount][0]
                 aimXY[1] = lastHits[shotCount][1] + 1
 
+
         elif offset == 3: # wenn nach links offset ist
 
             if lastHits[shotCount][0] - 1 < 0: # wenn der offset versuch außerhalb des spielfeldes liegt, lösche ihn aus dem offset und versuch es erneut
@@ -118,7 +168,7 @@ def shootAllWay():
                 aimXY[0] = lastHits[shotCount][0] - 1
                 aimXY[1] = lastHits[shotCount][1]
 
-        elif offset == 4: # wenn nach oben offset is
+        elif offset == 4: # wenn nach oben offset ist
 
             if lastHits[shotCount][1] - 1 < 0: # wenn der offset versuch außerhalb des spielfeldes liegt, lösche ihn aus dem offset
                 possibleDirections.remove(4) # lösche ihn aus dem offset
@@ -129,13 +179,18 @@ def shootAllWay():
                 aimXY[0] = lastHits[shotCount][0]
                 aimXY[1] = lastHits[shotCount][1] - 1
                 
+
+
         if aimXY not in shotFields:
             break
         else:
-            possibleDirections.remove(offset) # lösche ihn aus dem offset
+            if offset in possibleDirections:
+                possibleDirections.remove(offset) # lösche ihn aus dem offset
 
         if len(possibleDirections) == 0:
-            return False
+
+            return (100, 100)
+
 
 
     shotFields.append(aimXY.copy()) # setzte aim XY auf geschossene Felder
@@ -144,32 +199,36 @@ def shootAllWay():
         freeGrid.remove(tuple_aimXY)
     return tuple_aimXY # gebe den schuss zurück    
 
+
 def shootLine():
     global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, tries, grid, searchMode, shotCount
+
+    print(xOffset)
 
     shotCount = len(lastHits) # setze 
 
     while shotCount > 0: # wieerhole für die anzahl der hits
+        print("-------------")
         possibleDirections = [1, 2, 3, 4]
 
         shotCount -= 1 # gehe ein feld zurück
 
         lineTry = shootAllWay() # führe ein 2 way auf feld x aus
 
-        if lineTry != False:
+        if lineTry[0] != 100:
             break
 
-    if lineTry == False:
+    if lineTry[0] == 100:
         return shootRandom()
 
     return lineTry
 
 
 
+
     # START -----------------------------------------------------------------------------------------
 
-
-def aiAimQ(shotData):
+def shootAI(shotData):
     global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, tries, grid, searchMode, shotCount
 
     if shotData == 2: # wenn der letzte schuss versenkt hat,
