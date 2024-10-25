@@ -3,7 +3,7 @@ import game
 
 
 pygame.init()
-
+ 
 import settings
 
 from menu.main_menu import main_menu
