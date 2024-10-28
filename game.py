@@ -3,10 +3,9 @@ from shoot import shoot
 from aiPlace import aiPlace
 from detectWin import detectWin
 
-import settings
-
 import dum_ai
 import gpt_ai
+import kilian_ai
 import aiShootQ
 import kilian_ai_hard
 import impossible_ai
@@ -90,10 +89,12 @@ class Game:
         if self.selected_ai == 1:
             gpt_ai.resetAI()
         if self.selected_ai == 2:
-            aiShootQ.resetAI()
+            kilian_ai.resetAI()
         if self.selected_ai == 3:
-            kilian_ai_hard.resetAI()
+            aiShootQ.resetAI()
         if self.selected_ai == 4:
+            kilian_ai_hard.resetAI()
+        if self.selected_ai == 5:
             impossible_ai.resetAI()
 
     
@@ -109,10 +110,12 @@ class Game:
         if self.selected_ai == 1:
             coords = gpt_ai.shootAI(self.ai_last_shot)
         if self.selected_ai == 2:
-            coords = aiShootQ.shootAI(self.ai_last_shot)
+            coords = kilian_ai.shootAI(self.ai_last_shot)
         if self.selected_ai == 3:
-            coords = kilian_ai_hard.shootAI(self.ai_last_shot)
+            coords = aiShootQ.shootAI(self.ai_last_shot)
         if self.selected_ai == 4:
+            coords = kilian_ai_hard.shootAI(self.ai_last_shot)
+        if self.selected_ai == 5:
             coords = impossible_ai.shootAI(self.player1)
         
         response = shoot(self.ai, self.player1, coords)
@@ -181,4 +184,3 @@ if __name__ == "__main__":
 9   0 # 0 0 0 0 0 0 0 0
 
 """
-        

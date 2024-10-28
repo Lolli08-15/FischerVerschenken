@@ -3,7 +3,7 @@ import game
 
 
 pygame.init()
- 
+
 import settings
 
 from menu.main_menu import main_menu
@@ -99,7 +99,7 @@ class GUI:
 
             if self.state == "main menu":
                 main_menu(self)
-            
+
 
             if self.state == "settings menu":
                 settings_menu(self)
