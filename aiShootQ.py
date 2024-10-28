@@ -227,8 +227,6 @@ def shootAllWay():
 def shootLine():
     global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, tries, grid, searchMode, shotCount, cleanMode, hitFields, cleanShotCount
 
-    print(xOffset)
-
     shotCount = len(lastHits)
 
 
@@ -256,9 +254,6 @@ def shootLine():
 
 def shootAI(shotData):
     global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, tries, grid, searchMode, shotCount, cleanMode, hitFields, cleanShotCount
-
-    if len(hitFields) > 0:
-        print(hitFields)
 
     if shotData == 2: # wenn der letzte schuss versenkt hat,
         lastHits.append(shotFields[-1].copy()) # trage zuletzt geschossenes feld in letzte hits ein

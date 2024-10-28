@@ -70,7 +70,6 @@ def shoot_menu(main):
     
     # Preview AI fishes
     if main.key == "m": main.ai_fish_preview = not main.ai_fish_preview
-    if main.key == "n": main.game.ai.fishes[0].hits += 1000
 
     render_shoot_menu(main.display, main.field_x, main.field_y,
         main.button2, main.ai_timer, main.transition_time,
