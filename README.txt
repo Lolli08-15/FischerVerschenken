@@ -9,5 +9,5 @@
    \_/ \___|_|  |___/\___|_| |_|_|\_\___|_| |_|
 
 Fische Versenken is a small python/pygame programm trying to replicate Battleship.
-It's a German Projekt, with some Puns and with a (currently not working) computer enemy.
+It's a German Projekt, with some Puns and with a computer enemy.
 
