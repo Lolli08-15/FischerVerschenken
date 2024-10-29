@@ -1,10 +1,9 @@
 import pygame
 import game
-
+import random
+import settings
 
 pygame.init()
-
-import settings
 
 from menu.main_menu import main_menu
 from menu.settings_menu import settings_menu
@@ -14,10 +13,12 @@ from menu.end_menu import end_menu
 
 from menu.transition import transition
 
+from menu.splash import splashTxt
+
 
 class GUI:
     def __init__(self, width, height) -> None:
-        # Initializinh attributes
+        # Initializing attributes
         self.width = width
         self.height = height
 
@@ -30,6 +31,7 @@ class GUI:
         self.t_time = 0
         self.loading_bar = 0
         self.bar_direction = 0
+        self.splash_timer = 0
 
         self.ai_timer = settings.ai_processing_time
 
@@ -40,16 +42,22 @@ class GUI:
 
         self.fish_preset = 0
 
+        # -1 = player
         # 0 = dum
         # 1 = chatgpt
         # 2 = bjarne
         # 3 = kilian unsort ed, optimized
         # 4 = impossible
         self.selected_ai = 2
+        self.selected_player = -1 # (Used for the ai testing mode)
 
-
+        # Ai testing stats
+        self.ai_mode = False
         self.ai_win = 0
         self.player_win = 0
+        self.ai_turns = 0
+        self.player_turns = 0
+        self.current_turns = 0
 
         self.current_lengths = settings.get_fish_preset(self.fish_preset)
         self.ai_fish_preview = False
@@ -65,7 +73,6 @@ class GUI:
         "placing" - The placing fish phase
         "shoot menu" - Main loop of the game. Player and enemy are shooting
         "end screen" - The game is over and someone won
-
         """
         self.state = "main menu"
 
@@ -77,14 +84,20 @@ class GUI:
         self.display = pygame.display.set_mode(
             (self.width, self.height)
         )
+        self.isFullscreen = False
 
         icon = pygame.image.load("assets\\icon.png")
 
         pygame.display.set_icon(icon)
+        self.pick_splash()
 
         self.clock = pygame.time.Clock()
 
         self.main() # Start the main loop
+    
+
+    def pick_splash(self):
+        self.current_splash = random.choice(splashTxt)
 
 
     def main(self):
@@ -95,6 +108,7 @@ class GUI:
             self.button1 = False
             self.button2 = False
             self.button3 = False
+            self.button4 = False
             self.mouse_in_field = False
 
             if self.state == "main menu":
@@ -111,18 +125,18 @@ class GUI:
 
             if self.state == "shoot menu":
                 shoot_menu(self)
-            
+
 
             if self.state == "end screen":
                 end_menu(self)
-            
+
 
             if self.transition_time > 0: # Transition animation
                 transition(self)
 
 
             pygame.display.flip()
-            if not settings.ai_mode:
+            if not self.ai_mode:
                 self.clock.tick(30)
     
 
@@ -139,6 +153,18 @@ class GUI:
                 self.mouse_pos = event.dict["pos"]
             if event.type == pygame.KEYDOWN:
                 self.key = event.dict["unicode"]
+
+
+                if event.dict["scancode"] == 68:
+                    self.isFullscreen = not self.isFullscreen
+                    if self.isFullscreen:
+                        self.display = pygame.display.set_mode(
+                            (self.width, self.height), pygame.FULLSCREEN
+                        )
+                    else:
+                        self.display = pygame.display.set_mode(
+                            (self.width, self.height)
+                        )
 
 
     def is_in_rect(self, check_pos, rect_pos, rect_size):

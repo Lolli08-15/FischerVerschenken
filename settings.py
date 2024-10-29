@@ -1,11 +1,7 @@
 width = 1600
 height = 900
 
-ai_mode = False
-
 ai_processing_time = 30 * 1.5 # 1.5 Seconds
-if ai_mode:
-    ai_processing_time = 2 # 2 Frames
 
 fish_lengths0 = [2, 3, 3, 4, 5] #Standart Array
 fish_lengths1 = [3, 3, 4, 4, 4, 4, 5, 5, 5, 5] #Fast Round
@@ -31,3 +27,13 @@ def get_fish_preset(preset):
         return fish_lengths5.copy()
     else:
         return fish_lengths6.copy()
+
+def get_ai_name(ai):
+    name = "Spieler"
+    if ai == 0: name = "Dummheit Persönlich"
+    if ai == 1: name = "Chad GPT"
+    if ai == 2: name = "Medium"
+    if ai == 3: name = "High AIQ"
+    if ai == 4: name = "Hart wie Hartmut"
+    if ai == 5: name = "Unmöglich"
+    return name

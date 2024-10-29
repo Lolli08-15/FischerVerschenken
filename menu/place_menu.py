@@ -1,5 +1,6 @@
 import settings
 import pygame
+import random
 from classFish import Fish
 from menu.show_fish import render_fish
 
@@ -20,7 +21,7 @@ def place_menu(main):
         main.button1 = False
     
     # AI testing
-    if settings.ai_mode:
+    if main.ai_mode:
         if main.transition_time == 0:
             main.current_lengths = []
             main.button1 = True
@@ -34,14 +35,22 @@ def place_menu(main):
         main.t_time = main.transition_time
         main.loading_bar = 0
         main.bar_direction = 0
-        if settings.ai_mode:
+
+        main.ai_fish_preview = False
+        
+        main.game.placeAiFish(main.fish_preset)
+        main.ai_timer = settings.ai_processing_time
+        
+        if main.ai_mode:
             from aiPlace import aiPlace
             aiPlace(main.game.player1, main.fish_preset)
+            main.ai_fish_preview = True
+            if random.choice([True, False]): # Either AI 1 or AI 2 starts the shooting
+                success = 1
+                while success > 0:
+                    success = main.game.aiShoot()
 
-        main.ai_timer = settings.ai_processing_time
 
-        main.game.placeAiFish(main.fish_preset)
-        main.ai_fish_preview = False
 
 
     # Exit button
@@ -90,7 +99,7 @@ def place_menu(main):
         if main.current_rotation > 3: main.current_rotation = 0
     
     # Placing fish
-    if main.mouse_button == 1 and main.current_fish_selected != 0:
+    if main.mouse_button == 1 and main.current_fish_selected != 0 and not main.ai_mode:
         if main.is_in_rect(main.mouse_pos, (541, 242), (500, 500)):
             success = main.game.placeFish(
                 (main.field_x, main.field_y),
@@ -114,28 +123,28 @@ def place_menu(main):
                 main.current_fish_selected = removed_fish_length
     
 
-
-    render_placing_menu(main.display, main.field_x, main.field_y,
-        main.current_lengths, main.current_fish_selected,
-        main.button1, main.button2, main.mouse_in_field)
+    if not main.ai_mode:
+        render_placing_menu(main.display, main.field_x, main.field_y,
+            main.current_lengths, main.current_fish_selected,
+            main.button1, main.button2, main.mouse_in_field)
     
-    # Preview of placing a new fish
-    if main.current_fish_selected != 0 and main.mouse_in_field:
-        preview_fish = Fish(
-            (main.field_x, main.field_y),
-            main.current_rotation,
-            main.current_fish_selected,
-            None
-        )
+        # Preview of placing a new fish
+        if main.current_fish_selected != 0 and main.mouse_in_field:
+            preview_fish = Fish(
+                (main.field_x, main.field_y),
+                main.current_rotation,
+                main.current_fish_selected,
+                None
+            )
+            render_fish(
+                main.display, 541, 242,
+                [preview_fish], True
+                )
+
+        # Render player's fishies
         render_fish(
             main.display, 541, 242,
-            [preview_fish], True
-            )
-
-    # Render player's fishies
-    render_fish(
-        main.display, 541, 242,
-        main.game.getPlayerFish("player1"), False)
+            main.game.getPlayerFish("player1"), False)
 
 
 

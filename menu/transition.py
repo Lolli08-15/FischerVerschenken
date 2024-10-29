@@ -12,13 +12,14 @@ def transition(main):
     main.transition_time -= 1
 
     # Skip
-    if settings.ai_mode: main.transition_time = 0
+    if main.ai_mode: main.transition_time = 0
     if main.key == " ": main.transition_time = 0
 
     if main.transition_time < (main.t_time-30): # Speedup the progress bar
         main.loading_bar += int((random.randrange(1, 30)) / (main.t_time/89))
     
-    render_transition(main.display, main.transition_time, main.loading_bar, main.bar_direction,main.t_time)
+    if main.transition_time > 0:
+        render_transition(main.display, main.transition_time, main.loading_bar, main.bar_direction,main.t_time)
 
     if main.transition_time == 0: # Switch to next stage after done
         main.state = main.next_state

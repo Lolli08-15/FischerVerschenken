@@ -1,11 +1,12 @@
 import settings
 import pygame
-import ai_model
 
 from menu.show_fish import render_fish
 
 
 shoot_menu_background = pygame.image.load("assets\\shoot menu.png")
+shoot_menu_ai_background = pygame.image.load("assets\\shoot menu ai.png")
+
 shot_hit = pygame.image.load("assets\\shot_hit.png")
 shot_miss = pygame.image.load("assets\\shot_miss.png")
 fish_count_on = pygame.image.load("assets\\fish count on.png")
@@ -43,14 +44,20 @@ def shoot_menu(main):
     
     # Exit button click function
     if main.mouse_button == 1 and main.button2 and main.transition_time == 0:
+        main.pick_splash()
         main.next_state = "main menu"
         main.transition_time = 30 * 7 #7 Seconds
         main.t_time = main.transition_time
         main.loading_bar = 0
         main.bar_direction = -1
+
+        if main.ai_mode:
+            main.ai_mode = False
+            main.next_state = "end screen"
+            main.whoWon = "ai testing"
     
     # Shooting
-    if main.mouse_button == 1 and main.ai_timer == settings.ai_processing_time:
+    if main.mouse_button == 1 and main.ai_timer == settings.ai_processing_time and not main.ai_mode:
         if main.is_in_rect(main.mouse_pos, (887, 285), (500, 500)) and main.transition_time == 0:
             success = main.game.playerShoot((main.field_x, main.field_y))
             if success != False:
@@ -58,22 +65,60 @@ def shoot_menu(main):
                     main.ai_timer -= 1
 
     # AI testing
-    if settings.ai_mode:
+    if main.ai_mode:
         if main.ai_timer == settings.ai_processing_time and main.transition_time == 0:
-            position = ai_model.shootAI(main.last_ai_shot)
+            position = main.game.aiModelShoot(main.selected_player, main.last_ai_shot)
             success = main.game.playerShoot(position)
-            if success == "hit": main.last_ai_shot = 1
-            elif success == "sunk": main.last_ai_shot = 2
+            if success == "hit":
+                main.last_ai_shot = 1
+                main.current_turns += 1
+            elif success == "sunk":
+                main.last_ai_shot = 2
+                main.current_turns += 1
             else:
+                main.current_turns += 1
                 main.last_ai_shot = 0
-                main.ai_timer -= 1
+                success = 1
+                while success > 0:
+                    success = main.game.aiShoot()
     
     # Preview AI fishes
     if main.key == "m": main.ai_fish_preview = not main.ai_fish_preview
 
     render_shoot_menu(main.display, main.field_x, main.field_y,
         main.button2, main.ai_timer, main.transition_time,
-        main.mouse_in_field)
+        main.mouse_in_field, main.ai_mode)
+
+    if main.ai_mode:
+        player_name = settings.get_ai_name(main.selected_ai) # Show AI name above board
+        text_texture = exit_button_font.render(player_name, True, "#67b1d7")
+        main.display.blit(
+            text_texture,
+            (
+                460 - text_texture.get_width() / 2,
+                224
+            )
+        )
+
+        player_name = settings.get_ai_name(main.selected_player) # Show other AI name above board
+        text_texture = exit_button_font.render(player_name, True, "#67b1d7")
+        main.display.blit(
+            text_texture,
+            (
+                1137 - text_texture.get_width() / 2,
+                224
+            )
+        )
+
+        # Show current wins for both AIs
+        text_texture = exit_button_font.render(f"{main.ai_win} : {main.player_win}", True, "#67b1d7")
+        main.display.blit(
+            text_texture,
+            (
+                800 - text_texture.get_width() / 2,
+                480
+            )
+        )
 
     render_fish(
         main.display, 210, 285,
@@ -122,11 +167,16 @@ def shoot_menu(main):
 
 
 
-def render_shoot_menu(display, field_x, field_y, button2, ai_timer, transition_time, mouse_in_field):
-    display.blit(shoot_menu_background, (0, 0))
+def render_shoot_menu(display, field_x, field_y, button2, ai_timer, transition_time, mouse_in_field, ai_mode):
+    if ai_mode:
+        display.blit(shoot_menu_ai_background, (0, 0))
+    else:
+        display.blit(shoot_menu_background, (0, 0))
+
+
     if (ai_timer == settings.ai_processing_time and
         transition_time == 0 and
-        mouse_in_field):
+        mouse_in_field and not ai_mode):
         pygame.draw.rect(display, "#8bbfc8",
             pygame.Rect(field_x * 50 + 887, field_y * 50 + 285, 50, 50),
             5, 3)
@@ -134,7 +184,7 @@ def render_shoot_menu(display, field_x, field_y, button2, ai_timer, transition_t
     # Exit button 110, 40
     text_color = "#b86145"
     if button2: text_color = "#ffb9b9"
-    text_texture = exit_button_font.render("Rückzug", True, text_color)
+    text_texture = exit_button_font.render("Ruckzüg", True, text_color)
     display.blit(
         text_texture,
         (
@@ -143,7 +193,7 @@ def render_shoot_menu(display, field_x, field_y, button2, ai_timer, transition_t
         )
     )
 
-    if ai_timer > settings.ai_processing_time * 0.35 and ai_timer < settings.ai_processing_time:
+    if ai_timer > settings.ai_processing_time * 0.35 and ai_timer < settings.ai_processing_time and not ai_mode:
         text_texture = ai_status_font.render("Der Feind denkt!", True, "#f2282f")
         display.blit(
             text_texture,
@@ -152,7 +202,7 @@ def render_shoot_menu(display, field_x, field_y, button2, ai_timer, transition_t
                 260
             )
         )
-    if ai_timer <= settings.ai_processing_time * 0.35:
+    if ai_timer <= settings.ai_processing_time * 0.35 and not ai_mode:
         text_texture = ai_status_font.render("Der Feind schießt!", True, "#f2282f")
         display.blit(
             text_texture,

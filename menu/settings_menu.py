@@ -28,9 +28,21 @@ def settings_menu(main):
         main.t_time = main.transition_time
         main.loading_bar = 0
         main.bar_direction = 0
+    
+    # Player button
+    if main.is_in_rect(main.mouse_pos, (420, 270), (654, 79)):
+        main.button4 = True
+    else:
+        main.button4 = False
+    
+    # Player button click function
+    if main.mouse_button == 1 and main.button4 and main.transition_time == 0:
+        main.selected_player += 1
+        if main.selected_player > 5:
+            main.selected_player = -1
 
     # AI button
-    if main.is_in_rect(main.mouse_pos, (420, 360), (644, 79)):
+    if main.is_in_rect(main.mouse_pos, (420, 390), (644, 79)):
         main.button2 = True
     else:
         main.button2 = False
@@ -38,12 +50,21 @@ def settings_menu(main):
     # AI button click function
     if main.mouse_button == 1 and main.button2 and main.transition_time == 0:
         main.selected_ai += 1
+        if main.selected_ai == main.selected_player:
+            main.selected_ai += 1
         if main.selected_ai > 5:
             main.selected_ai = 0
+        if main.selected_ai == main.selected_player:
+            main.selected_ai += 1
+    
+    # The same AI cannot be selected
+    if main.selected_player == main.selected_ai:
+        main.selected_ai -= 1
+        if main.selected_ai < 0: main.selected_ai = 5
     
 
     # Fish button
-    if main.is_in_rect(main.mouse_pos, (420, 480), (644, 79)):
+    if main.is_in_rect(main.mouse_pos, (420, 510), (644, 79)):
         main.button3 = True
     else:
         main.button3 = False
@@ -55,10 +76,10 @@ def settings_menu(main):
             main.fish_preset = 0
 
 
-    render_settings(main.display, main.button1, main.button2, main.button3, main.selected_ai, main.fish_preset)
+    render_settings(main.display, main.button1, main.button2, main.button3, main.button4, main.selected_ai, main.fish_preset, main.selected_player)
 
 
-def render_settings(display, button1, button2, button3, selected_ai, fish_preset):
+def render_settings(display, button1, button2, button3, button4, selected_ai, fish_preset, selected_player):
     display.blit(settings_menu_background, (0, 0))
     
     # Exit button 110, 40
@@ -83,7 +104,7 @@ def render_settings(display, button1, button2, button3, selected_ai, fish_preset
         text = "Ki: Medium"
         text_color = "#efd035"
     if selected_ai == 3:
-        text = "Ki: AIQ"
+        text = "Ki: High AIQ"
         text_color = "#ea541a"
     if selected_ai == 4:
         text = "Ki: Hart wie Hartmut"
@@ -98,7 +119,39 @@ def render_settings(display, button1, button2, button3, selected_ai, fish_preset
         text_texture,
         (
             420,
-            360
+            390
+        )
+    )
+
+    # Spieler Button
+    text = "Spieler: Ich"
+    text_color = "#67b1d7"
+    if selected_player == 0:
+        text = "Spieler: Dummheit Pers."
+        text_color = "#397927"
+    if selected_player == 1:
+        text = "Spieler: Chad GPT"
+        text_color = "#a6b235"
+    if selected_player == 2:
+        text = "Spieler: Medium"
+        text_color = "#efd035"
+    if selected_player == 3:
+        text = "Spieler: High AIQ"
+        text_color = "#ea541a"
+    if selected_player == 4:
+        text = "Spieler: Hart wie Hartmut"
+        text_color = "#ea1a1a"
+    if selected_player == 5:
+        text = "Spieler: Unmöglich"
+        text_color = "#000000"
+
+    if button4: text_color = "#a1e9e9"
+    text_texture = settings_font.render(text, True, text_color)
+    display.blit(
+        text_texture,
+        (
+            420,
+            270
         )
     )
 
@@ -124,7 +177,7 @@ def render_settings(display, button1, button2, button3, selected_ai, fish_preset
         text_texture,
         (
             420,
-            480
+            510
         )
     )
 
@@ -137,4 +190,4 @@ def render_settings(display, button1, button2, button3, selected_ai, fish_preset
     if fish_preset == 4: fish_preset_texture = fish_preset_4
     if fish_preset == 5: fish_preset_texture = fish_preset_5
     if fish_preset == 6: fish_preset_texture = fish_preset_6
-    display.blit(fish_preset_texture, (420, 570))
+    display.blit(fish_preset_texture, (420, 610))

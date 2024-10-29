@@ -126,6 +126,39 @@ class Game:
         return self.ai_last_shot
     
 
+    def aiModelReset(self, ai):
+        if ai == 0:
+            dum_ai.resetAI()
+        if ai == 1:
+            gpt_ai.resetAI()
+        if ai == 2:
+            kilian_ai.resetAI()
+        if ai == 3:
+            aiShootQ.resetAI()
+        if ai == 4:
+            kilian_ai_hard.resetAI()
+        if ai == 5:
+            impossible_ai.resetAI()
+    
+    def aiModelShoot(self, ai, ai_last_shot):
+        coords = (0, 0)
+
+        if ai == 0:
+            coords = dum_ai.shootAI(ai_last_shot)
+        if ai == 1:
+            coords = gpt_ai.shootAI(ai_last_shot)
+        if ai == 2:
+            coords = kilian_ai.shootAI(ai_last_shot)
+        if ai == 3:
+            coords = aiShootQ.shootAI(ai_last_shot)
+        if ai == 4:
+            coords = kilian_ai_hard.shootAI(ai_last_shot)
+        if ai == 5:
+            coords = impossible_ai.shootAI(self.ai)
+        
+        return coords
+    
+
     def getSunkenFish(self, player):
         if player == "player1":
             return self.player1.sunkenFish

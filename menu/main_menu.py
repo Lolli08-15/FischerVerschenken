@@ -1,13 +1,19 @@
 import settings
-import ai_model
 import pygame
+from math import sin, pi
 
 
 main_menu_background = pygame.image.load("assets\\main menu.png")
 main_menu_font = pygame.font.Font("assets\\impact.ttf", 64)
 exit_button_font = pygame.font.Font("assets\\impact.ttf", 32)
 
+splash_font = pygame.font.Font("assets\\Minecraft.otf", 50)
+
 def main_menu(main):
+    # Switch splash texts
+    if main.key == "s":
+        main.pick_splash()
+
     # Play button
     if main.is_in_rect(main.mouse_pos, (735, 410), (129, 79)):
         main.button1 = True
@@ -15,13 +21,21 @@ def main_menu(main):
         main.button1 = False
     
     # AI testing
-    if settings.ai_mode:
+    if main.ai_mode:
         if main.transition_time == 0:
             main.button1 = True
             main.mouse_button = 1
     
     # Play button click function
     if main.mouse_button == 1 and main.button1 and main.transition_time == 0:
+        if not main.ai_mode and main.selected_player >= 0:
+            main.ai_mode = True
+            main.ai_win = 0
+            main.player_win = 0
+            main.ai_turns = 0
+            main.player_turns = 0
+            main.current_turns = 0
+
         main.next_state = "placing"
         main.transition_time = 30 * 10 #10 Seconds
         main.t_time = main.transition_time
@@ -31,7 +45,8 @@ def main_menu(main):
         main.game.setAI(main.selected_ai)
 
         main.game.reset()
-        ai_model.resetAI()
+        if main.selected_player >= 0:
+            main.game.aiModelReset(main.selected_player)
         main.last_ai_shot = 0
         main.current_rotation = 1
         main.current_lengths = settings.get_fish_preset(main.fish_preset)
@@ -63,7 +78,9 @@ def main_menu(main):
         main.bar_direction = 0
     
 
-    render_mainmenu(main.display, main.button1, main.button2, main.button3)
+    if not main.ai_mode:
+        render_mainmenu(main.display, main.button1, main.button2, main.button3)
+        render_splash(main, main.current_splash)
 
 
 def render_mainmenu(display, button1, button2, button3):
@@ -104,5 +121,42 @@ def render_mainmenu(display, button1, button2, button3):
         (
             10,
             858
+        )
+    )
+
+def render_splash(main, text):
+    main.splash_timer += 1
+    if main.splash_timer > 60:
+        main.splash_timer = 0
+    scale = sin(360 / 60 * main.splash_timer * pi / 180 * 2)
+    scale = (scale + 45) / 80
+
+    text_texture = splash_font.render(text, True, "#111111")
+    text_texture = pygame.transform.rotate(text_texture, 18)
+    text_texture = pygame.transform.smoothscale(text_texture, (
+            text_texture.get_width() * scale,
+            text_texture.get_height() * scale
+        ))
+
+    main.display.blit(
+        text_texture,
+        (
+            1244 - text_texture.get_width() / 2,
+            222 - text_texture.get_height() / 2
+        )
+    )
+
+    text_texture = splash_font.render(text, True, "#f2f22f")
+    text_texture = pygame.transform.rotate(text_texture, 18)
+    text_texture = pygame.transform.smoothscale(text_texture, (
+            text_texture.get_width() * scale,
+            text_texture.get_height() * scale
+        ))
+
+    main.display.blit(
+        text_texture,
+        (
+            1242 - text_texture.get_width() / 2,
+            220 - text_texture.get_height() / 2
         )
     )
