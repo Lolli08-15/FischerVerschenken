@@ -7,20 +7,15 @@ offset = int
 xOffset = True
 tuple_aimXY = tuple()
 possibleDirections = [1, 2, 3, 4]
-tries = 0
-grid = random.random
-searchMode = False
 shotCount = 0
-allWayFailed = False
 whiteGrid = []
 blackGrid = []
 freeGrid = []
 gridChoice = bool
 cleanMode = False
 hitFields = []
-cleanShotCount = 0
 
-for x in range(10):
+for x in range(10): # generiere grid
     for y in range(10):
         if y % 2 == 0:
             if x % 2 == 1:
@@ -35,11 +30,11 @@ for x in range(10):
 
 gridChoice = random.choice([True, False]) # random ob das white grid ausgewählt wird
 
-toggleGridMode = False
+toggleGridMode = False # manuelle Einstelung um grid mode ein oder auszuschalten <------------------------
 
-if toggleGridMode == False:
+if toggleGridMode == False: # wenn gridmode aus ist, dann setze die beiden grids zu einem zusammen
     freeGrid = whiteGrid + blackGrid
-else:
+else: # wenn nicht, wähle eines der beiden der grids aus
     if gridChoice:
         freeGrid = whiteGrid
     else:
@@ -47,7 +42,7 @@ else:
 
 
 def resetAI():
-    global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, tries, grid, searchMode, shotCount, gridChoice, blackGrid, whiteGrid, freeGrid, cleanMode, hitFields, cleanShotCount
+    global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, shotCount, gridChoice, blackGrid, whiteGrid, freeGrid, cleanMode, hitFields
 
     shotFields = []
     aimXY = [0, 0]
@@ -56,20 +51,15 @@ def resetAI():
     xOffset = True
     tuple_aimXY = tuple()
     possibleDirections = [1, 2, 3, 4]
-    tries = 0
-    grid = random.random
-    searchMode = False
     shotCount = 0
-    allWayFailed = False
     whiteGrid = []
     blackGrid = []
     freeGrid = []
     gridChoice = bool
     cleanMode = False
     hitFields = []
-    cleanShotCount = 0
 
-    for x in range(10):
+    for x in range(10): # generiere grid
         for y in range(10):
             if y % 2 == 0:
                 if x % 2 == 1:
@@ -86,9 +76,9 @@ def resetAI():
 
     toggleGridMode = True
 
-    if toggleGridMode == False:
+    if toggleGridMode == False: # wenn gridmode aus ist, dann setze die beiden grids zu einem zusammen
         freeGrid = whiteGrid + blackGrid
-    else:
+    else: # wenn nicht, wähle eines der beiden der grids aus
         if gridChoice:
             freeGrid = whiteGrid
         else:
@@ -97,18 +87,23 @@ def resetAI():
 
 
 def shootRandom():
-    global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, tries, grid, searchMode, shotCount, gridChoice, blackGrid, whiteGrid, freeGrid, cleanMode, cleanShotCount, hitFields
+    global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, shotCount, gridChoice, blackGrid, whiteGrid, freeGrid, cleanMode, hitFields
 
-    if len(freeGrid) == 0:
-        cleanMode = True
+    if len(freeGrid) == 0: # wenn das grid der unbeschossenen felder leer ist, wechsle auf das andere
+        cleanMode = True # aktiviere aufräum modus
 
         if gridChoice:
             freeGrid = blackGrid
         else:
             freeGrid = whiteGrid
 
+    while len(freeGrid) > 0:
 
-    pickedField = random.choice(freeGrid)
+        pickedField = random.choice(freeGrid) # nehme eine zufällige position
+
+        if pickedField not in shotFields:
+            break
+
     freeGrid.remove(pickedField)
 
     aimXY[0] = pickedField[0]
@@ -127,7 +122,7 @@ def shootRandom():
     return tuple_aimXY # gebe den schuss zurück
 
 def shootAllWay():
-    global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, tries, grid, searchMode, shotCount, cleanMode, hitFields, cleanShotCount
+    global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, shotCount, cleanMode, hitFields
     
 
 
@@ -225,9 +220,7 @@ def shootAllWay():
 
 
 def shootLine():
-    global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, tries, grid, searchMode, shotCount, cleanMode, hitFields, cleanShotCount
-
-    print(xOffset)
+    global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, shotCount, cleanMode, hitFields
 
     shotCount = len(lastHits)
 
@@ -255,10 +248,8 @@ def shootLine():
     # START -----------------------------------------------------------------------------------------
 
 def shootAI(shotData):
-    global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, tries, grid, searchMode, shotCount, cleanMode, hitFields, cleanShotCount
+    global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, shotCount, cleanMode, hitFields
 
-    if len(hitFields) > 0:
-        print(hitFields)
 
     if shotData == 2: # wenn der letzte schuss versenkt hat,
         lastHits.append(shotFields[-1].copy()) # trage zuletzt geschossenes feld in letzte hits ein
