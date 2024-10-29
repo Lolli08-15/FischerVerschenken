@@ -1,10 +1,18 @@
-import settings
 import pygame
 
 
 settings_menu_background = pygame.image.load("assets\\settings menu.png")
+
 settings_font = pygame.font.Font("assets\\impact.ttf", 64)
 exit_button_font = pygame.font.Font("assets\\impact.ttf", 32)
+
+fish_preset_0 = pygame.image.load("assets\\fish preset 0.png")
+fish_preset_1 = pygame.image.load("assets\\fish preset 1.png")
+fish_preset_2 = pygame.image.load("assets\\fish preset 2.png")
+fish_preset_3 = pygame.image.load("assets\\fish preset 3.png")
+fish_preset_4 = pygame.image.load("assets\\fish preset 4.png")
+fish_preset_5 = pygame.image.load("assets\\fish preset 5.png")
+fish_preset_6 = pygame.image.load("assets\\fish preset 6.png")
 
 def settings_menu(main):
     # Exit button
@@ -30,7 +38,7 @@ def settings_menu(main):
     # AI button click function
     if main.mouse_button == 1 and main.button2 and main.transition_time == 0:
         main.selected_ai += 1
-        if main.selected_ai > 4:
+        if main.selected_ai > 5:
             main.selected_ai = 0
     
 
@@ -73,11 +81,14 @@ def render_settings(display, button1, button2, button3, selected_ai, fish_preset
         text_color = "#a6b235"
     if selected_ai == 2:
         text = "Ki: Medium"
-        text_color = "#d78c22"
+        text_color = "#efd035"
     if selected_ai == 3:
-        text = "Ki: Hart wie Hartmut"
-        text_color = "#e83f20"
+        text = "Ki: AIQ"
+        text_color = "#ea541a"
     if selected_ai == 4:
+        text = "Ki: Hart wie Hartmut"
+        text_color = "#ea1a1a"
+    if selected_ai == 5:
         text = "Ki: Unmöglich"
         text_color = "#000000"
 
@@ -116,3 +127,14 @@ def render_settings(display, button1, button2, button3, selected_ai, fish_preset
             480
         )
     )
+
+
+    # Show preview for fishes used in selected fish preset
+    fish_preset_texture = fish_preset_0
+    if fish_preset == 1: fish_preset_texture = fish_preset_1
+    if fish_preset == 2: fish_preset_texture = fish_preset_2
+    if fish_preset == 3: fish_preset_texture = fish_preset_3
+    if fish_preset == 4: fish_preset_texture = fish_preset_4
+    if fish_preset == 5: fish_preset_texture = fish_preset_5
+    if fish_preset == 6: fish_preset_texture = fish_preset_6
+    display.blit(fish_preset_texture, (420, 570))

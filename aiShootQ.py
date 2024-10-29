@@ -250,7 +250,6 @@ def shootLine():
 def shootAI(shotData):
     global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, shotCount, cleanMode, hitFields
 
-
     if shotData == 2: # wenn der letzte schuss versenkt hat,
         lastHits.append(shotFields[-1].copy()) # trage zuletzt geschossenes feld in letzte hits ein
         hitFields.append(lastHits[-1].copy()) # setzte letzen treffer auf treffer liste
