@@ -81,3 +81,13 @@ To Do:
 
 
 
+Stats:
+	shots
+	sunk
+	siege
+	Spiele
+	sieg pro KI
+	hits
+	sunk pro fish
+	progress in %
+	
