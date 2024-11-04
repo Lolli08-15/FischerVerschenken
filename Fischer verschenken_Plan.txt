@@ -78,16 +78,14 @@ To Do:
 
 
 
-
-
-
 Stats:
 	shots
+	hits
 	sunk
 	siege
 	Spiele
 	sieg pro KI
-	hits
 	sunk pro fish
-	progress in %
+	progress in % (modes and diffs unlocked
+	)
 	
