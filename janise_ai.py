@@ -1,8 +1,9 @@
 import random
 from operator import add, sub
 
-
-found = 0
+hit     = 0     #resolving hits
+found   = 0     #direction found
+capped  = 0     #line capped off
 
 recentHits = list()              #list of shots since the last sink
 targetShots = set()             #squares to target after getting a hit
@@ -14,21 +15,34 @@ for x in range(10):
         
         
 def aiAim(response):
+    global hit
     global found
-    if response == 1 and found == 0 or found > 3:
-        found = 0
+    global capped
+    
+    
+    if response == 0 and hit == 0:      #misses
         return aiShoot(freeSquares)
-    elif response == 1 or found > 0:               #if 
-        found += 1
+    elif response == 1 and hit == 0:    #1st hit
+        hit = 1
         recentHits.append(pickedSquare)
-        for hits in recentHits:
-            targetShots.add(tuple(map(add, hits, (0,-1))))
-            targetShots.add(tuple(map(add, hits, (1,0))))
-            targetShots.add(tuple(map(add, hits, (0,1))))
-            targetShots.add(tuple(map(add, hits, (-1,0))))  #add all surrounding squares
-        return aiShoot(targetShots)
-    else:
-        return aiShoot(freeSquares)
+        for each in [(0,-1),(1,0),(0,1),(-1,0)]:   #up, right, left, down
+            targetShots.add(tuple(map(add, recentHits[0], each)))   #add adjacents as targets
+        return aiShoot(targetShots)                                 #fire
+    elif response == 0 and hit == 1 and found == 0:
+        return aiShoot(targetShots)                                 #fire again
+    elif response == 1 and hit == 1 and found == 0:    #direction found
+        found = 1
+        recentHits.append(pickedSquare)
+        ax, ay = recentHits[-1]
+        bx, by = recentHits[-2]
+        direction = abs(ax-bx)   #find direction of line 1=horizontal
+        for each in recentHits:
+            continue
+            
+        
+        
+
+
 
 #the main function
 def aiShoot(aim):
@@ -53,8 +67,8 @@ if __name__ == "__main__":
     print(f"miss {aiAim(0)}")
     print(f"hit {aiAim(0)}")
     print(f"miss {aiAim(1)}")
-    print(f"miss {aiAim(0)}")
-    print(f"miss {aiAim(0)}")
+    print(f"hit {aiAim(0)}")
+    print(f"miss {aiAim(1)}")
     print(f"miss {aiAim(0)}")
     print(f"hit {aiAim(0)}")
     print(f"miss {aiAim(1)}")
