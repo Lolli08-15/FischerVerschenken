@@ -159,7 +159,7 @@ def render_settings(display, button1, button2, button3, button4, selected_ai, fi
     text = "Fish: Normen"
     text_color = "#67b1d7"
     if fish_preset == 1:
-        text = "Fish: Quickie"
+        text = "Fish: Volles Rohr"
     if fish_preset == 2:
         text = "Fish: Long John"
     if fish_preset == 3:

@@ -1,0 +1,10 @@
+{
+    "shotStat" : 0,
+    "hitStat" : 0,
+    "sunkStat" : 0,
+    "winStat" : 0,
+    "gameStat" : 0,
+    "aiWinStat" : [],
+    "fishSunkStat" : [],
+    "progressStat" : 0.0
+}
