@@ -8,6 +8,7 @@ import random
 import dum_ai
 import gpt_ai
 import janise_ai
+import janise_ai_dirty
 import kilian_ai
 import aiShootQ
 import kilian_ai_hard
@@ -105,6 +106,8 @@ class Game:
             impossible_ai.resetAI()
         if self.selected_ai == 6:
             janise_ai.resetAI()
+        if self.selected_ai == 7:
+            janise_ai_dirty.resetAI()
 
     
     def playerShoot(self, posXY):
@@ -128,6 +131,8 @@ class Game:
             coords = impossible_ai.shootAI(self.player1)
         if self.selected_ai == 6:
             coords = janise_ai.shootAI(self.ai_last_shot)
+        if self.selected_ai == 7:
+            coords = janise_ai_dirty.shootAI(self.ai_last_shot)
         
         response = shoot(self.ai, self.player1, coords)
 
@@ -152,6 +157,8 @@ class Game:
             impossible_ai.resetAI()
         if ai == 6:
             janise_ai.resetAI()
+        if ai == 7:
+            janise_ai_dirty.resetAI()
     
     def aiModelShoot(self, ai, ai_last_shot):
         coords = (0, 0)
@@ -170,6 +177,8 @@ class Game:
             coords = impossible_ai.shootAI(self.ai)
         if ai == 6:
             coords = janise_ai.shootAI(ai_last_shot)
+        if ai == 7:
+            coords = janise_ai_dirty.shootAI(ai_last_shot)
         
         return coords
     
