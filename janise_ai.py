@@ -3,23 +3,28 @@ from operator import add
 
 
 def resetAI():
-    global hit, recentHits, targetShots, freeSquares
+    global hit, recentHits, freeSquares, gridSquares
     
-    
+    gridCounter = random.randint(0,2)
     hit     = 0     #resolving hits
-    recentHits = list()              #list of shots since the last sink
+    recentHits = list()             #list of shots since the last sink
     freeSquares = set()             #generate possible squares, to keep track of shots
+    gridSquares = set()             #squares to shoot if not aiming
     for x in range(10):
+        gridCounter += 1
         for y in range(10):
+            gridCounter += 1
             freeSquares.add((x,y))   
-    targetShots = freeSquares             #squares to target after getting a hit
+            if gridCounter % 2:
+                gridSquares.add((x,y))
         
         
         
 def shootAI(response):
-    global hit, targetShots
+    global hit, targetShots, gridSquares
     if response == 0 and hit == 0:      #misses
-        return aiShoot(freeSquares)
+        gridSquares &= freeSquares
+        return aiShoot(gridSquares)
     elif response == 1 or response == 2:    #1st hit
         hit = 1
         recentHits.append(pickedSquare)
