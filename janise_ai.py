@@ -19,13 +19,19 @@ def resetAI():
             if gridCounter % 2:
                 gridSquares.add((x,y))
         
+def clearAim():     #clear up and shoot at grid
+    global hit, gridSquares
+    hit=0
+    recentHits.clear
+    gridSquares &= freeSquares
+    return aiShoot(gridSquares)
+    
         
         
 def shootAI(response):
     global hit, targetShots, gridSquares
     if response == 0 and hit == 0:      #misses
-        gridSquares &= freeSquares
-        return aiShoot(gridSquares)
+        return clearAim()
     elif response == 1 or response == 2:    #1st hit
         hit = 1
         recentHits.append(pickedSquare)
@@ -36,17 +42,13 @@ def shootAI(response):
             targetShots.add(tuple(map(add, each, (0,1))))   #add adjacents as targets
             targetShots.add(tuple(map(add, each, (-1,0))))   #add adjacents as targets
         targetShots &= freeSquares
-        if not targetShots:             #exit cleanup
-            hit=0
-            recentHits.clear
-            return aiShoot(gridSquares)
+        if not targetShots:             
+            return clearAim()
         return aiShoot(targetShots)                                 #fire
     elif hit == 1:                      #miss after hit
         targetShots &= freeSquares
-        if not targetShots:             #exit cleanup
-            hit=0
-            recentHits.clear
-            return aiShoot(gridSquares)
+        if not targetShots:             
+            return clearAim()
         return aiShoot(targetShots)                                 #fire
         
         
@@ -55,6 +57,7 @@ def aiShoot(aim):
     global pickedSquare   
     pickedSquare = random.choice(list(aim))     #pick a square based on the choice
     aimX, aimY = pickedSquare
+    print(pickedSquare)
     freeSquares.remove(pickedSquare)
     return aimX, aimY     #returns aim coordinates
     
