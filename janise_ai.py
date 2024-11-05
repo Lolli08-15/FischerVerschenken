@@ -20,7 +20,7 @@ def shootAI(response):
     global hit, targetShots
     if response == 0 and hit == 0:      #misses
         return aiShoot(freeSquares)
-    elif response == 1:    #1st hit
+    elif response == 1 or response == 2:    #1st hit
         hit = 1
         recentHits.append(pickedSquare)
         targetShots = set()
@@ -29,13 +29,11 @@ def shootAI(response):
             targetShots.add(tuple(map(add, each, (1,0))))   #add adjacents as targets
             targetShots.add(tuple(map(add, each, (0,1))))   #add adjacents as targets
             targetShots.add(tuple(map(add, each, (-1,0))))   #add adjacents as targets
-        print(targetShots)
         targetShots &= freeSquares
         return aiShoot(targetShots)                                 #fire
-    elif hit == 1:
-        print(targetShots)
+    elif hit == 1:                      #miss after hit
         targetShots &= freeSquares
-        if not targetShots:
+        if not targetShots:             #exit cleanup
             hit=0
             recentHits.clear
             return aiShoot(freeSquares)
@@ -48,8 +46,6 @@ def aiShoot(aim):
     pickedSquare = random.choice(list(aim))     #pick a square based on the choice
     aimX, aimY = pickedSquare
     freeSquares.remove(pickedSquare)
-    print(pickedSquare)
-    print(targetShots)
     return aimX, aimY     #returns aim coordinates
     
 
