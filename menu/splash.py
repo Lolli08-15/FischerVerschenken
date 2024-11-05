@@ -46,7 +46,7 @@ splashTxt = [
     "Das kann doch nicht Warzenschwein!",
     "We got cookies",
     "C'mon I have candy...",
-    "Gef***t eingeschaedelt",
+    "Geschickt eingeschaedelt",
     "Das ist ein Splashtext",
     "*Hier könnte Ihre Werbung stehen*",
     "Splish Splash",
@@ -140,5 +140,6 @@ splashTxt = [
     "Es gibt mehr als 2 Splashtexte",
     "Es gibt über 500 Splashtexte",
     "Es gibt 18+ Splashtexte",
-    "Dieser Text ist falsch!"
+    "Dieser Text ist falsch!",
+    "Dynamitisch Programmiert"
 ]
