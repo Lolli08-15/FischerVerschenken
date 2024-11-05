@@ -35,7 +35,7 @@ def get_fish_dict():
         "o2" : [[0,0],[0,1],[0,2],[-1,2]],
         "o3" : [[0,0],[-1,0],[-2,0],[-2,-1]]
     }
-    banana_dict = {
+    barry_dict = {
         "o0" : [[0,0],[0,-1],[1,-1]],
         "o1" : [[0,0],[1,0],[1,1]],
         "o2" : [[0,0],[0,1],[-1,1]],
@@ -48,6 +48,6 @@ def get_fish_dict():
         "rochen" : rochen_dict,
         "fred" : fred_dict,
         "lobert" : lobert_dict,
-        "banana" : banana_dict,
+        "barry" : barry_dict,
     }
     return fishes_dic

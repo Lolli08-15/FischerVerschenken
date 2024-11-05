@@ -15,7 +15,7 @@ def place(player,posXY,direction,fish_type):
     elif fish_type == 6:
         selected_fish=dic["lobert"]
     else:
-        selected_fish=dic["banana"]
+        selected_fish=dic["barry"]
     direct= "o"+str(direction)
     selected_fish = selected_fish[direct]
     
