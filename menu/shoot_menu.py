@@ -67,7 +67,7 @@ def shoot_menu(main):
     # AI testing
     if main.ai_mode:
         if main.ai_timer == settings.ai_processing_time and main.transition_time == 0:
-            position = main.game.aiModelShoot(main.selected_player, main.last_ai_shot)
+            position = main.game.aiModelShoot(main.selected_player[0], main.last_ai_shot)
             success = main.game.playerShoot(position)
             if success == "hit":
                 main.last_ai_shot = 1
@@ -90,7 +90,7 @@ def shoot_menu(main):
         main.mouse_in_field, main.ai_mode)
 
     if main.ai_mode:
-        player_name = settings.get_ai_name(main.selected_ai) # Show AI name above board
+        player_name = settings.get_ai_name(main.selected_ai[0]) # Show AI name above board
         text_texture = exit_button_font.render(player_name, True, "#67b1d7")
         main.display.blit(
             text_texture,
@@ -100,7 +100,7 @@ def shoot_menu(main):
             )
         )
 
-        player_name = settings.get_ai_name(main.selected_player) # Show other AI name above board
+        player_name = settings.get_ai_name(main.selected_player[0]) # Show other AI name above board
         text_texture = exit_button_font.render(player_name, True, "#67b1d7")
         main.display.blit(
             text_texture,

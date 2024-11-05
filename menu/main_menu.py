@@ -28,7 +28,7 @@ def main_menu(main):
     
     # Play button click function
     if main.mouse_button == 1 and main.button1 and main.transition_time == 0:
-        if not main.ai_mode and main.selected_player >= 0:
+        if not main.ai_mode and main.selected_player[0] >= 0:
             main.ai_mode = True
             main.ai_win = 0
             main.player_win = 0
@@ -42,11 +42,11 @@ def main_menu(main):
         main.loading_bar = 0
         main.bar_direction = 0
 
-        main.game.setAI(main.selected_ai)
+        main.game.setAI(main.selected_ai[0])
 
         main.game.reset()
-        if main.selected_player >= 0:
-            main.game.aiModelReset(main.selected_player)
+        if main.selected_player[0] >= 0:
+            main.game.aiModelReset(main.selected_player[0])
         main.last_ai_shot = 0
         main.current_rotation = 1
         main.current_lengths = settings.get_fish_preset(main.fish_preset)

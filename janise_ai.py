@@ -1,43 +1,52 @@
 import random
-from operator import add, sub
+from operator import add
 
 
-found = 0
-
-recentHits = list()              #list of shots since the last sink
-targetShots = set()             #squares to target after getting a hit
-freeSquares = set()             #generate possible squares, to keep track of shots
-for x in range(10):
-    for y in range(10):
-        freeSquares.add((x,y))   
+def resetAI():
+    global hit, recentHits, targetShots, freeSquares
+    
+    
+    hit     = 0     #resolving hits
+    recentHits = list()              #list of shots since the last sink
+    freeSquares = set()             #generate possible squares, to keep track of shots
+    for x in range(10):
+        for y in range(10):
+            freeSquares.add((x,y))   
+    targetShots = freeSquares             #squares to target after getting a hit
         
         
         
-def aiAim(response):
-    global found
-    if response == 1 and found == 0 or found > 3:
-        found = 0
+def shootAI(response):
+    global hit, targetShots
+    if response == 0 and hit == 0:      #misses
         return aiShoot(freeSquares)
-    elif response == 1 or found > 0:               #if 
-        found += 1
+    elif response == 1 or response == 2:    #1st hit
+        hit = 1
         recentHits.append(pickedSquare)
-        for hits in recentHits:
-            targetShots.add(tuple(map(add, hits, (0,-1))))
-            targetShots.add(tuple(map(add, hits, (1,0))))
-            targetShots.add(tuple(map(add, hits, (0,1))))
-            targetShots.add(tuple(map(add, hits, (-1,0))))  #add all surrounding squares
-        return aiShoot(targetShots)
-    else:
-        return aiShoot(freeSquares)
-
+        targetShots = set()
+        for each in recentHits:   #up, right, left, down
+            targetShots.add(tuple(map(add, each, (0,-1))))   #add adjacents as targets
+            targetShots.add(tuple(map(add, each, (1,0))))   #add adjacents as targets
+            targetShots.add(tuple(map(add, each, (0,1))))   #add adjacents as targets
+            targetShots.add(tuple(map(add, each, (-1,0))))   #add adjacents as targets
+        targetShots &= freeSquares
+        return aiShoot(targetShots)                                 #fire
+    elif hit == 1:                      #miss after hit
+        targetShots &= freeSquares
+        if not targetShots:             #exit cleanup
+            hit=0
+            recentHits.clear
+            return aiShoot(freeSquares)
+        return aiShoot(targetShots)                                 #fire
+        
+        
 #the main function
 def aiShoot(aim):
-    global pickedSquare                              
-    targetSquares = freeSquares & set(aim)         #remove previous shots/oob
-    pickedSquare = random.choice(list(targetSquares))     #pick a square based on the choice
+    global pickedSquare   
+    pickedSquare = random.choice(list(aim))     #pick a square based on the choice
     aimX, aimY = pickedSquare
     freeSquares.remove(pickedSquare)
-    return aimX, aimY       #returns aim coordinates
+    return aimX, aimY     #returns aim coordinates
     
 
    
@@ -49,13 +58,13 @@ if __name__ == "__main__":
     shotLines.addLine(1,{{5,7},{4,7},{6,7},{7,7}})
     print(shotLines.lines[0][1]*2)
     exit'''
-
-    print(f"miss {aiAim(0)}")
-    print(f"hit {aiAim(0)}")
-    print(f"miss {aiAim(1)}")
-    print(f"miss {aiAim(0)}")
-    print(f"miss {aiAim(0)}")
-    print(f"miss {aiAim(0)}")
-    print(f"hit {aiAim(0)}")
-    print(f"miss {aiAim(1)}")
+    resetAI()
+    print(f"miss {shootAI(0)}")
+    print(f"hit  {shootAI(0)}")
+    print(f"miss {shootAI(1)}")
+    print(f"hit  {shootAI(0)}")
+    print(f"hit  {shootAI(1)}")
+    print(f"miss {shootAI(1)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
     print()

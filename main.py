@@ -45,11 +45,13 @@ class GUI:
         # -1 = player
         # 0 = dum
         # 1 = chatgpt
-        # 2 = bjarne
-        # 3 = kilian unsort ed, optimized
-        # 4 = impossible
-        self.selected_ai = 2
-        self.selected_player = -1 # (Used for the ai testing mode)
+        # 2 = kilian sorted
+        # 3 = bjarne
+        # 4 = kilian unsorted, optimized
+        # 5 = impossible
+        # 6 = janise ai
+        self.selected_ai = [2, 3, 4, 5, 6, 0, 1]
+        self.selected_player = [-1, 0, 1, 2, 3, 4, 5, 6] # (Used for the ai testing mode)
 
         # Ai testing stats
         self.ai_mode = False  
