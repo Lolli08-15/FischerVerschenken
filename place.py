@@ -1,60 +1,41 @@
-def place(player,posXY,direction,length):
+def place(player,posXY,direction,fish_type):
     from classFish import Fish
-
+    from fish_dict import get_fish_dict
+    dic = get_fish_dict()
+    if fish_type == 1:
+        selected_fish=dic["fred"]
+    elif fish_type == 2:
+        selected_fish=dic["robin"]
+    elif fish_type == 3:
+        selected_fish=dic["robert"]
+    elif fish_type == 4:
+        selected_fish=dic["roland"]
+    elif fish_type == 5:
+        selected_fish=dic["rochen"]
+    elif fish_type == 6:
+        selected_fish=dic["lobert"]
+    else:
+        selected_fish=dic["dontnut"]
+    direct= "o"+str(direction)
+    selected_fish = selected_fish[direct]
+    
     used = []   # erstelle "used" array
 
-    for fish in player.fishes: # wiederhole für anzahl der fische
-        used.append(fish.posXY) # merke welche position bereits verwendet wurde
+    for fish in player.fishes:
+        for pos in fish.occupied:
+            used.append(pos) # merke welche position bereits verwendet wurde
+            
+    newFish = [] # speicher position des versuchs in "newFish"
+    for offset in selected_fish:
+        newFish.append((posXY[0]+offset[0],posXY[1]+offset[1]))
 
-        for i in range(fish.length): # wiederhole für die länge
-            if i == 0: # skippe den ersten Durchlauf
-                pass
-
-            elif fish.direction == 0: # wenn der fisch nach oben ausgerichtet ist,
-                used.append((fish.posXY[0], fish.posXY[1]-i)) # merke den offset des fisches
-            elif fish.direction == 1: # wenn der fisch nach rechts ausgerichtet ist,
-                used.append((fish.posXY[0]+i, fish.posXY[1])) # merke den offset des fisches
-            elif fish.direction == 2: # wenn der fisch nach unten ausgerichtet ist,
-                used.append((fish.posXY[0], fish.posXY[1]+i)) # merke den offset des fisches
-            else: # wenn keins von oben, dann muss er links sein, also
-                used.append((fish.posXY[0]-i, fish.posXY[1])) # merke den offset des fisches
-
-    used.append((posXY))
-    newFish = [(posXY)] # speicher position des versuchs in "newFish"
-
-    for i in range(length): # wiederhole für die länge
-        if i == 0: # skippe den ersten Durchlauf
-            pass
-
-        elif direction == 0: # wenn der fisch nach oben ausgerichtet ist,
-            used.append((posXY[0], posXY[1]-i)) # merke den offset des versuches
-            newFish.append((posXY[0], posXY[1]-i)) # merke offset  des versuches im aktuellem fisch
-            if 10 > (posXY[1]-i) >= 0: pass # wenn offset außerhalb des spielbereichs liegt:
-            else: return False # gebe False als nicht plazierbar aus
-
-        elif direction == 1: # wenn der fisch nach rechts ausgerichtet ist,
-            used.append((posXY[0]+i, posXY[1])) # merke den offset des versuches
-            newFish.append((posXY[0]+i, posXY[1])) # merke offset  des versuches im aktuellem fisch
-            if 10 > (posXY[0]+i) >= 0: pass # wenn offset außerhalb des spielbereichs liegt:
-            else: return False
-
-        elif direction == 2: # wenn der fisch nach oben ausgerichtet ist,
-            used.append((posXY[0], posXY[1]+i)) # merke den offset des versuches
-            newFish.append((posXY[0], posXY[1]+i)) # merke offset  des versuches im aktuellem fisch
-            if 10 > (posXY[1]+i) >= 0:pass # wenn offset außerhalb des spielbereichs liegt:
-            else: return False # gebe False als nicht plazierbar aus
-
-        else: # wenn keins von oben, dann muss er links sein, also
-            used.append((posXY[0]-i, posXY[1])) # merke den offset des versuches
-            newFish.append((posXY[0]-i, posXY[1])) # merke offset  des versuches im aktuellem fisch
-            if 10 > (posXY[0]-i) >= 0:pass # wenn offset außerhalb des spielbereichs liegt:
-            else: return False # gebe False als nicht plazierbar aus
-
-    if 10 > posXY[0] >= 0 and 10 > posXY[1] >= 0:pass # wenn position außerhalb des spielbereichs liegt:
-    else: return False # gebe False als nicht plazierbar aus
-
+    used += newFish
+    for i in used:
+        if 0 > i[0] or i[0] > 9 or 0 > i[1] or i[1] > 9:
+            return False
     if len(used) == len(set(used)): # überprüfe nach duplikaten?
-        fish = Fish(posXY,direction,length,newFish) # erstelle neuen fisch
+        fish = Fish(posXY,direction,fish_type,newFish) # erstelle neuen fisch
         player.addFish(fish) # füge Fish in das player objekt ein
+        print(newFish)
         return True # gebe True als plazierbar aus
     else: return False # wenn nicht dann gebe False als nicht plazierbar aus
