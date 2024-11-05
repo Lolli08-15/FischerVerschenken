@@ -2,7 +2,7 @@ import random
 from operator import add
 
 
-def reset():
+def resetAI():
     global hit, recentHits, targetShots, freeSquares
     
     
@@ -16,11 +16,11 @@ def reset():
         
         
         
-def aiAim(response):
-    global hit
+def shootAI(response):
+    global hit, targetShots
     if response == 0 and hit == 0:      #misses
         return aiShoot(freeSquares)
-    elif response == 1 or hit == 1:    #1st hit
+    elif response == 1:    #1st hit
         hit = 1
         recentHits.append(pickedSquare)
         targetShots = set()
@@ -29,6 +29,11 @@ def aiAim(response):
             targetShots.add(tuple(map(add, each, (1,0))))   #add adjacents as targets
             targetShots.add(tuple(map(add, each, (0,1))))   #add adjacents as targets
             targetShots.add(tuple(map(add, each, (-1,0))))   #add adjacents as targets
+        print(targetShots)
+        targetShots &= freeSquares
+        return aiShoot(targetShots)                                 #fire
+    elif hit == 1:
+        print(targetShots)
         targetShots &= freeSquares
         if not targetShots:
             hit=0
@@ -43,6 +48,8 @@ def aiShoot(aim):
     pickedSquare = random.choice(list(aim))     #pick a square based on the choice
     aimX, aimY = pickedSquare
     freeSquares.remove(pickedSquare)
+    print(pickedSquare)
+    print(targetShots)
     return aimX, aimY     #returns aim coordinates
     
 
@@ -55,13 +62,13 @@ if __name__ == "__main__":
     shotLines.addLine(1,{{5,7},{4,7},{6,7},{7,7}})
     print(shotLines.lines[0][1]*2)
     exit'''
-    reset()
-    print(f"miss {aiAim(0)}")
-    print(f"hit  {aiAim(0)}")
-    print(f"miss {aiAim(1)}")
-    print(f"hit  {aiAim(0)}")
-    print(f"hit  {aiAim(1)}")
-    print(f"miss {aiAim(1)}")
-    print(f"miss {aiAim(0)}")
-    print(f"miss {aiAim(0)}")
+    resetAI()
+    print(f"miss {shootAI(0)}")
+    print(f"hit  {shootAI(0)}")
+    print(f"miss {shootAI(1)}")
+    print(f"hit  {shootAI(0)}")
+    print(f"hit  {shootAI(1)}")
+    print(f"miss {shootAI(1)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
     print()
