@@ -132,17 +132,17 @@ def shootAllWay():
 
         if len(lastHits) >= 2 and cleanMode == False: # wenn line mode aktiv ist,
             if xOffset == True: # wenn waagerecht geschossen wird
-                if 2 in possibleDirections:
+                if possibleDirections.count(2) > 0:
                     possibleDirections.remove(2) # dann lösche oben
-                if 4 in possibleDirections:
+                if possibleDirections.count(4) > 0:
                     possibleDirections.remove(4) # dann lösche unten
             else: # wenn senkrecht geschossen wird
-                if 1 in possibleDirections:
+                if possibleDirections.count(1) > 0:
                     possibleDirections.remove(1) # dann lösche rechts
-                if 3 in possibleDirections:
+                if possibleDirections.count(3) > 0:
                     possibleDirections.remove(3) # dann lösche links
         else:
-            pass
+            offset = 0
 
         if len(possibleDirections) != 0:
             offset = random.choice(possibleDirections) # setze offset richtung auf eine zufällige der 4 verbleibenden richtungen

@@ -112,6 +112,9 @@ def render_settings(display, button1, button2, button3, button4, selected_ai, fi
     if selected_ai == 6:
         text = "Ki: Mr. Chunky"
         text_color = "#000000"
+    if selected_ai == 7:
+        text = "Ki: Dirty Dan"
+        text_color = "#000000"
 
     if button2: text_color = "#a1e9e9"
     text_texture = settings_font.render(text, True, text_color)
@@ -146,6 +149,9 @@ def render_settings(display, button1, button2, button3, button4, selected_ai, fi
         text_color = "#000000"
     if selected_player == 6:
         text = "Spieler: Mr. Chunky"
+        text_color = "#000000"
+    if selected_player == 7:
+        text = "Spieler: Dirty Dan"
         text_color = "#000000"
 
     if button4: text_color = "#a1e9e9"
