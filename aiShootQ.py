@@ -90,12 +90,14 @@ def shootRandom():
     global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, shotCount, gridChoice, blackGrid, whiteGrid, freeGrid, cleanMode, hitFields
 
     if len(freeGrid) == 0: # wenn das grid der unbeschossenen felder leer ist, wechsle auf das andere
-        cleanMode = True # aktiviere aufräum modus
+        #cleanMode = True # aktiviere aufräum modus
 
         if gridChoice:
             freeGrid = blackGrid
         else:
             freeGrid = whiteGrid
+    
+    pickedField = [0, 0]
 
     while len(freeGrid) > 0:
 
@@ -103,7 +105,7 @@ def shootRandom():
 
         if pickedField not in shotFields:
             break
-
+    
     freeGrid.remove(pickedField)
 
     aimXY[0] = pickedField[0]
@@ -223,8 +225,6 @@ def shootLine():
     global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, shotCount, cleanMode, hitFields
 
     shotCount = len(lastHits)
-
-
 
 
     while shotCount > 0: # wieerhole für die anzahl der hits
