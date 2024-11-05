@@ -45,8 +45,9 @@ class GUI:
         # -1 = player
         # 0 = dum
         # 1 = chatgpt
+        # 3 = kilian sorted
         # 2 = bjarne
-        # 3 = kilian unsort ed, optimized
+        # 3 = kilian unsorted, optimized
         # 4 = impossible
         self.selected_ai = 2
         self.selected_player = -1 # (Used for the ai testing mode)
