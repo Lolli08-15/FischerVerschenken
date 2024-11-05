@@ -37,9 +37,11 @@ def settings_menu(main):
     
     # Player button click function
     if main.mouse_button == 1 and main.button4 and main.transition_time == 0:
-        main.selected_player += 1
-        if main.selected_player > 5:
-            main.selected_player = -1
+        main.selected_player.append(main.selected_player[0])
+        main.selected_player.pop(0)
+        if main.selected_player[0] == main.selected_ai[0]:
+            main.selected_player.append(main.selected_player[0])
+            main.selected_player.pop(0)
 
     # AI button
     if main.is_in_rect(main.mouse_pos, (420, 390), (644, 79)):
@@ -49,18 +51,13 @@ def settings_menu(main):
     
     # AI button click function
     if main.mouse_button == 1 and main.button2 and main.transition_time == 0:
-        main.selected_ai += 1
-        if main.selected_ai == main.selected_player:
-            main.selected_ai += 1
-        if main.selected_ai > 5:
-            main.selected_ai = 0
-        if main.selected_ai == main.selected_player:
-            main.selected_ai += 1
+        main.selected_ai.append(main.selected_ai[0])
+        main.selected_ai.pop(0)
     
     # The same AI cannot be selected
-    if main.selected_player == main.selected_ai:
-        main.selected_ai -= 1
-        if main.selected_ai < 0: main.selected_ai = 5
+    if main.selected_player[0] == main.selected_ai[0]:
+        main.selected_ai.append(main.selected_ai[0])
+        main.selected_ai.pop(0)
     
 
     # Fish button
@@ -76,7 +73,7 @@ def settings_menu(main):
             main.fish_preset = 0
 
 
-    render_settings(main.display, main.button1, main.button2, main.button3, main.button4, main.selected_ai, main.fish_preset, main.selected_player)
+    render_settings(main.display, main.button1, main.button2, main.button3, main.button4, main.selected_ai[0], main.fish_preset, main.selected_player[0])
 
 
 def render_settings(display, button1, button2, button3, button4, selected_ai, fish_preset, selected_player):
@@ -112,6 +109,9 @@ def render_settings(display, button1, button2, button3, button4, selected_ai, fi
     if selected_ai == 5:
         text = "Ki: Unmöglich"
         text_color = "#000000"
+    if selected_ai == 6:
+        text = "Ki: Mr. Chunky"
+        text_color = "#000000"
 
     if button2: text_color = "#a1e9e9"
     text_texture = settings_font.render(text, True, text_color)
@@ -144,6 +144,9 @@ def render_settings(display, button1, button2, button3, button4, selected_ai, fi
     if selected_player == 5:
         text = "Spieler: Unmöglich"
         text_color = "#000000"
+    if selected_player == 6:
+        text = "Spieler: Mr. Chunky"
+        text_color = "#000000"
 
     if button4: text_color = "#a1e9e9"
     text_texture = settings_font.render(text, True, text_color)
@@ -159,7 +162,7 @@ def render_settings(display, button1, button2, button3, button4, selected_ai, fi
     text = "Fish: Normen"
     text_color = "#67b1d7"
     if fish_preset == 1:
-        text = "Fish: Volles Rohr"
+        text = "Fish: Quickie"
     if fish_preset == 2:
         text = "Fish: Long John"
     if fish_preset == 3:

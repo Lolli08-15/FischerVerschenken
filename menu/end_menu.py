@@ -55,7 +55,7 @@ def end_menu(main):
                 350
             )
         )
-        players_text = settings.get_ai_name(main.selected_ai)
+        players_text = settings.get_ai_name(main.selected_ai[0])
         text_texture = result_font.render(players_text, True, "#bbecf3")
         main.display.blit(
             text_texture,
@@ -64,7 +64,7 @@ def end_menu(main):
                 350
             )
         )
-        players_text = settings.get_ai_name(main.selected_player)
+        players_text = settings.get_ai_name(main.selected_player[0])
         text_texture = result_font.render(players_text, True, "#bbecf3")
         main.display.blit(
             text_texture,

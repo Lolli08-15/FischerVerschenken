@@ -5,6 +5,7 @@ from detectWin import detectWin
 
 import dum_ai
 import gpt_ai
+import janise_ai
 import kilian_ai
 import aiShootQ
 import kilian_ai_hard
@@ -96,6 +97,8 @@ class Game:
             kilian_ai_hard.resetAI()
         if self.selected_ai == 5:
             impossible_ai.resetAI()
+        if self.selected_ai == 6:
+            janise_ai.resetAI()
 
     
     def playerShoot(self, posXY):
@@ -117,6 +120,8 @@ class Game:
             coords = kilian_ai_hard.shootAI(self.ai_last_shot)
         if self.selected_ai == 5:
             coords = impossible_ai.shootAI(self.player1)
+        if self.selected_ai == 6:
+            coords = janise_ai.shootAI(self.ai_last_shot)
         
         response = shoot(self.ai, self.player1, coords)
 
@@ -139,6 +144,8 @@ class Game:
             kilian_ai_hard.resetAI()
         if ai == 5:
             impossible_ai.resetAI()
+        if ai == 6:
+            janise_ai.resetAI()
     
     def aiModelShoot(self, ai, ai_last_shot):
         coords = (0, 0)
@@ -155,6 +162,8 @@ class Game:
             coords = kilian_ai_hard.shootAI(ai_last_shot)
         if ai == 5:
             coords = impossible_ai.shootAI(self.ai)
+        if ai == 6:
+            coords = janise_ai.shootAI(ai_last_shot)
         
         return coords
     

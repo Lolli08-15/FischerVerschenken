@@ -36,4 +36,5 @@ def get_ai_name(ai):
     if ai == 3: name = "High AIQ"
     if ai == 4: name = "Hart wie Hartmut"
     if ai == 5: name = "Unmöglich"
+    if ai == 6: name = "Mr. Chunky"
     return name
