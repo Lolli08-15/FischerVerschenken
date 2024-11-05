@@ -57,7 +57,6 @@ def aiShoot(aim):
     global pickedSquare   
     pickedSquare = random.choice(list(aim))     #pick a square based on the choice
     aimX, aimY = pickedSquare
-    print(pickedSquare)
     freeSquares.remove(pickedSquare)
     return aimX, aimY     #returns aim coordinates
     
