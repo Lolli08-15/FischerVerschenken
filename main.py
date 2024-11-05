@@ -52,7 +52,7 @@ class GUI:
         self.selected_player = -1 # (Used for the ai testing mode)
 
         # Ai testing stats
-        self.ai_mode = False
+        self.ai_mode = False  
         self.ai_win = 0
         self.player_win = 0
         self.ai_turns = 0

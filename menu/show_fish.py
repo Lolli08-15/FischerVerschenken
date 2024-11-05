@@ -13,7 +13,7 @@ def render_fish(display, offsetX, offsetY, fish_list, preview):
         if fish.length == 4: fish_texture = fish_l4
         if fish.length == 5: fish_texture = fish_l5
         if preview:
-            fish_texture.set_alpha(120)
+            fish_texture.set_alpha(20)
         else:
             fish_texture.set_alpha(255)
 
