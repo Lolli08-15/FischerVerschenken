@@ -9,6 +9,7 @@ shoot_menu_ai_background = pygame.image.load("assets\\shoot menu ai.png")
 
 shot_hit = pygame.image.load("assets\\shot_hit.png")
 shot_miss = pygame.image.load("assets\\shot_miss.png")
+square_block = pygame.image.load("assets\\block.png")
 fish_count_on = pygame.image.load("assets\\fish count on.png")
 fish_count_off = pygame.image.load("assets\\fish count off.png")
 
@@ -223,8 +224,10 @@ def render_shots(display, offsetX, offsetY, shot_list):
         )
         if shot[1] == "miss":
             display.blit(shot_miss, position)
-        else:
+        elif not shot[1] == "block":
             display.blit(shot_hit, position)
+        else:
+            display.blit(square_block,position)
 
 
 def render_fish_count(display, offsetX, offsetY, count, preset):

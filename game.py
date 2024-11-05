@@ -3,6 +3,8 @@ from shoot import shoot
 from aiPlace import aiPlace
 from detectWin import detectWin
 
+import random
+
 import dum_ai
 import gpt_ai
 import janise_ai
@@ -48,6 +50,7 @@ class Game:
         self.player1 = Player()
         self.ai = Player()
         self.ai_last_shot = 0
+        self.blockList = []
     
 
     def getPlayerFish(self, player):
@@ -80,10 +83,13 @@ class Game:
         return False
 
 
-    def reset(self):
+    def reset(self,preset):
         self.player1 = Player()
         self.ai = Player()
         self.ai_last_shot = 0
+        self.blockList = self.setBlocklist(preset)
+        self.player1.shotList += self.blockList
+        self.ai.shotList += self.blockList
 
         if self.selected_ai == 0:
             dum_ai.resetAI()
@@ -196,6 +202,29 @@ class Game:
 
     def setAI(self, AI):
         self.selected_ai = AI
+    
+    def setBlocklist(self,preset):
+        if preset == 1:
+            blockNr = random.randint(0,5)
+        elif preset == 2:
+            blockNr = random.randint(3,8)
+        elif preset == 3:
+            blockNr = random.randint(8,18)
+        elif preset == 4:
+            blockNr = random.randint(4,10)
+        elif preset == 5:
+            blockNr = random.randint(3,15)
+        elif preset == 6:
+            blockNr = random.randint(2,12)
+        else:
+            blockNr = 0
+        bList=[]
+        for i in range(blockNr):
+            xCord = random.randint(0,9)
+            yCord = random.randint(0,9)
+            pos = [xCord,yCord]
+            bList.append([pos,"block"])
+        return(bList)
 
 
     

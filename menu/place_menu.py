@@ -3,6 +3,7 @@ import pygame
 import random
 from classFish import Fish
 from menu.show_fish import render_fish
+from menu.shoot_menu import render_shots
 
 
 placing_menu_background = pygame.image.load("assets\\placing menu.png")
@@ -127,6 +128,12 @@ def place_menu(main):
         render_placing_menu(main.display, main.field_x, main.field_y,
             main.current_lengths, main.current_fish_selected,
             main.button1, main.button2, main.mouse_in_field)
+        render_shots(
+            main.display, 885, 285,
+            main.game.getShotList("player1"))
+        render_shots(
+            main.display, 210, 285,
+            main.game.getShotList("ai"))
     
         # Preview of placing a new fish
         if main.current_fish_selected != 0 and main.mouse_in_field:

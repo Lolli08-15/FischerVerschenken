@@ -44,7 +44,7 @@ def main_menu(main):
 
         main.game.setAI(main.selected_ai[0])
 
-        main.game.reset()
+        main.game.reset(main.fish_preset)
         if main.selected_player[0] >= 0:
             main.game.aiModelReset(main.selected_player[0])
         main.last_ai_shot = 0
