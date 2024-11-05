@@ -6,6 +6,7 @@ fish_l3 = pygame.image.load("assets\\fish l3.png")
 fish_l4 = pygame.image.load("assets\\fish l4.png")
 fish_l5 = pygame.image.load("assets\\fish l5.png")
 fish_l6 = pygame.image.load("assets\\fish l6.png")
+fish_l7 = pygame.image.load("assets\\fish l7.png")
 
 def render_fish(display, offsetX, offsetY, fish_list, preview):
     for fish in fish_list:
@@ -16,6 +17,7 @@ def render_fish(display, offsetX, offsetY, fish_list, preview):
         if fish.length == 4: fish_texture = fish_l4
         if fish.length == 5: fish_texture = fish_l5
         if fish.length == 6: fish_texture = fish_l6
+        if fish.length == 7: fish_texture = fish_l7
         if preview:
             fish_texture.set_alpha(120)
         else:
@@ -27,6 +29,7 @@ def render_fish(display, offsetX, offsetY, fish_list, preview):
 
             if fish.length == 1: position = (position[0], position[1] - 50)
             if fish.length == 6: position = (position[0], position[1] + 150)
+            if fish.length == 7: position = (position[0], position[1] + 250)
 
             display.blit(fish_texture, position)
         if fish.direction == 1:
@@ -38,6 +41,7 @@ def render_fish(display, offsetX, offsetY, fish_list, preview):
 
             if fish.length == 1: position = (position[0] - 50, position[1])
             if fish.length == 6: position = (position[0] - 50, position[1])
+            if fish.length == 7: position = (position[0] - 50, position[1])
 
             display.blit(fish_texture, position)
         if fish.direction == 3:
@@ -49,6 +53,9 @@ def render_fish(display, offsetX, offsetY, fish_list, preview):
                 fish_texture = pygame.transform.flip(fish_texture, False, True)
             if fish.length == 6:
                 position = (position[0] + 150, position[1] - 50)
+                fish_texture = pygame.transform.flip(fish_texture, False, True)
+            if fish.length == 7:
+                position = (position[0] + 250, position[1] - 50)
                 fish_texture = pygame.transform.flip(fish_texture, False, True)
 
             display.blit(fish_texture, position)

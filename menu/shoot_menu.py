@@ -83,7 +83,7 @@ def shoot_menu(main):
                     success = main.game.aiShoot()
     
     # Preview AI fishes
-    if main.key == "u": main.ai_fish_preview = not main.ai_fish_preview
+    if main.key == "m": main.ai_fish_preview = not main.ai_fish_preview
 
     render_shoot_menu(main.display, main.field_x, main.field_y,
         main.button2, main.ai_timer, main.transition_time,

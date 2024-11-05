@@ -15,7 +15,7 @@ def place(player,posXY,direction,fish_type):
     elif fish_type == 6:
         selected_fish=dic["lobert"]
     else:
-        selected_fish=dic["harry"]
+        selected_fish=dic["banana"]
     direct= "o"+str(direction)
     selected_fish = selected_fish[direct]
     
@@ -36,6 +36,5 @@ def place(player,posXY,direction,fish_type):
     if len(used) == len(set(used)): # überprüfe nach duplikaten?
         fish = Fish(posXY,direction,fish_type,newFish) # erstelle neuen fisch
         player.addFish(fish) # füge Fish in das player objekt ein
-        print(newFish)
         return True # gebe True als plazierbar aus
     else: return False # wenn nicht dann gebe False als nicht plazierbar aus

@@ -74,22 +74,6 @@ def place_menu(main):
         main.field_y = int((main.mouse_pos[1] - 242) / 50)
         main.mouse_in_field = True
     
-
-    # Selecting fish sizes
-    if main.mouse_button == 1: # Left mouse button check
-        if main.is_in_rect(main.mouse_pos, (198, 262), (204, 165)):
-            if main.current_lengths.count(2) > 0:
-                main.current_fish_selected = 2 # 2x1 Fish
-        if main.is_in_rect(main.mouse_pos, (198, 427), (276, 159)):
-            if main.current_lengths.count(3) > 0:
-                main.current_fish_selected = 3 # 3x1 Fish
-        if main.is_in_rect(main.mouse_pos, (1087, 268), (381, 152)):
-            if main.current_lengths.count(4) > 0:
-                main.current_fish_selected = 4 # 4x1 Fish
-        if main.is_in_rect(main.mouse_pos, (1087, 420), (455, 142)):
-            if main.current_lengths.count(5) > 0:
-                main.current_fish_selected = 5 # 5x1 Fish
-    
     # Rotation fish with mouse wheel (Mouse button 4 + 5)
     if main.mouse_button == 4:
         main.current_rotation -= 1
@@ -154,30 +138,6 @@ def render_placing_menu(display, field_x, field_y, fish_left, selected, button1,
         pygame.draw.rect(display, "#8b5555",
             pygame.Rect(field_x * 50 + 541, field_y * 50 + 242, 50, 50),
             5, 3)
-    
-    # White selection box
-    if selected == 2: # 2x1 Fish
-        pygame.draw.rect(display, "#EEEEEE",
-        pygame.Rect(198, 262, 244, 165),
-        5, 3)
-    if selected == 3: # 3x1 Fish
-        pygame.draw.rect(display, "#EEEEEE",
-        pygame.Rect(198, 427, 276, 159),
-        5, 3)
-    if selected == 4: # 4x1 Fish
-        pygame.draw.rect(display, "#EEEEEE",
-        pygame.Rect(1087, 268, 381, 152),
-        5, 3)
-    if selected == 5: # 5x1 Fish
-        pygame.draw.rect(display, "#EEEEEE",
-        pygame.Rect(1087, 420, 455, 142),
-        5, 3)
-    
-    # Fish count text
-    show_fish_count(display, (358, 269), fish_left.count(2))
-    show_fish_count(display, (380, 436), fish_left.count(3))
-    show_fish_count(display, (1266, 273), fish_left.count(4))
-    show_fish_count(display, (1278, 420), fish_left.count(5))
 
     # Exit button 110, 40
     text_color = "#b86145"
@@ -214,15 +174,4 @@ def render_placing_menu(display, field_x, field_y, fish_left, selected, button1,
             1100,
             645
         )
-    )
-
-
-
-def show_fish_count(display, pos, count):
-    text_color = "#CCCCCC"
-    if count == 0: text_color = "#999999"
-    text_texture = fish_count_font.render(f"{count}x", True, text_color)
-    display.blit(
-        text_texture,
-        pos
     )
