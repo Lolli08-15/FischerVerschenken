@@ -5,6 +5,9 @@ def initAI(player):
     for fish in player.fishes:
         for slot in fish.occupied:
             shotlist.append(slot)
+    for x in range(10):
+        for y in range(10):
+            shotlist.append((x,y))
 
 def shootAI(player):
     global shotlist, shots

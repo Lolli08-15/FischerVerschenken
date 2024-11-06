@@ -85,7 +85,7 @@ class GUI:
         # Initialize Window
         self.display = pygame.display.set_mode(
             (self.width, self.height)
-        )
+         )
         self.isFullscreen = False
 
         icon = pygame.image.load("assets\\icon.png")

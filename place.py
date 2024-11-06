@@ -1,4 +1,4 @@
-def place(player,posXY,direction,fish_type):
+def place(player,posXY,direction,fish_type, blockList):
     from classFish import Fish
     from fish_dict import get_fish_dict
     dic = get_fish_dict()
@@ -24,10 +24,15 @@ def place(player,posXY,direction,fish_type):
     for fish in player.fishes:
         for pos in fish.occupied:
             used.append(pos) # merke welche position bereits verwendet wurde
+    
             
     newFish = [] # speicher position des versuchs in "newFish"
     for offset in selected_fish:
         newFish.append((posXY[0]+offset[0],posXY[1]+offset[1]))
+    
+    for i in blockList:
+        if i in newFish:
+            return False
 
     used += newFish
     for i in used:

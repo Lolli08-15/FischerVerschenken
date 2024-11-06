@@ -33,7 +33,7 @@ def resetAI():
     for y in range(10):
         for x in range(10):
             tryXY = (x, y)
-            if tryXY not in freeFields:
+            if not tryXY in freeFields:
                 freeFields.append((x, y))
     
     random.choice([True, False, False, False])

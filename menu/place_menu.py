@@ -3,10 +3,12 @@ import pygame
 import random
 from classFish import Fish
 from menu.show_fish import render_fish
-from menu.shoot_menu import render_shots
 
 
 placing_menu_background = pygame.image.load("assets\\placing menu.png")
+shot_hit = pygame.image.load("assets\\shot_hit.png")
+shot_miss = pygame.image.load("assets\\shot_miss.png")
+square_block = pygame.image.load("assets\\block.png")
 
 exit_button_font = pygame.font.Font("assets\\impact.ttf", 32)
 start_game_font = pygame.font.Font("assets\\impact.ttf", 58)
@@ -44,7 +46,7 @@ def place_menu(main):
         
         if main.ai_mode:
             from aiPlace import aiPlace
-            aiPlace(main.game.player1, main.fish_preset)
+            aiPlace(main.game.player1, main.fish_preset,main.game.blockList)
             main.ai_fish_preview = True
             if random.choice([True, False]): # Either AI 1 or AI 2 starts the shooting
                 success = 1
@@ -112,13 +114,9 @@ def place_menu(main):
         render_placing_menu(main.display, main.field_x, main.field_y,
             main.current_lengths, main.current_fish_selected,
             main.button1, main.button2, main.mouse_in_field)
-        render_shots(
-            main.display, 885, 285,
+        render_blocks(
+            main.display, 541, 242,
             main.game.getShotList("player1"))
-        render_shots(
-            main.display, 210, 285,
-            main.game.getShotList("ai"))
-    
         # Preview of placing a new fish
         if main.current_fish_selected != 0 and main.mouse_in_field:
             preview_fish = Fish(
@@ -182,3 +180,16 @@ def render_placing_menu(display, field_x, field_y, fish_left, selected, button1,
             645
         )
     )
+
+def render_blocks(display, offsetX, offsetY, shot_list):
+    for shot in shot_list:
+        position = (
+            shot[0][0] * 50 + offsetX,
+            shot[0][1] * 50 + offsetY
+        )
+        if shot[1] == "miss":
+            display.blit(shot_miss, position)
+        elif not shot[1] == "block":
+            display.blit(shot_hit, position)
+        else:
+            display.blit(square_block,position)

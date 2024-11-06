@@ -64,11 +64,11 @@ class Game:
     
 
     def placeFish(self, posXY, direction, length):
-        return place(self.player1, posXY, direction, length)
+        return place(self.player1, posXY, direction, length, self.blockList)
 
 
     def placeAiFish(self, preset):
-        aiPlace(self.ai, preset)
+        aiPlace(self.ai, preset, self.blockList)
     
 
     def removeFish(self, posXY):
@@ -128,13 +128,18 @@ class Game:
             coords = impossible_ai.shootAI(self.player1)
         if self.selected_ai == 6:
             coords = janise_ai.shootAI(self.ai_last_shot)
-        
-        response = shoot(self.ai, self.player1, coords)
+            
+        if not coords in self.blockList:
+            response = shoot(self.ai, self.player1, coords)
 
-        if response == "hit": self.ai_last_shot = 1
-        elif response == "sunk": self.ai_last_shot = 2
-        else: self.ai_last_shot = 0
-        return self.ai_last_shot
+            if response == "hit": self.ai_last_shot = 1
+            elif response == "sunk": self.ai_last_shot = 2
+            else: self.ai_last_shot = 0
+            return self.ai_last_shot
+        else:
+            self.ai_last_shot = 0
+            print("it Works...")
+            self.aiShoot()
     
 
     def aiModelReset(self, ai):
@@ -167,7 +172,7 @@ class Game:
         if ai == 4:
             coords = kilian_ai_hard.shootAI(ai_last_shot)
         if ai == 5:
-            coords = impossible_ai.shootAI(self.ai)
+            coords = impossible_ai.shootAI(self.player1)
         if ai == 6:
             coords = janise_ai.shootAI(ai_last_shot)
         
@@ -222,7 +227,7 @@ class Game:
         for i in range(blockNr):
             xCord = random.randint(0,9)
             yCord = random.randint(0,9)
-            pos = [xCord,yCord]
+            pos =(xCord,yCord)
             bList.append([pos,"block"])
         return(bList)
 

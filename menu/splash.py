@@ -127,7 +127,7 @@ splashTxt = [
     "powered by ritalin",
     "Le Fishe au chocolat",
     "Knapp daneben ist auch vorbei",
-    "20€ Paypal und dann joa",
+    "20 Euro Paypal und dann joa",
     "a² + b² = c²",
     "Koko kokkoko? Koko kokko.",
     "Alt + F4 und die Welt gehoert dir",
