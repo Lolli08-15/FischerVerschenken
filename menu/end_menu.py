@@ -24,11 +24,12 @@ def end_menu(main):
             main.mouse_button = 1
             if main.whoWon == "player":
                 main.player_win += 1
-                main.player_turns += main.current_turns
+                main.player_turns += main.current_p_turns
             else:
                 main.ai_win += 1
-                main.ai_turns += main.current_turns
-            main.current_turns = 0
+                main.ai_turns += main.current_a_turns
+            main.current_a_turns = 0
+            main.current_p_turns = 0
 
     # Exit button click function
     if main.mouse_button == 1 and main.button1 and main.transition_time == 0:

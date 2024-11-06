@@ -35,6 +35,7 @@ def main_menu(main):
             main.ai_turns = 0
             main.player_turns = 0
             main.current_turns = 0
+            main.last_mouse_button = 0
 
         main.next_state = "placing"
         main.transition_time = 30 * 10 #10 Seconds

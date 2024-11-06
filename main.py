@@ -59,7 +59,8 @@ class GUI:
         self.player_win = 0
         self.ai_turns = 0
         self.player_turns = 0
-        self.current_turns = 0
+        self.current_p_turns = 0
+        self.current_a_turns = 0
 
         self.current_lengths = settings.get_fish_preset(self.fish_preset)
         self.ai_fish_preview = False
@@ -150,6 +151,7 @@ class GUI:
                 self.running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 self.mouse_button = event.dict["button"]
+                self.last_mouse_button = self.mouse_button
                 self.mouse_pos = event.dict["pos"]
             if event.type == pygame.MOUSEMOTION:
                 self.mouse_pos = event.dict["pos"]
