@@ -20,7 +20,7 @@ def initAI(player):
             remove.append(i)
     for i in remove:
         nofish.remove(i)
-    if r.randint(99,99) == 99:
+    if True: #r.randint(99,99) == 99:
         nofish.extend(fish_here)
         shotlist = nofish
     else:
