@@ -33,7 +33,6 @@ def place(player,posXY,direction,fish_type, blockList):
     used += newFish
     for blocks in blockList:
         if blocks[0] in used:
-            print("he He")
             return False
         
     for spaces in used:

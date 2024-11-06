@@ -50,8 +50,8 @@ class GUI:
         # 4 = kilian unsorted, optimized
         # 5 = impossible
         # 6 = janise ai
-        self.selected_ai = [2, 3, 4, 5, 6, 7, 0, 1]
-        self.selected_player = [-1, 0, 1, 2, 3, 4, 5, 6, 7] # (Used for the ai testing mode)
+        self.selected_ai = [2, 3, 4, 5, 6, 0, 1]
+        self.selected_player = [-1, 0, 1, 2, 3, 4, 5, 6] # (Used for the ai testing mode)
 
         # Ai testing stats
         self.ai_mode = False  

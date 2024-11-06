@@ -179,7 +179,7 @@ class Game:
         if ai == 4:
             coords = kilian_ai_hard.shootAI(ai_last_shot)
         if ai == 5:
-            coords = impossible_ai.shootAI(self.player1)
+            coords = impossible_ai.shootAI(self.ai)
         if ai == 6:
             coords = janise_ai.shootAI(ai_last_shot)
         if ai == 7:
@@ -239,22 +239,13 @@ class Game:
             xCord = random.randint(0,9)
             yCord = random.randint(0,9)
             pos =(xCord,yCord)
-            bList.append([pos,"block"])
+            if not [pos,"block"] in bList:
+                bList.append([pos,"block"])
         return(bList)
 
 
     
 
-"""_____________________Test Start_____________________"""
-if __name__ == "__main__":
-    game = Game()
-    trash = game.player1.removeFish((1,0))
-    print(trash)
-    game.player1.showOff()
-    game.placeFish((0, 0), 1, 4)
-
-    print(shoot(game.player1, (0, 0)))
-"""_____________________Test End______________________"""
 
 """
     0 1 2 3 4 5 6 7 8 9

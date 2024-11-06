@@ -39,12 +39,11 @@ def resetAI():
     random.choice([True, False, False, False])
 
 
-def shootAI(shotInformation):
+def shootAI(_shotInformation):
     global freeFields, meShootHere
 
-    dontCare = shotInformation
-
-    meShootHere = freeFields[0]
-    freeFields.pop(0)
+    if len(freeFields):
+        meShootHere = freeFields[0]
+        freeFields.pop(0)
 
     return meShootHere
