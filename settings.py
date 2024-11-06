@@ -42,4 +42,5 @@ def get_ai_name(ai):
     if ai == 4: name = "Hart wie Hartmut"
     if ai == 5: name = "Unmöglich"
     if ai == 6: name = "Mr. Chunky"
+    if ai == 7: name = "Dirty Dan"
     return name

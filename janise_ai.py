@@ -24,6 +24,8 @@ def clearAim():     #clear up and shoot at grid
     hit=0
     recentHits.clear
     gridSquares &= freeSquares
+    if not gridSquares:
+        gridSquares = freeSquares
     return aiShoot(gridSquares)
     
         
@@ -37,10 +39,10 @@ def shootAI(response):
         recentHits.append(pickedSquare)
         targetShots = set()
         for each in recentHits:   #up, right, left, down
-            targetShots.add(tuple(map(add, each, (0,-1))))   #add adjacents as targets
-            targetShots.add(tuple(map(add, each, (1,0))))   #add adjacents as targets
-            targetShots.add(tuple(map(add, each, (0,1))))   #add adjacents as targets
-            targetShots.add(tuple(map(add, each, (-1,0))))   #add adjacents as targets
+            targetShots.add(tuple(map(add, each, (0,-1))))      #up
+            targetShots.add(tuple(map(add, each, (1,0))))       #right
+            targetShots.add(tuple(map(add, each, (0,1))))       #down
+            targetShots.add(tuple(map(add, each, (-1,0))))      #left
         targetShots &= freeSquares
         if not targetShots:             
             return clearAim()

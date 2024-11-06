@@ -35,6 +35,8 @@ def clearAim():     #clear up and shoot at grid
             gridSquares.add(tuple(map(add, each, (0,1))))       #down
             gridSquares.add(tuple(map(add, each, (-1,0))))      #left
         gridSquares &= freeSquares
+        if not gridSquares:
+            gridSquares = freeSquares
         
     return aiShoot(gridSquares)
     
