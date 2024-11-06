@@ -1,7 +1,7 @@
 from place import place
 from shoot import shoot
 from aiPlace import aiPlace
-from detectWin import detectWin
+from detectWinFile import detectWin as detectWin_extern
 
 import random
 
@@ -207,12 +207,12 @@ class Game:
     
 
     def detectWin(self):
-        aiWin = detectWin(self.player1)
-        playerWin = detectWin(self.ai)
-        if playerWin:
-            return "player"
+        aiWin = detectWin_extern(self.player1)
+        playerWin = detectWin_extern(self.ai)
         if aiWin:
             return "ai"
+        if playerWin:
+            return "player"
         return False
     
 
