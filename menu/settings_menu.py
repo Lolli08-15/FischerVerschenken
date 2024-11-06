@@ -149,10 +149,10 @@ def render_settings(display, button1, button2, button3, button4, selected_ai, fi
         text_color = "#000000"
     if selected_player == 6:
         text = "Spieler: Mr. Chunky"
-        text_color = "#000000"
+        text_color = "#ff9999"
     if selected_player == 7:
         text = "Spieler: Dirty Dan"
-        text_color = "#000000"
+        text_color = "#ff2222"
 
     if button4: text_color = "#a1e9e9"
     text_texture = settings_font.render(text, True, text_color)
@@ -165,20 +165,20 @@ def render_settings(display, button1, button2, button3, button4, selected_ai, fi
     )
 
     # FISH Button
-    text = "Fish: Normen"
+    text = "Fish Set: Normen"
     text_color = "#67b1d7"
     if fish_preset == 1:
-        text = "Fish: Quickie"
+        text = "Fish Set: Volles Rohr"
     if fish_preset == 2:
-        text = "Fish: Long John"
+        text = "Fish Set: Nicht Normal"
     if fish_preset == 3:
-        text = "Fish: Double Trouble"
+        text = "Fish Set: Double Trouble"
     if fish_preset == 4:
-        text = "Fish: Roberts Dreier"
+        text = "Fish Set: Norm Ultimate"
     if fish_preset == 5:
-        text = "Fish: Das Große Fechten"
+        text = "Fish Set: Nicht sehr Fischig"
     if fish_preset == 6:
-        text = "Fish: Aal die Fische"
+        text = "Fish Set: Bannanas Choice"
 
     if button3: text_color = "#a1e9e9"
     text_texture = settings_font.render(text, True, text_color)
