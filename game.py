@@ -184,8 +184,10 @@ class Game:
             coords = janise_ai.shootAI(ai_last_shot)
         if ai == 7:
             coords = janise_ai_dirty.shootAI(ai_last_shot)
-        
-        return coords
+        if not coords in self.blockList:
+            return coords
+        else:
+            self.aiModelShoot(ai,0)
     
 
     def getSunkenFish(self, player):

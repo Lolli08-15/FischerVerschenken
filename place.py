@@ -30,11 +30,16 @@ def place(player,posXY,direction,fish_type, blockList):
     for offset in selected_fish:
         newFish.append((posXY[0]+offset[0],posXY[1]+offset[1]))
     
-    for i in blockList:
-        if i in newFish:
+    used += newFish
+    for blocks in blockList:
+        if blocks[0] in used:
+            print("he He")
+            return False
+        
+    for spaces in used:
+        if spaces in blockList:
             return False
 
-    used += newFish
     for i in used:
         if 0 > i[0] or i[0] > 9 or 0 > i[1] or i[1] > 9:
             return False
