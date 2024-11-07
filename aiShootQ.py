@@ -100,13 +100,13 @@ def shootRandom():
     pickedField = [0, 0]
 
     while len(freeGrid) > 0:
-
         pickedField = random.choice(freeGrid) # nehme eine zufällige position
 
         if pickedField not in shotFields:
             break
     
-    freeGrid.remove(pickedField)
+    if freeGrid.count(pickedField) > 0:
+        freeGrid.remove(pickedField)
 
     aimXY[0] = pickedField[0]
     aimXY[1] = pickedField[1]
