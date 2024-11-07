@@ -47,7 +47,11 @@ class Gegner:
         """
         Gibt eine zufällige Koordinate für den nächsten Schuss zurück, die noch nicht getroffen wurde.
         """
+        tries = 0
         while True:
+            tries += 1
+            if tries > 100:
+                return [0, 0]
             x = random.randint(0, self.grid_size - 1)
             y = random.randint(0, self.grid_size - 1)
             if self.grid[x][y] == 0:  # Schieße nur auf ungetroffene Felder

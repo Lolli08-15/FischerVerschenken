@@ -101,10 +101,12 @@ def shootAI(response):
     if ai_state == "idle":
         attacking_direction = 0
         attacking_steps = 0
+        if len(free_squares) > 0:
+            last_shot = random.choice(free_squares)
 
-        last_shot = random.choice(free_squares)
-
-        free_squares.remove(last_shot)
-        shots.append(last_shot)
+            free_squares.remove(last_shot)
+            shots.append(last_shot)
+        else:
+            last_shot = (0, 0)
 
         return last_shot 

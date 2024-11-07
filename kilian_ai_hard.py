@@ -147,6 +147,5 @@ def shootAI(response):
             shots.append(last_shot)
         else:
             last_shot = (0, 0)
-            print("Kilian AI Hard: Could not find any new position")
 
         return last_shot 

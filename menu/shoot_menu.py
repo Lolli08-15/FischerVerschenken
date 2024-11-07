@@ -33,7 +33,7 @@ def shoot_menu(main):
         main.loading_bar = 0
         main.bar_direction = -1
 
-    if (main.ai_mode and main.button2 and main.last_mouse_button == 1):
+    if main.ai_mode and ((main.button2 and main.last_mouse_button == 1) or (main.ai_win + main.player_win >= 10000)):
         main.pick_splash()
         main.next_state = "main menu"
         main.transition_time = 30 * 7 #7 Seconds
