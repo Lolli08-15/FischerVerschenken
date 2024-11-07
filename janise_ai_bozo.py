@@ -1,0 +1,135 @@
+import random
+
+
+def resetAI():
+    global freeSquares
+    
+    freeSquares = set()             #generate possible squares, to keep track of shots
+    for x in range(10):
+        for y in range(10):
+            freeSquares.add((x,y))   
+
+        
+        
+def shootAI(response):
+    return aiShoot(freeSquares)                            #fire
+        
+        
+#the main function
+def aiShoot(aim):
+    global pickedSquare   
+    pickedSquare = random.choice(list(aim))     #pick a square based on the choice
+    print(pickedSquare)
+    aimX, aimY = pickedSquare
+    freeSquares.remove(pickedSquare)
+    return aimX, aimY     #returns aim coordinates
+    
+
+   
+#DEBUG  
+ 
+if __name__ == "__main__":
+    
+    
+    resetAI()
+    print(f"miss {shootAI(0)}")
+    print(f"hit  {shootAI(0)}")
+    print(f"miss {shootAI(1)}")
+    print(f"hit  {shootAI(0)}")
+    print(f"hit  {shootAI(1)}")
+    print(f"miss {shootAI(1)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"hit  {shootAI(0)}")
+    print(f"miss {shootAI(1)}")
+    print(f"hit  {shootAI(0)}")
+    print(f"hit  {shootAI(1)}")
+    print(f"miss {shootAI(1)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"hit  {shootAI(0)}")
+    print(f"miss {shootAI(1)}")
+    print(f"hit  {shootAI(0)}")
+    print(f"hit  {shootAI(1)}")
+    print(f"miss {shootAI(1)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"hit  {shootAI(0)}")
+    print(f"miss {shootAI(1)}")
+    print(f"hit  {shootAI(0)}")
+    print(f"hit  {shootAI(1)}")
+    print(f"miss {shootAI(1)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"hit  {shootAI(0)}")
+    print(f"miss {shootAI(1)}")
+    print(f"hit  {shootAI(0)}")
+    print(f"hit  {shootAI(1)}")
+    print(f"miss {shootAI(1)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"hit  {shootAI(0)}")
+    print(f"miss {shootAI(1)}")
+    print(f"hit  {shootAI(0)}")
+    print(f"hit  {shootAI(1)}")
+    print(f"miss {shootAI(1)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"hit  {shootAI(0)}")
+    print(f"miss {shootAI(1)}")
+    print(f"hit  {shootAI(0)}")
+    print(f"hit  {shootAI(1)}")
+    print(f"miss {shootAI(1)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"hit  {shootAI(0)}")
+    print(f"miss {shootAI(1)}")
+    print(f"hit  {shootAI(0)}")
+    print(f"hit  {shootAI(1)}")
+    print(f"miss {shootAI(1)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"hit  {shootAI(0)}")
+    print(f"miss {shootAI(1)}")
+    print(f"hit  {shootAI(0)}")
+    print(f"hit  {shootAI(1)}")
+    print(f"miss {shootAI(1)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"hit  {shootAI(0)}")
+    print(f"miss {shootAI(1)}")
+    print(f"hit  {shootAI(0)}")
+    print(f"hit  {shootAI(1)}")
+    print(f"miss {shootAI(1)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print(f"miss {shootAI(0)}")
+    print()
