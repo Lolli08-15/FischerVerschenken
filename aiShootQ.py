@@ -105,8 +105,12 @@ def shootRandom():
 
         if pickedField not in shotFields:
             break
-    
-    freeGrid.remove(pickedField)
+    if len(freeGrid) > 0 :
+        freeGrid.remove(pickedField)
+    else:
+        print("restarting")
+        resetAI()
+        shootAI(0)
 
     aimXY[0] = pickedField[0]
     aimXY[1] = pickedField[1]
