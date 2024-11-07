@@ -12,6 +12,8 @@ def resetAI():
         
         
 def shootAI(response):
+    if not freeSquares:
+        freeSquares.add((0,0))
     return aiShoot(freeSquares)                            #fire
         
         
@@ -19,7 +21,6 @@ def shootAI(response):
 def aiShoot(aim):
     global pickedSquare   
     pickedSquare = random.choice(list(aim))     #pick a square based on the choice
-    print(pickedSquare)
     aimX, aimY = pickedSquare
     freeSquares.remove(pickedSquare)
     return aimX, aimY     #returns aim coordinates
