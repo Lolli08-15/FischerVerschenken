@@ -1,4 +1,4 @@
-import random
+import QimportEverything
 
 shotFields = []
 aimXY = [0, 0]

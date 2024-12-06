@@ -8,13 +8,13 @@ class Stats:
         self.sunkStat = 0
         self.winStat = 0
         self.gameStat = 0
-        self.aiWinStat = {
+        """self.aiWinStat = {
             "dumAi" = 0,
             "chadGPTAi" = 0,
             "" = 0,
             "AIQ" = 0,
 
-        }
+        }"""
         self.fishSunkStat = [0, 0, 0, 0, 0, 0]
         self.progressStat = 0.0
         self.loadStats()
