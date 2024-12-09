@@ -18,7 +18,7 @@ Objekte:
 fishList/shotList in eigene Datei? entscheidung später
 
 Module:
-	place:		 			Oli
+	place:		 			Olli
 	shoot:		 			Q
 	ai:						xJanise
 	grafics/player inputs:	Kilian
@@ -101,3 +101,15 @@ Finish ToDo:
 	3 player stats sichtbar (Buch)
 	4 unlockebles
 	
+
+
+Unlockables:
+-KI
+-Preset
+
+GPT/Medium		Normen
+Chunky/Hartmut		Volles Rohr/Double Trouble
+Dan/AIQ			Nicht Nomal/ Nicht sehr Fischig
+Joke AI's		Ultimate Combo / Bannanas Choice		AI vs AI
+
+

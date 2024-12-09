@@ -4,7 +4,7 @@
     "sunkStat" : 0,
     "winStat" : 0,
     "gameStat" : 0,
-    "aiWinStat" : [],
+    "aiWinStat" : [15,3,34,28,3,2,0,0],
     "fishSunkStat" : [],
     "progressStat" : 0.0
 }

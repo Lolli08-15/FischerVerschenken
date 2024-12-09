@@ -5,6 +5,8 @@ from detectWinFile import detectWin as detectWin_extern
 
 import random
 
+import statistics_file
+
 import dum_ai
 import gpt_ai
 import janise_ai
@@ -52,6 +54,8 @@ class Game:
         self.ai = Player()
         self.ai_last_shot = 0
         self.blockList = []
+        self.statBlock = statistics_file.Stats()
+        self.aiMode = False
     
 
     def getPlayerFish(self, player):
@@ -111,7 +115,14 @@ class Game:
 
     
     def playerShoot(self, posXY):
-        return shoot(self.player1, self.ai, posXY)
+        self.statBlock.addShotStat()
+        answer = shoot(self.player1, self.ai, posXY)
+        if answer == "hit":
+            self.statBlock.addHitStat()
+        if answer == "sunk":
+            self.statBlock.addHitStat()
+            self.statBlock.addSunkStat()
+        return answer
     
 
     def aiShoot(self):
@@ -210,11 +221,29 @@ class Game:
         aiWin = detectWin_extern(self.player1)
         playerWin = detectWin_extern(self.ai)
         if aiWin:
+            if not self.aiMode:
+                self.statBlock.addGameStat()
             return "ai"
         if playerWin:
+            if not self.aiMode:
+                self.statBlock.addGameStat()
+                self.statBlock.addWinStat()
+                self.statBlock.addAiWinStat(self.selected_ai)
+                self.progression()
             return "player"
         return False
     
+    def progression(self):
+        if self.statBlock.stats["progressStat"] < 3:
+            if self.selected_ai == 1 or self.selected_ai == 2:
+                if not self.statBlock.stats["progressStat"] > 1:
+                    self.statBlock.setProgress(1)
+            elif self.selected_ai == 6 or self.selected_ai == 4:
+                if not self.statBlock.stats["progressStat"] > 2:
+                    self.statBlock.setProgress(2)
+            elif self.selected_ai == 3 or self.selected_ai == 7:
+                    self.statBlock.setProgress(3)
+                    
 
     def setAI(self, AI):
         self.selected_ai = AI
