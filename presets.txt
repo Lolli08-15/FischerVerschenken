@@ -1,0 +1,47 @@
+Normen
+	1x2
+	2x3
+	1x4
+	1x5
+	0xObs
+Volles Rohr
+	2xPuff
+	2x2
+	2x3
+	2x4
+	1x5
+	2xShoe
+	2xBanana
+	0-5
+Nicht Normal
+	2xPuff
+	2xShoe
+	2xBanana
+	3-8
+Double Trouble
+	2xPuff
+	2x2
+	8-18
+Norm2
+	1xPuff
+	1x2
+	2x3
+	1x4
+	1xShoe
+	1xBanana
+	4-10
+Nicht sehr
+	2xShoe
+	2xBanana
+	3-15
+Bannanas choice
+	1x3
+	2x4
+	2x5
+	1xBanana
+	2-12
+	
+	
+Suggestions:
+
+Norm2=Normen mit mehr standard fische und hindernissen
