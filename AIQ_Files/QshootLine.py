@@ -1,16 +1,15 @@
-import QimportEverything
+from AIQ_Files.QimportEverything import *
 
 
-def shootLine():
-    global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, shotCount, cleanMode, hitFields
+def shootLine(qVar):
 
-    shotCount = len(lastHits)
+    qVar.shotCount = len(qVar.lastHits)
 
 
-    while shotCount > 0: # wieerhole für die anzahl der hits
-        possibleDirections = [1, 2, 3, 4]
+    while qVar.shotCount > 0: # wieerhole für die anzahl der hits
+        qVar.possibleDirections = [1, 2, 3, 4]
 
-        shotCount -= 1 # gehe ein feld zurück
+        qVar.shotCount -= 1 # gehe ein feld zurück
 
         lineTry = shootAllWay() # führe ein 2 way auf feld x aus
 
@@ -18,6 +17,6 @@ def shootLine():
             break
 
     if lineTry[0] == 100:
-        return shootRandom()
+        return shootRandom(qVar)
 
     return lineTry

@@ -14,6 +14,8 @@ import aiShootQ
 import kilian_ai_hard
 import impossible_ai
 
+import AIQ_Files.QresetAI
+
 
 
 class Player:
@@ -52,7 +54,7 @@ class Game:
         self.ai = Player()
         self.ai_last_shot = 0
         self.blockList = []
-    
+        
 
     def getPlayerFish(self, player):
         """returns the FishObjekts of the prompted 

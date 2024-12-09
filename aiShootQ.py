@@ -1,5 +1,7 @@
-import QimportEverything
+from AIQ_Files.QimportEverything import *
+from AIQ_Files.QresetAI import Qvar
 
+"""
 shotFields = []
 aimXY = [0, 0]
 lastHits = []
@@ -39,8 +41,8 @@ else: # wenn nicht, wähle eines der beiden der grids aus
         freeGrid = whiteGrid
     else:
         freeGrid = blackGrid
-
-
+"""
+"""
 def resetAI():
     global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, shotCount, gridChoice, blackGrid, whiteGrid, freeGrid, cleanMode, hitFields
 
@@ -242,33 +244,38 @@ def shootLine():
 
     return lineTry
 
-
+"""
 
 
     # START -----------------------------------------------------------------------------------------
 
+qVar = Qvar()
+qVar.resetAIQ()
+
 def shootAI(shotData):
-    global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, shotCount, cleanMode, hitFields
 
     if shotData == 2: # wenn der letzte schuss versenkt hat,
-        lastHits.append(shotFields[-1].copy()) # trage zuletzt geschossenes feld in letzte hits ein
-        hitFields.append(lastHits[-1].copy()) # setzte letzen treffer auf treffer liste
-        lastHits.clear() # lösche letzt getroffene hits
+        qVar.lastHits.append(qVar.shotFields[-1].copy()) # trage zuletzt geschossenes feld in letzte hits ein
+        qVar.hitFields.append(qVar.lastHits[-1].copy()) # setzte letzen treffer auf treffer liste
+        qVar.lastHits.clear() # lösche letzt getroffene hits
 
-        return shootRandom() # schieße zufällig
+        return shootRandom(qVar) # schieße zufällig
 
     if shotData == 1: # wenn treffer
-        lastHits.append(shotFields[-1].copy()) # trage zuletzt geschossenes feld in letzte hits ein
+        qVar.lastHits.append(qVar.shotFields[-1].copy()) # trage zuletzt geschossenes feld in letzte hits ein
         
-        hitFields.append(lastHits[-1].copy()) # setzte letzen treffer auf treffer liste
+        qVar.hitFields.append(qVar.lastHits[-1].copy()) # setzte letzen treffer auf treffer liste
         possibleDirections = [1, 2, 3, 4]
 
-    if len(lastHits) == 1: # wenn nur ein treffer registriert wurde
-        return shootAllWay() # versuche alle umliegenden felder zu schießen
+    if len(qVar.lastHits) == 1: # wenn nur ein treffer registriert wurde
+        return shootAllWay(qVar) # versuche alle umliegenden felder zu schießen
 
-    if len(lastHits) >= 2: # wenn mehrere treffer registriert wurden
-        return shootLine() # dann schieße nur auf einer linie
+    if len(qVar.lastHits) >= 2: # wenn mehrere treffer registriert wurden
+        return shootLine(qVar) # dann schieße nur auf einer linie
 
-    if shotData == 0 & len(lastHits) == 0:
-        return shootRandom()
+    if shotData == 0 & len(qVar.lastHits) == 0:
+        return shootRandom(qVar)
     return "error"
+
+def resetAI():
+    qVar.resetAIQ()

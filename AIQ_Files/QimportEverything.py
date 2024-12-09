@@ -1,5 +1,4 @@
-from QinitVars import initVars
-from QshootAllWay import shootAllWay
-from QshootLine import shootLine
-from QshootRandom import shootRandom
 import random
+from AIQ_Files.QshootAllWay import shootAllWay
+from AIQ_Files.QshootLine import shootLine
+from AIQ_Files.QshootRandom import shootRandom

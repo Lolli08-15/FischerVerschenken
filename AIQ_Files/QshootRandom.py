@@ -1,38 +1,37 @@
-import QimportEverything
+from AIQ_Files.QimportEverything import *
 
-def shootRandom():
-    global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, shotCount, gridChoice, blackGrid, whiteGrid, freeGrid, cleanMode, hitFields
+def shootRandom(qVar):
 
-    if len(freeGrid) == 0: # wenn das grid der unbeschossenen felder leer ist, wechsle auf das andere
+    if len(qVar.freeGrid) == 0: # wenn das grid der unbeschossenen felder leer ist, wechsle auf das andere
         #cleanMode = True # aktiviere aufräum modus
 
-        if gridChoice:
-            freeGrid = blackGrid
+        if qVar.gridChoice:
+            qVar.freeGrid = qVar.blackGrid
         else:
-            freeGrid = whiteGrid
+            qVar.freeGrid = qVar.whiteGrid
     
     pickedField = [0, 0]
 
-    while len(freeGrid) > 0:
-        pickedField = random.choice(freeGrid) # nehme eine zufällige position
+    while len(qVar.freeGrid) > 0:
+        pickedField = random.choice(qVar.freeGrid) # nehme eine zufällige position
 
-        if pickedField not in shotFields:
+        if pickedField not in qVar.shotFields:
             break
     
-    if freeGrid.count(pickedField) > 0:
-        freeGrid.remove(pickedField)
+    if qVar.freeGrid.count(pickedField) > 0:
+        qVar.freeGrid.remove(pickedField)
 
-    aimXY[0] = pickedField[0]
-    aimXY[1] = pickedField[1]
+    qVar.aimXY[0] = pickedField[0]
+    qVar.aimXY[1] = pickedField[1]
 
 
 
-    if cleanMode == True:
-        lastHits = hitFields.copy()
-        return shootLine()
+    if qVar.cleanMode == True:
+        lastHits = qVar.hitFields.copy()
+        return shootLine(qVar)
 
-    possibleDirections = [1, 2, 3, 4]
-    shotCount = 0
-    shotFields.append(aimXY.copy()) # setzte aim XY auf geschossene Felder
-    tuple_aimXY = (aimXY[0], aimXY[1]) # wandele aimXY liste in tuple um
-    return tuple_aimXY # gebe den schuss zurück
+    qVar.possibleDirections = [1, 2, 3, 4]
+    qVar.shotCount = 0
+    qVar.shotFields.append(qVar.aimXY.copy()) # setzte aim XY auf geschossene Felder
+    qVar.tuple_aimXY = (qVar.aimXY[0], qVar.aimXY[1]) # wandele aimXY liste in tuple um
+    return qVar.tuple_aimXY # gebe den schuss zurück

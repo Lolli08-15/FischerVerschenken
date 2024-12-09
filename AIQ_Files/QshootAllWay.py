@@ -1,98 +1,95 @@
-import QimportEverything
+from AIQ_Files.QimportEverything import *
 
-def shootAllWay():
-    global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, shotCount, cleanMode, hitFields, freeField
-    
+def shootAllWay(qVar):
 
+    while len(qVar.possibleDirections) >= 0: # solange noch offsets möglich sind
 
-    while len(possibleDirections) >= 0: # solange noch offsets möglich sind
-
-        if len(lastHits) >= 2 and cleanMode == False: # wenn line mode aktiv ist,
-            if xOffset == True: # wenn waagerecht geschossen wird
-                if possibleDirections.count(2) > 0:
-                    possibleDirections.remove(2) # dann lösche oben
-                if possibleDirections.count(4) > 0:
-                    possibleDirections.remove(4) # dann lösche unten
+        if len(qVar.lastHits) >= 2 and qVar.cleanMode == False: # wenn line mode aktiv ist,
+            if qVar.xOffset == True: # wenn waagerecht geschossen wird
+                if qVar.possibleDirections.count(2) > 0:
+                    qVar.possibleDirections.remove(2) # dann lösche oben
+                if qVar.possibleDirections.count(4) > 0:
+                    qVar.possibleDirections.remove(4) # dann lösche unten
             else: # wenn senkrecht geschossen wird
-                if possibleDirections.count(1) > 0:
-                    possibleDirections.remove(1) # dann lösche rechts
-                if possibleDirections.count(3) > 0:
-                    possibleDirections.remove(3) # dann lösche links
+                if qVar.possibleDirections.count(1) > 0:
+                    qVar.possibleDirections.remove(1) # dann lösche rechts
+                if qVar.possibleDirections.count(3) > 0:
+                    qVar.possibleDirections.remove(3) # dann lösche links
         else:
-            offset = 0
+            qVar.offset = 0
 
-        if len(possibleDirections) != 0:
-            offset = random.choice(possibleDirections) # setze offset richtung auf eine zufällige der 4 verbleibenden richtungen
+        if len(qVar.possibleDirections) != 0:
+            qVar.offset = random.choice(qVar.possibleDirections) # setze qVar.offset richtung auf eine zufällige der 4 verbleibenden richtungen
 
-        if offset == 1: # wenn nach rechts offset ist
+        if qVar.offset == 1: # wenn nach rechts qVar.offset ist
 
-            if lastHits[shotCount][0] + 1 > 9: # wenn der offset versuch außerhalb des spielfeldes liegt, lösche ihn aus dem offset und versuch es erneut
-                possibleDirections.remove(1) # lösche ihn aus dem offset
-            elif lastHits[shotCount][0] + 1 in shotFields: # wenn versuch schon vorhanden
-                possibleDirections.remove(1) # lösche ihn aus dem offset
+            if qVar.lastHits[qVar.shotCount][0] + 1 > 9: # wenn der qVar.offset versuch außerhalb des spielfeldes liegt, lösche ihn aus dem qVar.offset und versuch es erneut
+                qVar.possibleDirections.remove(1) # lösche ihn aus dem qVar.offset
+            elif qVar.lastHits[qVar.shotCount][0] + 1 in qVar.shotFields: # wenn versuch schon vorhanden
+                qVar.possibleDirections.remove(1) # lösche ihn aus dem qVar.offset
 
             else:
 
-                xOffset = True # stelle waagerechten offset ein
-                aimXY[0] = lastHits[shotCount][0] + 1
-                aimXY[1] = lastHits[shotCount][1]
+                qVar.xOffset = True # stelle waagerechten qVar.offset ein
+                qVar.aimXY[0] = qVar.lastHits[qVar.shotCount][0] + 1
+                qVar.aimXY[1] = qVar.lastHits[qVar.shotCount][1]
 
             
-        elif offset == 2: # wenn nach unten offset ist
+        elif qVar.offset == 2: # wenn nach unten qVar.offset ist
 
-            if lastHits[shotCount][1] + 1 > 9: # wenn der offset versuch außerhalb des spielfeldes liegt, lösche ihn aus dem offset
-                possibleDirections.remove(2) # lösche ihn aus dem offset
-            elif lastHits[shotCount][1] + 1 in shotFields: # wenn versuch schon vorhanden
-                possibleDirections.remove(2) # lösche ihn aus dem offset
-
-            else:
-
-                xOffset = False # stelle waagerechten offset aus
-                aimXY[0] = lastHits[shotCount][0]
-                aimXY[1] = lastHits[shotCount][1] + 1
-
-
-        elif offset == 3: # wenn nach links offset ist
-
-            if lastHits[shotCount][0] - 1 < 0: # wenn der offset versuch außerhalb des spielfeldes liegt, lösche ihn aus dem offset und versuch es erneut
-                possibleDirections.remove(3) # lösche ihn aus dem offset
-            elif lastHits[shotCount][0] - 1 in shotFields:
-                possibleDirections.remove(3) # lösche ihn aus dem offset
+            if qVar.lastHits[qVar.shotCount][1] + 1 > 9: # wenn der qVar.offset versuch außerhalb des spielfeldes liegt, lösche ihn aus dem qVar.offset
+                qVar.possibleDirections.remove(2) # lösche ihn aus dem qVar.offset
+            elif qVar.lastHits[qVar.shotCount][1] + 1 in qVar.shotFields: # wenn versuch schon vorhanden
+                qVar.possibleDirections.remove(2) # lösche ihn aus dem qVar.offset
 
             else:
 
-                xOffset = True # stelle waagerechten offset ein
-                aimXY[0] = lastHits[shotCount][0] - 1
-                aimXY[1] = lastHits[shotCount][1]
+                qVar.xOffset = False # stelle waagerechten qVar.offset aus
+                qVar.aimXY[0] = qVar.lastHits[qVar.shotCount][0]
+                qVar.aimXY[1] = qVar.lastHits[qVar.shotCount][1] + 1
 
-        elif offset == 4: # wenn nach oben offset ist
 
-            if lastHits[shotCount][1] - 1 < 0: # wenn der offset versuch außerhalb des spielfeldes liegt, lösche ihn aus dem offset
-                possibleDirections.remove(4) # lösche ihn aus dem offset
-            elif lastHits[shotCount][1] - 1 in shotFields:
-                possibleDirections.remove(4) # lösche ihn aus dem offset
+        elif qVar.offset == 3: # wenn nach links qVar.offset ist
+
+            if qVar.lastHits[qVar.shotCount][0] - 1 < 0: # wenn der qVar.offset versuch außerhalb des spielfeldes liegt, lösche ihn aus dem qVar.offset und versuch es erneut
+                qVar.possibleDirections.remove(3) # lösche ihn aus dem qVar.offset
+            elif qVar.lastHits[qVar.shotCount][0] - 1 in qVar.shotFields:
+                qVar.possibleDirections.remove(3) # lösche ihn aus dem qVar.offset
 
             else:
 
-                xOffset = False # stelle waagerechten offset aus
-                aimXY[0] = lastHits[shotCount][0]
-                aimXY[1] = lastHits[shotCount][1] - 1
+                qVar.xOffset = True # stelle waagerechten qVar.offset ein
+                qVar.aimXY[0] = qVar.lastHits[qVar.shotCount][0] - 1
+                qVar.aimXY[1] = qVar.lastHits[qVar.shotCount][1]
+
+        elif qVar.offset == 4: # wenn nach oben qVar.offset ist
+
+            if qVar.lastHits[qVar.shotCount][1] - 1 < 0: # wenn der qVar.offset versuch außerhalb des spielfeldes liegt, lösche ihn aus dem qVar.offset
+                qVar.possibleDirections.remove(4) # lösche ihn aus dem qVar.offset
+            elif qVar.lastHits[qVar.shotCount][1] - 1 in qVar.shotFields:
+                qVar.possibleDirections.remove(4) # lösche ihn aus dem qVar.offset
+
+            else:
+
+                qVar.xOffset = False # stelle waagerechten qVar.offset aus
+                qVar.aimXY[0] = qVar.lastHits[qVar.shotCount][0]
+                qVar.aimXY[1] = qVar.lastHits[qVar.shotCount][1] - 1
                 
 
 
-        if aimXY not in shotFields:
+        if qVar.aimXY not in qVar.shotFields:
             break
         else:
-            if offset in possibleDirections:
-                possibleDirections.remove(offset) # lösche ihn aus dem offset
+            if qVar.offset in qVar.possibleDirections:
+                qVar.possibleDirections.remove(qVar.offset) # lösche ihn aus dem qVar.offset
 
-        if len(possibleDirections) == 0:
+        if len(qVar.possibleDirections) == 0:
             return (100, 100)
 
 
 
-    shotFields.append(aimXY.copy()) # setzte aim XY auf geschossene Felder
-    tuple_aimXY = (aimXY[0], aimXY[1]) # wandele aimXY liste in tuple um
-    if freeGrid.count(tuple_aimXY) > 0:
-        freeGrid.remove(tuple_aimXY)
-    return tuple_aimXY # gebe den schuss zurück    
+    qVar.shotFields.append(qVar.aimXY.copy()) # setzte aim XY auf geschossene Felder
+    qVar.tuple_aimXY = (qVar.aimXY[0], qVar.aimXY[1]) # wandele qVar.aimXY liste in tuple um
+    if qVar.freeGrid.count(qVar.tuple_aimXY) > 0:
+        qVar.freeGrid.remove(qVar.tuple_aimXY)
+    return qVar.tuple_aimXY # gebe den schuss zurück    
