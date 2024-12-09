@@ -3,6 +3,7 @@ import game
 import random
 import settings
 
+
 pygame.init()
 
 from menu.main_menu import main_menu
@@ -141,6 +142,7 @@ class GUI:
             pygame.display.flip()
             if not self.ai_mode:
                 self.clock.tick(30)
+            game.aiMode = self.ai_mode
     
 
     def handle_events(self):
