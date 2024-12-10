@@ -1,10 +1,10 @@
-Normen
+Normen 			(preset 0)
 	1x2
 	2x3
 	1x4
 	1x5
 	0xObs
-Volles Rohr
+Volles Rohr		(preset 1)
 	2xPuff
 	2x2
 	2x3
@@ -13,28 +13,27 @@ Volles Rohr
 	2xShoe
 	2xBanana
 	0-5
-Nicht Normal
+Not Straight	(preset 2)
 	2xPuff
 	2xShoe
 	2xBanana
 	3-8
-Double Trouble
+Double Trouble	(preset 3)
 	2xPuff
 	2x2
 	8-18
-Norm2
+Einzigartig		(preset 4)
 	1xPuff
 	1x2
-	2x3
+	1x3
 	1x4
 	1xShoe
 	1xBanana
 	4-10
-Nicht sehr
-	2xShoe
-	2xBanana
-	3-15
-Bannanas choice
+Krumme Sache	(preset 5)
+	5xBanana
+	7
+Bannanas choice	(preset 6)
 	1x3
 	2x4
 	2x5
