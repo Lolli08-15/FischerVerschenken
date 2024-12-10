@@ -31,7 +31,7 @@ class Stats:
     def saveStats(self):
         json.dumps(self.stats)
 
-    # setzte alle stats zurück
+    # setze alle stats zurück
     def resetAllStat(self):
         self.stats["shotStat"] = 0
         self.stats["hitStat"] = 0
