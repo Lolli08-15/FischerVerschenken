@@ -81,7 +81,7 @@ splashTxt = [
     "Warum funktioniert das nicht?",
     "Warum crasht es?",
     "Jetzt mit 50% weniger Kaefern! (Hoffentlich)",
-    "20% auf alles, auser Tiernahrung",
+    "20%"+" auf alles, auser Tiernahrung",
     "Bitte helfen Sie mir",
     "Es wird Suppe gegessen!",
     "Jetzt, ohne Parkkantiene!",
@@ -128,7 +128,7 @@ splashTxt = [
     "Le Fishe au chocolat",
     "Knapp daneben ist auch vorbei",
     "20 Euro Paypal und dann joa",
-    "a² + b² = c²",
+    "a²^2 + b²^2 = c²^2",
     "Koko kokkoko? Koko kokko.",
     "Alt + F4 und die Welt gehoert dir",
     "Hoch die Haende, Wochenende",
@@ -141,5 +141,19 @@ splashTxt = [
     "Es gibt über 500 Splashtexte",
     "Es gibt 18+ Splashtexte",
     "Dieser Text ist falsch!",
-    "Dynamitisch Programmiert"
+    "Dynamitisch Programmiert",
+    "Jetzt mit ueberspringbarem Ladebalken",
+    "^^",
+    "Q war hier",
+    "awarded for a game of a year",
+    "ein Spiel um Leben oder Lebkuchen"
+    "Rewe Spekulatius 4 ever",
+    "so war das nicht gemeint",
+    "frohes Schaffen",
+    "das war's auch schon wieder",
+    "all my homies hate JavaScript",
+    "Ryzen > AMD",
+    "tobb Sigrid",
+    "Aales klar",
+    "Puffer(Fisch) enthalten"
 ]

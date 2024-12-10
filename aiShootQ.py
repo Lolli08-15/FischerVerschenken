@@ -1,5 +1,6 @@
 import random
 
+# init alle variablen
 shotFields = []
 aimXY = [0, 0]
 lastHits = []
@@ -15,7 +16,8 @@ gridChoice = bool
 cleanMode = False
 hitFields = []
 
-for x in range(10): # generiere grid
+# generiere beide grids
+for x in range(10):
     for y in range(10):
         if y % 2 == 0:
             if x % 2 == 1:
@@ -30,7 +32,7 @@ for x in range(10): # generiere grid
 
 gridChoice = random.choice([True, False]) # random ob das white grid ausgewählt wird
 
-toggleGridMode = False # manuelle Einstelung um grid mode ein oder auszuschalten <------------------------
+toggleGridMode = True #  <------------------------ manuelle Einstelung um grid mode ein oder auszuschalten
 
 if toggleGridMode == False: # wenn gridmode aus ist, dann setze die beiden grids zu einem zusammen
     freeGrid = whiteGrid + blackGrid
@@ -44,6 +46,7 @@ else: # wenn nicht, wähle eines der beiden der grids aus
 def resetAI():
     global shotFields, aimXY, lastHits, offset, xOffset, tuple_aimXY, possibleDirections, shotCount, gridChoice, blackGrid, whiteGrid, freeGrid, cleanMode, hitFields
 
+    # setze alle variablen zurück
     shotFields = []
     aimXY = [0, 0]
     lastHits = []
@@ -59,7 +62,8 @@ def resetAI():
     cleanMode = False
     hitFields = []
 
-    for x in range(10): # generiere grid
+    # generiere beide grids
+    for x in range(10):
         for y in range(10):
             if y % 2 == 0:
                 if x % 2 == 1:
@@ -73,8 +77,6 @@ def resetAI():
                     blackGrid.append((x, y))
 
     gridChoice = random.choice([True, False]) # random ob das white grid ausgewählt wird
-
-    toggleGridMode = True
 
     if toggleGridMode == False: # wenn gridmode aus ist, dann setze die beiden grids zu einem zusammen
         freeGrid = whiteGrid + blackGrid
@@ -99,7 +101,7 @@ def shootRandom():
     
     pickedField = [0, 0]
 
-    while len(freeGrid) > 0:
+    while len(freeGrid) > 0: # wenn noch felder verfügbar sind
         pickedField = random.choice(freeGrid) # nehme eine zufällige position
 
         if pickedField not in shotFields:
@@ -113,8 +115,8 @@ def shootRandom():
 
 
 
-    if cleanMode == True:
-        lastHits = hitFields.copy()
+    if cleanMode == True: # wenn aufräum modus aktiv ist,
+        lastHits = hitFields.copy() # setze die letzen schüsse in hit fields, sodass die im allway modus abgeschossen werden
         return shootLine()
 
     possibleDirections = [1, 2, 3, 4]
