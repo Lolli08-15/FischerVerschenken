@@ -190,7 +190,6 @@ def render_settings(display, button1, button2, button3, button4, selected_ai, fi
         )
     )
 
-'''
     # Show preview for fishes used in selected fish preset
     fish_preset_texture = fish_preset_0
     if fish_preset == 1: fish_preset_texture = fish_preset_1
@@ -199,4 +198,4 @@ def render_settings(display, button1, button2, button3, button4, selected_ai, fi
     if fish_preset == 4: fish_preset_texture = fish_preset_4
     if fish_preset == 5: fish_preset_texture = fish_preset_5
     if fish_preset == 6: fish_preset_texture = fish_preset_6
-    display.blit(fish_preset_texture, (420, 610))'''
+    display.blit(fish_preset_texture, (420, 610))
