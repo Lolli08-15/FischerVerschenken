@@ -8,6 +8,7 @@ shoot_menu_background = pygame.image.load("assets\\shoot menu.png")
 shoot_menu_ai_background = pygame.image.load("assets\\shoot menu ai.png")
 
 shot_hit = pygame.image.load("assets\\shot_hit.png")
+shot_hit_marker = pygame.image.load("assets\\shot_hit_marker.png")
 shot_miss = pygame.image.load("assets\\shot_miss.png")
 square_block = pygame.image.load("assets\\block.png")
 fish_count_on = pygame.image.load("assets\\fish count on.png")
@@ -62,9 +63,9 @@ def shoot_menu(main):
                     main.last_ai_shot = 0
                     success = "miss"
 
-            success = 1
-            while success > 0:
-                success = main.game.aiShoot()
+            success = (1, (0, 0))
+            while success[0] > 0:
+                success[0] = main.game.aiShoot()
                 main.current_a_turns += 1
 
             whoWon = main.game.detectWin()
@@ -87,7 +88,8 @@ def shoot_menu(main):
             
             if main.ai_timer == int(settings.ai_processing_time * 0.35):
                 success = main.game.aiShoot()
-                if success > 0:
+                if success[0] > 0:
+                    main.hitmarker_list.append([settings.hitmarker_time, success[1], "ai"])
                     main.ai_timer = settings.ai_processing_time - 1
 
             if main.ai_timer < 1:
@@ -109,6 +111,9 @@ def shoot_menu(main):
                 if success != False:
                     if success == "miss":
                         main.ai_timer -= 1
+                    else:
+                        main.hitmarker_list.append([settings.hitmarker_time, (main.field_x, main.field_y), "player1"])
+
 
         
         # Preview AI fishes
@@ -167,6 +172,18 @@ def shoot_menu(main):
             main.display, 210, 285,
             main.game.getShotList("ai")
         )
+
+        # Render player + ai hitmarker
+        if len(main.hitmarker_list) > 0: # solange der hitmark timer aktiv ist, render einen hitmarker
+            # hitmarker list: hitMarker[timer, posList[x, y], shooter]
+            new_marker_list = []
+            for marker in main.hitmarker_list:
+                render_hit_marker(main.display, marker[1], marker[2]) # wo und wer hat geschossen
+                marker[0] -= 1
+                if marker[0] > 0:
+                    new_marker_list.append(marker)
+
+            main.hitmarker_list = new_marker_list
 
         # Render sunk fish count for enemy field
         render_fish_count(main.display,
@@ -268,3 +285,17 @@ def render_fish_count(display, offsetX, offsetY, count, preset):
             display.blit(fish_count_off, position)
         else:
             display.blit(fish_count_on, position)
+
+def render_hit_marker(display, hitPos, shooter):
+    if shooter == "player1":
+        position = (
+        hitPos[0] * 50 + 885,
+        hitPos[1] * 50 + 285
+        )
+    elif shooter == "ai":
+        position = (
+        hitPos[0] * 50 + 210,
+        hitPos[1] * 50 + 285
+        )
+    
+    display.blit(shot_hit_marker, position)

@@ -148,13 +148,13 @@ class Game:
         if not coords in self.blockList:
             response = shoot(self.ai, self.player1, coords)
 
-            if response == "hit": self.ai_last_shot = 1
+            if response == "hit":
+                self.ai_last_shot = 1
             elif response == "sunk": self.ai_last_shot = 2
             else: self.ai_last_shot = 0
-            return self.ai_last_shot
+            return (self.ai_last_shot, coords)
         else:
             self.ai_last_shot = 0
-            print("it Works...")
             self.aiShoot()
     
 
@@ -271,8 +271,6 @@ class Game:
             if not [pos,"block"] in bList:
                 bList.append([pos,"block"])
         return(bList)
-
-
     
 
 

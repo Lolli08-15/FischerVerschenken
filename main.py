@@ -33,6 +33,7 @@ class GUI:
         self.loading_bar = 0
         self.bar_direction = 0
         self.splash_timer = 0
+        self.hitmarker_list = []
 
         self.ai_timer = settings.ai_processing_time
 

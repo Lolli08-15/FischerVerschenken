@@ -3,6 +3,8 @@ height = 900
 
 ai_processing_time = 30 * 0.5 # 1.5 Seconds
 
+hitmarker_time = 8 # in frames
+
 fish_lengths0 = [2, 3, 3, 4, 5] #Normen !!! Bleibt
 fish_lengths1 = [1, 1, 2, 2, 3, 3, 4, 4, 5, 6, 6, 7, 7] #Volles Rohr
 #Hindernisse: 0-5
