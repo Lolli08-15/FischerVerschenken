@@ -101,7 +101,7 @@ def render_settings(display, button1, button2, button3, button4, selected_ai, fi
         text = "Ki: Medium"
         text_color = "#efd035"
     if selected_ai == 3:
-        text = "Ki: High AIQ"
+        text = "Ki: Hai AIQ"
         text_color = "#ea541a"
     if selected_ai == 4:
         text = "Ki: Hart wie Hartmut"

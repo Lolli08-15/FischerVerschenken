@@ -7,14 +7,14 @@ import random
 
 import statistics_file
 
-import dum_ai
-import gpt_ai
-import janise_ai
-import janise_ai_dirty
-import kilian_ai
-import aiShootQ
-import kilian_ai_hard
-import impossible_ai
+import AIs.dum_ai
+import AIs.gpt_ai
+import AIs.janise_ai
+import AIs.janise_ai_dirty
+import AIs.kilian_ai
+import AIs.aiShootQ
+import AIs.kilian_ai_hard
+import AIs.impossible_ai
 
 
 
@@ -97,21 +97,21 @@ class Game:
         self.ai.shotList += self.blockList
 
         if self.selected_ai == 0:
-            dum_ai.resetAI()
+            AIs.dum_ai.resetAI() # Dummheit persönlich
         if self.selected_ai == 1:
-            gpt_ai.resetAI()
+            AIs.gpt_ai.resetAI() # Chad GPT
         if self.selected_ai == 2:
-            kilian_ai.resetAI()
+            AIs.kilian_ai.resetAI() # Medium
         if self.selected_ai == 3:
-            aiShootQ.resetAI()
+            AIs.aiShootQ.resetAI() # Hai AIQ
         if self.selected_ai == 4:
-            kilian_ai_hard.resetAI()
+            AIs.kilian_ai_hard.resetAI() # Hard wie Hartmut
         if self.selected_ai == 5:
-            impossible_ai.resetAI()
+            AIs.impossible_ai.resetAI() # Impossible
         if self.selected_ai == 6:
-            janise_ai.resetAI()
+            AIs.janise_ai.resetAI() # Mr. Chunky
         if self.selected_ai == 7:
-            janise_ai_dirty.resetAI()
+            AIs.janise_ai_dirty.resetAI() # Dirty Dan
 
     
     def playerShoot(self, posXY):
@@ -129,21 +129,21 @@ class Game:
         coords = (0, 0)
         
         if self.selected_ai == 0:
-            coords = dum_ai.shootAI(self.ai_last_shot)
+            coords = AIs.dum_ai.shootAI(self.ai_last_shot) # Dummheit persönlich
         if self.selected_ai == 1:
-            coords = gpt_ai.shootAI(self.ai_last_shot)
+            coords = AIs.gpt_ai.shootAI(self.ai_last_shot) # Chad GPT
         if self.selected_ai == 2:
-            coords = kilian_ai.shootAI(self.ai_last_shot)
+            coords = AIs.kilian_ai.shootAI(self.ai_last_shot) # Medium
         if self.selected_ai == 3:
-            coords = aiShootQ.shootAI(self.ai_last_shot)
+            coords = AIs.aiShootQ.shootAI(self.ai_last_shot) # Hai AIQ
         if self.selected_ai == 4:
-            coords = kilian_ai_hard.shootAI(self.ai_last_shot)
+            coords = AIs.kilian_ai_hard.shootAI(self.ai_last_shot) # Hard wie Hartmut
         if self.selected_ai == 5:
-            coords = impossible_ai.shootAI(self.player1)
+            coords = AIs.impossible_ai.shootAI(self.player1) # Impossible
         if self.selected_ai == 6:
-            coords = janise_ai.shootAI(self.ai_last_shot)
+            coords = AIs.janise_ai.shootAI(self.ai_last_shot) # Mr. Chunky
         if self.selected_ai == 7:
-            coords = janise_ai_dirty.shootAI(self.ai_last_shot)
+            coords = AIs.janise_ai_dirty.shootAI(self.ai_last_shot) # Dirty Dan
             
         if not coords in self.blockList:
             response = shoot(self.ai, self.player1, coords)
@@ -160,41 +160,41 @@ class Game:
 
     def aiModelReset(self, ai):
         if ai == 0:
-            dum_ai.resetAI()
+            AIs.dum_ai.resetAI() # Dummheit persönlich
         if ai == 1:
-            gpt_ai.resetAI()
+            AIs.gpt_ai.resetAI() # Chad GPT
         if ai == 2:
-            kilian_ai.resetAI()
+            AIs.kilian_ai.resetAI() # Medium
         if ai == 3:
-            aiShootQ.resetAI()
+            AIs.aiShootQ.resetAI() # Hai AIQ
         if ai == 4:
-            kilian_ai_hard.resetAI()
+            AIs.kilian_ai_hard.resetAI() # Hard wie Hartmut
         if ai == 5:
-            impossible_ai.resetAI()
+            AIs.impossible_ai.resetAI() # Impossible
         if ai == 6:
-            janise_ai.resetAI()
+            AIs.janise_ai.resetAI() # Mr. Chunky
         if ai == 7:
-            janise_ai_dirty.resetAI()
+            AIs.janise_ai_dirty.resetAI() # Dirty Dan
     
     def aiModelShoot(self, ai, ai_last_shot):
         coords = (0, 0)
 
         if ai == 0:
-            coords = dum_ai.shootAI(ai_last_shot)
+            coords = AIs.dum_ai.shootAI(ai_last_shot) # Dummheit persönlich
         if ai == 1:
-            coords = gpt_ai.shootAI(ai_last_shot)
+            coords = AIs.gpt_ai.shootAI(ai_last_shot) # Chad GPT
         if ai == 2:
-            coords = kilian_ai.shootAI(ai_last_shot)
+            coords = AIs.kilian_ai.shootAI(ai_last_shot) # Medium
         if ai == 3:
-            coords = aiShootQ.shootAI(ai_last_shot)
+            coords = AIs.aiShootQ.shootAI(ai_last_shot) # Hai AIQ
         if ai == 4:
-            coords = kilian_ai_hard.shootAI(ai_last_shot)
+            coords = AIs.kilian_ai_hard.shootAI(ai_last_shot) # Hard wie Hartmut
         if ai == 5:
-            coords = impossible_ai.shootAI(self.ai)
+            coords = AIs.impossible_ai.shootAI(self.ai) # Impossible
         if ai == 6:
-            coords = janise_ai.shootAI(ai_last_shot)
+            coords = AIs.janise_ai.shootAI(ai_last_shot) # Mr. Chunky
         if ai == 7:
-            coords = janise_ai_dirty.shootAI(ai_last_shot)
+            coords = AIs.janise_ai_dirty.shootAI(ai_last_shot) # Dirty Dan
         if not coords in self.blockList:
             return coords
         else:

@@ -1,3 +1,5 @@
+# Hai AIQ
+
 import random
 
 # init alle variablen
