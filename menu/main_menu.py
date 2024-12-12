@@ -4,6 +4,7 @@ from math import sin, pi
 
 
 main_menu_background = pygame.image.load("assets\\main menu.png")
+main_menu_background_easteregg = pygame.image.load("assets\\main menu easteregg.png")
 main_menu_font = pygame.font.Font("assets\\impact.ttf", 64)
 exit_button_font = pygame.font.Font("assets\\impact.ttf", 32)
 
@@ -13,6 +14,9 @@ def main_menu(main):
     # Switch splash texts
     if main.key == "s":
         main.pick_splash()
+
+    if main.key == "e":
+        main.pick_main_menu_easteregg(True)
 
     # Play button
     if main.is_in_rect(main.mouse_pos, (735, 410), (129, 79)):
@@ -80,12 +84,16 @@ def main_menu(main):
     
 
     if not main.ai_mode:
-        render_mainmenu(main.display, main.button1, main.button2, main.button3)
+        render_mainmenu(main.display, main.button1, main.button2, main.button3, main.main_menu_easteregg)
         render_splash(main, main.current_splash)
 
 
-def render_mainmenu(display, button1, button2, button3):
-    display.blit(main_menu_background, (0, 0))
+def render_mainmenu(display, button1, button2, button3, main_menu_easteregg):
+
+    if main_menu_easteregg:
+        display.blit(main_menu_background_easteregg, (0, 0))
+    else:
+        display.blit(main_menu_background, (0, 0))
     
     # Play button
     text_color = "#69c7bf"

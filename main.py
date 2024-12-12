@@ -96,6 +96,8 @@ class GUI:
         pygame.display.set_icon(icon)
         self.pick_splash()
 
+        self.pick_main_menu_easteregg(False)
+
         self.clock = pygame.time.Clock()
 
         self.main() # Start the main loop
@@ -103,6 +105,13 @@ class GUI:
 
     def pick_splash(self):
         self.current_splash = random.choice(splashTxt)
+
+    def pick_main_menu_easteregg(self, key_press):
+        if random.randint(1, 1000) == 1 or key_press:
+            self.main_menu_easteregg = True
+        else:
+            self.main_menu_easteregg = False
+
 
 
     def main(self):

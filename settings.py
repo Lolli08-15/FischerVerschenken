@@ -1,7 +1,7 @@
 width = 1600
 height = 900
 
-ai_processing_time = 30 * 0.5 # 1.5 Seconds
+ai_processing_time = 30 * 0.6 # 1.5 Seconds
 
 hitmarker_time = 8 # in frames
 
@@ -41,7 +41,7 @@ def get_ai_name(ai):
     if ai == 0: name = "Dummheit Persönlich"
     if ai == 1: name = "Chad GPT"
     if ai == 2: name = "Medium"
-    if ai == 3: name = "High AIQ"
+    if ai == 3: name = "Hai AIQ"
     if ai == 4: name = "Hart wie Hartmut"
     if ai == 5: name = "Unmöglich"
     if ai == 6: name = "Mr. Chunky"
