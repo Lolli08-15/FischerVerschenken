@@ -139,7 +139,7 @@ def render_settings(display, button1, button2, button3, button4, selected_ai, fi
         text = "Spieler: Medium"
         text_color = "#efd035"
     if selected_player == 3:
-        text = "Spieler: High AIQ"
+        text = "Spieler: Hai AIQ"
         text_color = "#ea541a"
     if selected_player == 4:
         text = "Spieler: Hart wie Hartmut"
@@ -178,7 +178,7 @@ def render_settings(display, button1, button2, button3, button4, selected_ai, fi
     if fish_preset == 5:
         text = "Fish Set: Krumme Sache"
     if fish_preset == 6:
-        text = "Fish Set: Bannanas Choice"
+        text = "Fish Set: Bananas Choice"
 
     if button3: text_color = "#a1e9e9"
     text_texture = settings_font.render(text, True, text_color)
@@ -190,7 +190,7 @@ def render_settings(display, button1, button2, button3, button4, selected_ai, fi
         )
     )
 
-'''
+
     # Show preview for fishes used in selected fish preset
     fish_preset_texture = fish_preset_0
     if fish_preset == 1: fish_preset_texture = fish_preset_1
@@ -199,4 +199,4 @@ def render_settings(display, button1, button2, button3, button4, selected_ai, fi
     if fish_preset == 4: fish_preset_texture = fish_preset_4
     if fish_preset == 5: fish_preset_texture = fish_preset_5
     if fish_preset == 6: fish_preset_texture = fish_preset_6
-    display.blit(fish_preset_texture, (420, 610))'''
+    display.blit(fish_preset_texture, (420, 610))
