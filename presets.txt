@@ -27,6 +27,7 @@ Einzigartig		(preset 4)
 	1x2
 	1x3
 	1x4
+	1x5
 	1xShoe
 	1xBanana
 	4-10

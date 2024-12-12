@@ -94,10 +94,9 @@ Stats:
 
 Finish ToDo:
 	1 Credits (ingame, Kredit, Rendit (zurück))
-	1 Kommis
+	3 Kommis
 	1 touch
 	1 .exe
-	2 Preset preview
 	2 place fish preview
 	3 player stats sichtbar (Buch)
 	

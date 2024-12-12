@@ -6,17 +6,18 @@ ai_processing_time = 30 * 0.5 # 1.5 Seconds
 hitmarker_time = 8 # in frames
 
 fish_lengths0 = [2, 3, 3, 4, 5] #Normen !!! Bleibt
+#Hindernisse: 0
 fish_lengths1 = [1, 1, 2, 2, 3, 3, 4, 4, 5, 6, 6, 7, 7] #Volles Rohr
 #Hindernisse: 0-5
-fish_lengths2 = [1, 1, 6, 6, 7, 7] #Nicht Normal
+fish_lengths2 = [1, 1, 6, 6, 7, 7] #Not Straight
 #Hindernisse: 3-8
 fish_lengths3 = [1, 1, 2, 2] #Double Trouble
 #Hindernisse: 8-18
-fish_lengths4 = [1, 2, 3, 3, 4, 6, 7] #Norm2
+fish_lengths4 = [1, 2, 3, 4, 5, 6, 7] #Einzigartig
 #Hindernisse: 4-10
-fish_lengths5 = [6, 6, 7, 7] #Nicht sehr Fischig
-#Hindernisse: 3-15
-fish_lengths6 = [3, 4, 4, 5, 5, 7] #Bannanas Choice
+fish_lengths5 = [7, 7, 7, 7, 7] #Krumme Sache
+#Hindernisse: 7
+fish_lengths6 = [3, 4, 4, 5, 5, 7] #Bananas Choice
 #Hindernisse: 2-12
 
 def get_fish_preset(preset):

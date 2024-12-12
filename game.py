@@ -258,7 +258,7 @@ class Game:
         elif preset == 4:
             blockNr = random.randint(4,10)
         elif preset == 5:
-            blockNr = random.randint(3,15)
+            blockNr = 7
         elif preset == 6:
             blockNr = random.randint(2,12)
         else:
