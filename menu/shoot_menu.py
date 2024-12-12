@@ -63,7 +63,7 @@ def shoot_menu(main):
                     main.last_ai_shot = 0
                     success = "miss"
 
-            success = (1, (0, 0))
+            success = [1, (0, 0)]
             while success[0] > 0:
                 success[0] = main.game.aiShoot()
                 main.current_a_turns += 1

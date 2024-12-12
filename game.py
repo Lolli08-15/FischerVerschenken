@@ -152,7 +152,8 @@ class Game:
                 self.ai_last_shot = 1
             elif response == "sunk": self.ai_last_shot = 2
             else: self.ai_last_shot = 0
-            return (self.ai_last_shot, coords)
+
+            return [self.ai_last_shot, coords]
         else:
             self.ai_last_shot = 0
             self.aiShoot()
@@ -198,7 +199,7 @@ class Game:
         if not coords in self.blockList:
             return coords
         else:
-            self.aiModelShoot(ai,0)
+            self.aiModelShoot(ai, 0)
     
 
     def getSunkenFish(self, player):

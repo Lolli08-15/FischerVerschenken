@@ -51,7 +51,7 @@ def place_menu(main):
             if random.choice([True, False]): # Either AI 1 or AI 2 starts the shooting
                 success = 1
                 while success > 0:
-                    success = main.game.aiShoot()
+                    success = main.game.aiShoot()[0]
 
 
 
