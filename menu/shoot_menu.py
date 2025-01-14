@@ -121,7 +121,7 @@ def shoot_menu(main):
 
     render_shoot_menu(main.display, main.field_x, main.field_y,
         main.button2, main.ai_timer, main.transition_time,
-        main.mouse_in_field, main.ai_mode)
+        main.mouse_in_field, main.ai_mode, main.touch_mode)
 
     if main.ai_mode:
         player_name = settings.get_ai_name(main.selected_ai[0]) # Show AI name above board
@@ -213,7 +213,7 @@ def shoot_menu(main):
 
 
 
-def render_shoot_menu(display, field_x, field_y, button2, ai_timer, transition_time, mouse_in_field, ai_mode):
+def render_shoot_menu(display, field_x, field_y, button2, ai_timer, transition_time, mouse_in_field, ai_mode, touch_mode):
     if ai_mode:
         display.blit(shoot_menu_ai_background, (0, 0))
     else:
@@ -222,7 +222,7 @@ def render_shoot_menu(display, field_x, field_y, button2, ai_timer, transition_t
 
     if (ai_timer == settings.ai_processing_time and
         transition_time == 0 and
-        mouse_in_field and not ai_mode):
+        mouse_in_field and not ai_mode and not touch_mode):
         pygame.draw.rect(display, "#8bbfc8",
             pygame.Rect(field_x * 50 + 887, field_y * 50 + 285, 50, 50),
             5, 3)

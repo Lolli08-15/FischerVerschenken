@@ -34,6 +34,8 @@ class GUI:
         self.bar_direction = 0
         self.splash_timer = 0
         self.hitmarker_list = []
+        self.touch_mode = False
+        self.delete_fish_mode = False
 
         self.ai_timer = settings.ai_processing_time
 
@@ -123,6 +125,7 @@ class GUI:
             self.button2 = False
             self.button3 = False
             self.button4 = False
+            self.button5 = False
             self.mouse_in_field = False
 
             if self.state == "main menu":

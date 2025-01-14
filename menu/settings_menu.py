@@ -20,6 +20,11 @@ def settings_menu(main):
         main.button1 = True
     else:
         main.button1 = False
+
+    if main.is_in_rect(main.mouse_pos, (1300, 30), (260, 40)):
+        main.button5 = True
+    else:
+        main.button5 = False
     
     # Exit button click function
     if main.mouse_button == 1 and main.button1 and main.transition_time == 0:
@@ -42,6 +47,10 @@ def settings_menu(main):
         if main.selected_player[0] == main.selected_ai[0]:
             main.selected_player.append(main.selected_player[0])
             main.selected_player.pop(0)
+
+    # Touch mode toggle button
+    if main.mouse_button == 1 and main.button5 and main.transition_time == 0:
+        main.touch_mode = not main.touch_mode
 
     # AI button
     if main.is_in_rect(main.mouse_pos, (420, 390), (644, 79)):
@@ -73,10 +82,10 @@ def settings_menu(main):
             main.fish_preset = 0
 
 
-    render_settings(main.display, main.button1, main.button2, main.button3, main.button4, main.selected_ai[0], main.fish_preset, main.selected_player[0])
+    render_settings(main.display, main.button1, main.button2, main.button3, main.button4, main.button5, main.selected_ai[0], main.fish_preset, main.selected_player[0], main.touch_mode)
 
 
-def render_settings(display, button1, button2, button3, button4, selected_ai, fish_preset, selected_player):
+def render_settings(display, button1, button2, button3, button4, button5, selected_ai, fish_preset, selected_player, touch_mode):
     display.blit(settings_menu_background, (0, 0))
     
     # Exit button 110, 40
@@ -87,6 +96,22 @@ def render_settings(display, button1, button2, button3, button4, selected_ai, fi
         text_texture,
         (
             20,
+            30
+        )
+    )
+
+    text_color = "#254ecd"
+    if button5: text_color = "#6579ff"
+
+    if touch_mode:
+        text_texture = exit_button_font.render("Grabschplatte: AN", True, text_color)
+    else:
+        text_texture = exit_button_font.render("Grabschplatte: AUS", True, text_color)
+
+    display.blit(
+        text_texture,
+        (
+            1300,
             30
         )
     )

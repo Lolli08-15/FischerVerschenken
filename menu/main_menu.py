@@ -55,6 +55,7 @@ def main_menu(main):
         main.last_ai_shot = 0
         main.current_rotation = 1
         main.current_lengths = settings.get_fish_preset(main.fish_preset)
+        main.delete_fish_mode = False
         main.current_fish_selected = main.current_lengths[0]
 
 
